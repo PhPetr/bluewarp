@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="6" height="6" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="baseTiles.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="6" height="6">
+  <data encoding="csv">
+107,123,124,90,103,104,
+92,75,89,123,119,120,
+123,91,123,76,74,92,
+71,72,123,123,92,123,
+87,88,105,106,123,73,
+92,123,121,122,92,75
+</data>
+ </layer>
+</map>
