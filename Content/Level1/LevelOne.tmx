@@ -1,472 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="6" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="84">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="8" height="202" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="84">
  <tileset firstgid="1" source="baseTiles.tsx"/>
  <tileset firstgid="257" source="magnus_defeated.tsx"/>
- <layer id="1" name="BaseLayer" width="6" height="200">
-  <data encoding="csv">
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-18,18,18,18,18,18,
-34,34,34,34,34,34,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-60,60,60,60,60,60,
-57,57,57,57,57,57,
-9,9,9,9,9,9,
-57,57,57,57,57,57,
-27,27,27,27,27,27,
-27,25,10,11,11,12,
-10,12,42,43,43,44,
-26,28,10,11,11,12,
-42,44,42,43,43,44,
-10,11,11,12,25,27,
-42,43,43,44,10,12,
-10,11,11,12,26,28,
-42,43,43,44,42,44,
-10,12,10,12,10,12,
-42,44,42,44,42,44,
-10,11,11,11,11,12,
-26,25,27,27,25,28,
-42,43,43,43,43,44,
-10,12,10,12,10,12,
-42,44,42,44,42,44,
-9,9,9,9,9,9,
-57,57,57,41,10,12,
-57,25,57,41,26,28,
-57,57,57,41,26,28,
-9,41,9,41,42,44,
-10,12,57,57,57,9,
-26,28,57,25,57,9,
-42,44,57,57,57,9,
-9,41,9,41,9,9,
-57,57,57,57,57,57,
-57,25,57,57,25,57,
-57,57,57,57,57,57,
-9,9,9,9,9,9,
-41,10,11,11,12,41,
-41,26,27,27,28,41,
-41,26,25,25,28,41,
-41,26,27,27,28,41,
-41,26,27,27,28,41,
-41,26,25,25,28,41,
-41,26,27,27,28,41,
-41,42,43,43,44,41,
-58,58,58,58,58,58,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-64,64,64,64,64,64,
-61,61,61,61,61,61,
-13,45,13,45,13,45,
-61,45,61,45,29,45,
-13,45,13,45,13,45,
-61,29,61,45,61,45,
-13,45,13,45,13,45,
-61,45,61,45,29,45,
-13,45,13,45,13,45,
-61,29,61,45,61,45,
-13,45,13,45,13,45,
-61,61,61,61,61,61,
-63,63,63,63,63,63,
-61,61,61,61,61,61,
-63,63,63,63,63,63,
-61,61,61,61,61,61,
-14,15,16,14,15,16,
-30,29,32,30,29,32,
-46,47,48,46,47,48,
-14,15,15,15,15,16,
-30,61,61,61,61,32,
-46,47,47,47,47,48,
-13,13,14,16,13,13,
-13,45,30,32,45,13,
-13,45,30,32,45,13,
-13,29,30,32,29,13,
-13,45,30,32,45,13,
-13,45,30,32,45,13,
-13,45,30,32,45,13,
-13,45,30,32,45,13,
-13,13,46,48,13,13,
-62,62,62,62,62,62,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-10,11,11,11,11,12,
-26,27,25,25,27,28,
-42,43,43,43,43,44,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-128,128,128,128,128,128,
-77,77,77,77,77,77,
-77,125,125,125,125,77,
-77,125,109,109,125,77,
-77,125,109,109,125,77,
-77,125,125,125,125,77,
-77,77,77,77,77,77,
-78,79,79,79,79,80,
-94,95,95,95,95,96,
-94,93,95,95,95,96,
-94,95,95,95,95,96,
-94,95,95,95,93,96,
-94,95,95,95,95,96,
-110,111,111,111,111,112,
-77,77,77,77,77,77,
-95,95,95,95,95,95,
-78,79,79,80,125,125,
-94,93,95,96,125,125,
-110,111,111,112,125,125,
-125,125,78,79,79,80,
-125,125,94,95,93,96,
-125,125,110,111,111,112,
-78,79,79,80,125,125,
-94,93,95,96,125,125,
-110,111,111,112,125,125,
-78,79,79,79,79,80,
-110,111,111,111,111,112,
-109,109,109,109,109,109,
-126,126,126,126,126,126,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-56,56,56,56,56,56,
-8,37,5,5,37,6,
-24,21,5,5,21,22,
-24,37,5,5,37,22,
-24,37,5,5,37,22,
-24,37,5,5,37,22,
-40,37,5,5,37,38,
-5,5,5,5,5,5,
-53,23,53,23,21,23,
-23,53,23,53,23,53,
-53,23,53,23,53,23,
-23,21,23,53,23,53,
-53,23,53,23,53,23,
-23,53,23,53,23,53,
-53,23,53,23,21,23,
-6,7,8,6,7,8,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-38,39,40,38,39,40,
-53,53,53,53,53,53,
-53,53,53,53,53,53,
-53,53,53,53,53,53,
-6,7,7,7,7,8,
-38,39,39,39,39,40,
-6,7,8,6,7,8,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-22,21,24,22,21,24,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-22,23,24,22,23,24,
-38,39,40,38,39,40,
-54,54,54,54,54,54,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-14,15,15,15,15,16,
-30,29,31,31,29,32,
-46,47,47,47,47,48,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0
-</data>
+ <layer id="1" name="BaseLayer" width="8" height="202">
+  <data encoding="base64" compression="zlib">
+   eJztl2dOAzEQhfcPvQppSQIEEBKdAH+CANEuQLkA5QKUC4A4OrbwE09Pni0pQAIjfbI3b994POtIu0mSHzMGf0VfMeiXODFAHBkgRgyK+ucNWK85Rh1jgXHSR8P1lmM7sEP6nGMhw78V7rf86qtJfepDPZYf9Vh+1KP70zFWv+UfE9g/R3tCr636rP60U1+Z87MZyX8Uaoau/VW/6iPhd4xW/zkP14d8XAfryGf5df2y/x9el+dF/Xn9R8/57GyK7nuA87Ng6LXk62y14u9mfv0Psn5s0C9xYYA4NUBMOBqRkf0NGuuiF/HXI3l6af2s/p0bfJd/0jHlmJY5YjHsf1nmiF3HnmNf5pqf0fxaWyw/w/knApMhL65Zb4R1lpOvZ1RGr5Ne70L+dnWP79N+ZP9nBr0SRd5f8N6C95gy7y+/Pd4NEJcGrL8KMf0x0KqelT+rvivHtXBD+p3jXngQ/TZHz/OzdlvS/+R4Fl5K7F9zAwT3x/cFPY7t/yGic30vER3Xuo7q6IP2B7qu8131552fvOfzaIB4M+iXODRADDtWHQMBPx8kvepISffzWdHV30l9I6KvkT5ggGg6KjSmYURUIvc0M/zNiD9t019mfa3fP6uh5PM58hwxG+6vyryo7nu9nnw+B55zfTE6pWNPDO8PNTEbEX+3+tMJPSU9bcH/k3re+Tgw+C1R5PvFfxMsBazvI+v75T96Nz4A7syj8Q==
+  </data>
  </layer>
- <layer id="2" name="BossLayer" width="6" height="200">
-  <data encoding="csv">
-1,2,2,2,2,3,
-17,257,258,259,260,19,
-17,261,262,263,264,19,
-33,34,34,34,34,35,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-64,64,64,64,64,64,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-62,62,62,62,62,62,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,0,0,0,0,
-0,0,1,3,0,0,
-0,0,17,19,0,0,
-0,0,17,19,0,0,
-0,0,17,19,0,0,
-0,0,17,19,0,0,
-0,0,17,19,0,0,
-0,0,17,19,0,0,
-0,0,17,19,0,0
-</data>
+ <layer id="11" name="BorderCollision" width="8" height="202">
+  <data encoding="base64" compression="zlib">
+   eJztybEJAAAIBLFfxv1XdAK1FnJwVSpJHU9xzjnnnHPOOeecc84555x/9e0G0fk8IQ==
+  </data>
+ </layer>
+ <layer id="2" name="BossLayer" width="8" height="202">
+  <data encoding="base64" compression="zlib">
+   eJzt2TsOgCAURFHk+WsNK1D3Ydz/qhw68yJoZYy5J7mNQ0EtIdxrVHTZaZ/yGR2KylSrkts7fevVoEa3z2pxrQ/uBQAAAAAAAABAzV7oLVuhr8nvAFbZ83/+9OP9ygGQmgVB
+  </data>
  </layer>
  <objectgroup id="3" name="start">
-  <object id="1" name="playerSpawn" x="96" y="6368"/>
+  <object id="1" name="playerSpawn" x="128" y="6400"/>
  </objectgroup>
  <objectgroup id="10" name="zones">
-  <object id="39" name="bossZone" x="0" y="256" width="192" height="32"/>
-  <object id="44" name="redZone" x="0" y="6112" width="192" height="32"/>
-  <object id="54" name="pinkZone" x="0" y="4384" width="192" height="32"/>
-  <object id="60" name="greyZone" x="0" y="3424" width="192" height="32"/>
-  <object id="71" name="greenZone" x="0" y="1888" width="192" height="32"/>
+  <object id="39" name="bossZone" x="32" y="288" width="192" height="32"/>
+  <object id="44" name="redZone" x="32" y="6144" width="192" height="32"/>
+  <object id="54" name="pinkZone" x="32" y="4416" width="192" height="32"/>
+  <object id="60" name="greyZone" x="32" y="3456" width="192" height="32"/>
+  <object id="71" name="greenZone" x="32" y="1920" width="192" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="bossZone">
-  <object id="43" name="magnusMain" x="32" y="32" width="128" height="64"/>
-  <object id="41" name="magnusLeft" x="32" y="64" width="32" height="32"/>
-  <object id="42" name="magnusRight" x="128" y="64" width="32" height="32"/>
+  <object id="43" name="magnusMain" x="64" y="64" width="128" height="64"/>
+  <object id="41" name="magnusLeft" x="64" y="96" width="32" height="32"/>
+  <object id="42" name="magnusRight" x="160" y="96" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="redZone">
-  <object id="45" name="statEnemy" x="32" y="4640" width="32" height="32"/>
-  <object id="46" name="statEnemy" x="128" y="4640" width="32" height="32"/>
-  <object id="47" name="statEnemy" x="128" y="4832" width="32" height="32"/>
-  <object id="48" name="statEnemy" x="32" y="4928" width="32" height="32"/>
-  <object id="49" name="statEnemy" x="128" y="5024" width="32" height="32"/>
-  <object id="50" name="statEnemy" x="32" y="5504" width="32" height="32"/>
-  <object id="51" name="statEnemy" x="128" y="5504" width="32" height="32"/>
-  <object id="52" name="statEnemy" x="32" y="5920" width="32" height="32"/>
-  <object id="53" name="statEnemy" x="128" y="5920" width="32" height="32"/>
+  <object id="45" name="statEnemy" x="64" y="4672" width="32" height="32"/>
+  <object id="46" name="statEnemy" x="160" y="4672" width="32" height="32"/>
+  <object id="47" name="statEnemy" x="160" y="4864" width="32" height="32"/>
+  <object id="48" name="statEnemy" x="64" y="4960" width="32" height="32"/>
+  <object id="49" name="statEnemy" x="160" y="5056" width="32" height="32"/>
+  <object id="50" name="statEnemy" x="64" y="5536" width="32" height="32"/>
+  <object id="51" name="statEnemy" x="160" y="5536" width="32" height="32"/>
+  <object id="52" name="statEnemy" x="64" y="5952" width="32" height="32"/>
+  <object id="53" name="statEnemy" x="160" y="5952" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="pinkZone">
-  <object id="55" name="statEnemy" x="32" y="4192" width="32" height="32"/>
-  <object id="56" name="statEnemy" x="128" y="4096" width="32" height="32"/>
-  <object id="57" name="statEnemy" x="32" y="4000" width="32" height="32"/>
-  <object id="58" name="statEnemy" x="128" y="3808" width="32" height="32"/>
-  <object id="59" name="statEnemy" x="32" y="3744" width="32" height="32"/>
+  <object id="55" name="statEnemy" x="64" y="4224" width="32" height="32"/>
+  <object id="56" name="statEnemy" x="160" y="4128" width="32" height="32"/>
+  <object id="57" name="statEnemy" x="64" y="4032" width="32" height="32"/>
+  <object id="58" name="statEnemy" x="160" y="3840" width="32" height="32"/>
+  <object id="59" name="statEnemy" x="64" y="3776" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="greyZone">
-  <object id="61" name="statEnemy" x="64" y="3232" width="32" height="32"/>
-  <object id="62" name="statEnemy" x="96" y="3232" width="32" height="32"/>
-  <object id="63" name="statEnemy" x="32" y="2816" width="32" height="32"/>
-  <object id="64" name="statEnemy" x="128" y="2816" width="32" height="32"/>
-  <object id="65" name="statEnemy" x="32" y="2560" width="32" height="32"/>
-  <object id="66" name="statEnemy" x="128" y="2560" width="32" height="32"/>
-  <object id="67" name="statEnemy" x="32" y="2304" width="32" height="32"/>
-  <object id="68" name="statEnemy" x="128" y="2240" width="32" height="32"/>
-  <object id="69" name="statEnemy" x="32" y="2176" width="32" height="32"/>
-  <object id="70" name="statEnemy" x="128" y="2112" width="32" height="32"/>
+  <object id="61" name="statEnemy" x="96" y="3264" width="32" height="32"/>
+  <object id="62" name="statEnemy" x="128" y="3264" width="32" height="32"/>
+  <object id="63" name="statEnemy" x="64" y="2848" width="32" height="32"/>
+  <object id="64" name="statEnemy" x="160" y="2848" width="32" height="32"/>
+  <object id="65" name="statEnemy" x="64" y="2592" width="32" height="32"/>
+  <object id="66" name="statEnemy" x="160" y="2592" width="32" height="32"/>
+  <object id="67" name="statEnemy" x="64" y="2336" width="32" height="32"/>
+  <object id="68" name="statEnemy" x="160" y="2272" width="32" height="32"/>
+  <object id="69" name="statEnemy" x="64" y="2208" width="32" height="32"/>
+  <object id="70" name="statEnemy" x="160" y="2144" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="9" name="greenZone">
-  <object id="72" name="statEnemy" x="64" y="1696" width="32" height="32"/>
-  <object id="73" name="statEnemy" x="96" y="1696" width="32" height="32"/>
-  <object id="74" name="statEnemy" x="64" y="1600" width="32" height="32"/>
-  <object id="75" name="statEnemy" x="96" y="1600" width="32" height="32"/>
-  <object id="76" name="statEnemy" x="32" y="1440" width="32" height="32"/>
-  <object id="77" name="statEnemy" x="128" y="1440" width="32" height="32"/>
-  <object id="78" name="statEnemy" x="96" y="1312" width="32" height="32"/>
-  <object id="79" name="statEnemy" x="32" y="1184" width="32" height="32"/>
-  <object id="80" name="statEnemy" x="32" y="992" width="32" height="32"/>
-  <object id="81" name="statEnemy" x="128" y="992" width="32" height="32"/>
-  <object id="82" name="statEnemy" x="128" y="768" width="32" height="32"/>
-  <object id="83" name="statEnemy" x="32" y="640" width="32" height="32"/>
+  <object id="72" name="statEnemy" x="96" y="1728" width="32" height="32"/>
+  <object id="73" name="statEnemy" x="128" y="1728" width="32" height="32"/>
+  <object id="74" name="statEnemy" x="96" y="1632" width="32" height="32"/>
+  <object id="75" name="statEnemy" x="128" y="1632" width="32" height="32"/>
+  <object id="76" name="statEnemy" x="64" y="1472" width="32" height="32"/>
+  <object id="77" name="statEnemy" x="160" y="1472" width="32" height="32"/>
+  <object id="78" name="statEnemy" x="128" y="1344" width="32" height="32"/>
+  <object id="79" name="statEnemy" x="64" y="1216" width="32" height="32"/>
+  <object id="80" name="statEnemy" x="64" y="1024" width="32" height="32"/>
+  <object id="81" name="statEnemy" x="160" y="1024" width="32" height="32"/>
+  <object id="82" name="statEnemy" x="160" y="800" width="32" height="32"/>
+  <object id="83" name="statEnemy" x="64" y="672" width="32" height="32"/>
  </objectgroup>
 </map>
