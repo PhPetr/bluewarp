@@ -15,6 +15,7 @@ namespace bluewarp
             base.Initialize();
 
             Window.AllowUserResizing = true;
+            Core.DebugRenderEnabled = false;
             Scene = new RunGameScene();
         }
     }

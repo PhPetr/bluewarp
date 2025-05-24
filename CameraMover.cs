@@ -7,17 +7,19 @@ namespace bluewarp
 {
     public class CameraMover : Component, IUpdatable
     {
-        //SubpixelVector2 _subpixelV2 = new SubpixelVector2();
+        SubpixelVector2 _subpixelV2 = new SubpixelVector2();
         SpriteRenderer _renderer;
         Mover _mover;
-        float _moveSpeed = 500f;
+        float _moveSpeed = 200f;
         VirtualIntegerAxis _xAxisInput;
         VirtualIntegerAxis _yAxisInput;
+        const int startHeightY = 200 * 32;
 
         public override void OnAddedToEntity()
         {
             _renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
             _mover = Entity.AddComponent(new Mover());
+            _mover.ApplyMovement(new Vector2(0, startHeightY));
             SetupInput();
         }
 
@@ -39,11 +41,10 @@ namespace bluewarp
         void IUpdatable.Update()
         {
             var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
-
             var movement = moveDir * _moveSpeed * Time.DeltaTime;
 
             _mover.CalculateMovement(ref movement, out var res);
-            //_subpixelV2.Update(ref movement);
+            _subpixelV2.Update(ref movement);
             _mover.ApplyMovement(movement);
         }
     }

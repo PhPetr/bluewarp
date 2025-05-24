@@ -11,9 +11,14 @@ namespace bluewarp
 {
     internal class RunGameScene : BaseScene
     {
-        const int SCALE = 1;
+        const int SCALE = 3;
         const int G_WIDTH = 256;
         const int G_HEIGHT = 192;
+        const int X_LOCKED_OFFSET = 159;
+
+        const int startHeightX = 200 * 32;
+        const int startWidthY = 4 * 32;
+
         internal static readonly string[] levelOneLayerNames = new[] { "BaseLayer", "BossLayer" };
 
         public RunGameScene() : base(true, true)
@@ -22,31 +27,29 @@ namespace bluewarp
         public override void Initialize()
         {
             base.Initialize();
-            SetDesignResolution(G_WIDTH * SCALE, G_HEIGHT * SCALE, SceneResolutionPolicy.ShowAllPixelPerfect);
-            Screen.SetSize(G_WIDTH * SCALE * 3, G_HEIGHT * SCALE * 3);
+            
+            SetDesignResolution(G_WIDTH, G_HEIGHT, SceneResolutionPolicy.ShowAllPixelPerfect);
+            Screen.SetSize(G_WIDTH * SCALE, G_HEIGHT * SCALE);
             var scale = new Vector2(SCALE);
-            ClearColor = Color.Blue;
+            ClearColor = Color.Black;
 
             // Loading Map
             var tiledEntityMap = CreateEntity("tiled-map");
             var map = Content.LoadTiledMap(Nez.Content.Level1.levelone);
-            tiledEntityMap.Transform.Scale = scale;
-            tiledEntityMap.Transform.Position = new Vector2(0);
+            
             var tiledMapRenderer = tiledEntityMap.AddComponent(new TiledMapRenderer(map, "BorderCollision"));
             tiledMapRenderer.SetLayersToRender(levelOneLayerNames);
-            tiledMapRenderer.RenderLayer = 10; // render map below everything
-
+            tiledMapRenderer.RenderLayer = 10; // render map below most of things
 
             // Setting camera
-            // TODO: not workingu!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            var topLeft = new Vector2(map.TileWidth*SCALE, map.TileWidth*SCALE);
+            // TODO: camera works partialy
+            var topLeft = new Vector2(map.TileWidth, map.TileWidth);
             var bottomRight = new Vector2(
-                map.TileWidth * (map.Width - 1) * SCALE,
-                map.TileWidth * (map.Height - 1) * SCALE);
-            tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight));
+                map.TileWidth * (map.Width - 1),
+                map.TileWidth * (map.Height - 1));
+            tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, X_LOCKED_OFFSET));
             Entity cameraMover = CreateEntity("camera-mover");
             cameraMover.AddComponent(new CameraMover());
-            //var collider = cameraMover.AddComponent<CircleCollider>();
 
             // we only want to collide with the tilemap, which is on the default layer 0
             //Flags.SetFlagExclusive(ref collider.CollidesWithLayers, 0);
