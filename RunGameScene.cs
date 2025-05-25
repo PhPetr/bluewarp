@@ -11,7 +11,7 @@ namespace bluewarp
 {
     internal class RunGameScene : BaseScene
     {
-        const int SCALE = 3;
+        const int SCALE = 4;
         const int G_WIDTH = 256;
         const int G_HEIGHT = 192;
         const int X_LOCKED_OFFSET = 159;
@@ -50,6 +50,7 @@ namespace bluewarp
             tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, X_LOCKED_OFFSET));
             Entity cameraMover = CreateEntity("camera-mover");
             cameraMover.AddComponent(new CameraMover());
+            
 
             // we only want to collide with the tilemap, which is on the default layer 0
             //Flags.SetFlagExclusive(ref collider.CollidesWithLayers, 0);

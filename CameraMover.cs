@@ -2,50 +2,66 @@
 using Microsoft.Xna.Framework.Input;
 using Nez;
 using Nez.Sprites;
+using Nez.Tweens;
+using Nez.Systems;
+using System.Collections;
 
 namespace bluewarp
 {
     public class CameraMover : Component, IUpdatable
     {
+        const int startHeightY = 200 * 32;
+        const int startWidthX = 4 * 32;
+        const int stopHeightY = 64;
+        
         SubpixelVector2 _subpixelV2 = new SubpixelVector2();
         SpriteRenderer _renderer;
         Mover _mover;
-        float _moveSpeed = 200f;
-        VirtualIntegerAxis _xAxisInput;
-        VirtualIntegerAxis _yAxisInput;
-        const int startHeightY = 200 * 32;
+        float _moveSpeed = 100f;
+
+        float _elapsedTimeAfterCreation = 0f;
+        float _delayMoveStart = 2f;
+        bool _shouldMove = false;
+        bool _stopped = false;
+        ITween<Vector2> _moveTween;
 
         public override void OnAddedToEntity()
         {
             _renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
             _mover = Entity.AddComponent(new Mover());
-            _mover.ApplyMovement(new Vector2(0, startHeightY));
-            SetupInput();
+            Transform.Position = new Vector2(startWidthX, startHeightY);
         }
 
-        void SetupInput()
-        { 
-            // horizontal input from dpad, left stick or keyboard left/right
-            _xAxisInput = new VirtualIntegerAxis();
-            _xAxisInput.Nodes.Add(new VirtualAxis.GamePadDpadLeftRight());
-            _xAxisInput.Nodes.Add(new VirtualAxis.GamePadLeftStickX());
-            _xAxisInput.Nodes.Add(new VirtualAxis.KeyboardKeys(VirtualInput.OverlapBehavior.TakeNewer, Keys.Left, Keys.Right));
-
-            // vertical input from dpad, left stick or keyboard up/down
-            _yAxisInput = new VirtualIntegerAxis();
-            _yAxisInput.Nodes.Add(new VirtualAxis.GamePadDpadUpDown());
-            _yAxisInput.Nodes.Add(new VirtualAxis.GamePadLeftStickY());
-            _yAxisInput.Nodes.Add(new VirtualAxis.KeyboardKeys(VirtualInput.OverlapBehavior.TakeNewer, Keys.Up, Keys.Down));
+        public void StopCamera()
+        {
+            _stopped = true;
         }
 
         void IUpdatable.Update()
         {
-            var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
+            if (_stopped) return;
+            
+            if (!_shouldMove)
+            {
+                _elapsedTimeAfterCreation += Time.DeltaTime;
+                if (_elapsedTimeAfterCreation >= _delayMoveStart)
+                {
+                    _shouldMove = true;
+                }
+                return;
+            }
+            if (Transform.Position.Y < stopHeightY) return;
+            
+            //var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
+            
+            var moveDir = new Vector2(0, -1);
+
             var movement = moveDir * _moveSpeed * Time.DeltaTime;
 
             _mover.CalculateMovement(ref movement, out var res);
             _subpixelV2.Update(ref movement);
             _mover.ApplyMovement(movement);
+            
         }
     }
 }
