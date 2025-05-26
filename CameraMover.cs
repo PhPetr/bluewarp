@@ -23,7 +23,6 @@ namespace bluewarp
         float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
-        ITween<Vector2> _moveTween;
 
         public override void OnAddedToEntity()
         {
