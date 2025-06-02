@@ -10,25 +10,32 @@ namespace bluewarp
 {
     public class CameraMover : Component, IUpdatable
     {
-        const int startHeightY = 200 * 32;
-        const int startWidthX = 4 * 32;
-        const int stopHeightY = 64;
+        int _startHeightY = 200 * 32;
+        int _startWidthX = 4 * 32;
+        int _stopHeightY = 64;
         
         SubpixelVector2 _subpixelV2 = new SubpixelVector2();
-        SpriteRenderer _renderer;
+        //SpriteRenderer _renderer;
         Mover _mover;
-        float _moveSpeed = 100f;
+        float _moveSpeed = 1000f;
 
         float _elapsedTimeAfterCreation = 0f;
         float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
 
+        public CameraMover(int startHeightY, int startWidthX, float moveSpeed)
+        {
+            _startHeightY = startHeightY;
+            _startWidthX = startWidthX;
+            _moveSpeed = moveSpeed;
+        }
+
         public override void OnAddedToEntity()
         {
-            _renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
+            //_renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
             _mover = Entity.AddComponent(new Mover());
-            Transform.Position = new Vector2(startWidthX, startHeightY);
+            Transform.Position = new Vector2(_startWidthX, _startHeightY);
         }
 
         public void StopCamera()
@@ -49,7 +56,7 @@ namespace bluewarp
                 }
                 return;
             }
-            if (Transform.Position.Y < stopHeightY) return;
+            if (Transform.Position.Y < _stopHeightY) return;
             
             //var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
             

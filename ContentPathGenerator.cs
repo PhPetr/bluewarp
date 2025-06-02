@@ -21,6 +21,13 @@ namespace Nez
 			public const string maptileset = @"Content\Level1\mapTileSet.png";
 		}
 
+		public static class PlayerShip
+		{
+			public const string player_main_projectile = @"Content\PlayerShip\player_main_projectile.png";
+			public const string player_secondary_projectile = @"Content\PlayerShip\player_secondary_projectile.png";
+			public const string playership = @"Content\PlayerShip\player-ship.png";
+		}
+
 		public const string content = @"Content\Content.mgcb";
 
     }

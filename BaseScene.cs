@@ -18,6 +18,7 @@ namespace bluewarp
 
         ScreenSpaceRenderer _screenSpaceRenderer;
         static bool _needsFullRenderSizeForUi;
+        public RenderLayerRenderer _layerRenderer = new RenderLayerRenderer(1, 1);
 
         public BaseScene(bool addExcludeRenderer = true, bool needsFullRenderSizeForUi = false)
         {
@@ -34,6 +35,7 @@ namespace bluewarp
             else
             {
                 AddRenderer(new ScreenSpaceRenderer(100, ScreenSpaceRenderLayer));
+                AddRenderer(_layerRenderer);
             }
 
             if (addExcludeRenderer)
