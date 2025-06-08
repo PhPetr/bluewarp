@@ -54,7 +54,7 @@ namespace bluewarp
             _startWidthX = startWidthX;
             _moveSpeed = moveSpeed;
             _upwardsSpeed = upwardsSpeed;
-            _projectileSpeed = new Vector2(moveSpeed + upwardsSpeed + 50);
+            _projectileSpeed = new Vector2(300);
         }
 
         public override void OnAddedToEntity()

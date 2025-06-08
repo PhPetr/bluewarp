@@ -22,7 +22,7 @@ namespace bluewarp
 
         const int StartHeightX = 200 * 32;
         const int StartWidthY = 4 * 32;
-        const float UpwardsSpeed = 100f;
+        const float UpwardsSpeed = 50f;
 
         const float ShipMoveSpeed = 125f;
 
