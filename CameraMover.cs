@@ -15,9 +15,7 @@ namespace bluewarp
         int _stopHeightY = 64;
         
         SubpixelVector2 _subpixelV2 = new SubpixelVector2();
-        //SpriteRenderer _renderer;
-        Mover _mover;
-        float _moveSpeed = 1000f;
+        float _moveSpeed;
 
         float _elapsedTimeAfterCreation = 0f;
         float _delayMoveStart = 2f;
@@ -34,7 +32,6 @@ namespace bluewarp
         public override void OnAddedToEntity()
         {
             //_renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
-            _mover = Entity.AddComponent(new Mover());
             Transform.Position = new Vector2(_startWidthX, _startHeightY);
         }
 
@@ -59,15 +56,16 @@ namespace bluewarp
             if (Transform.Position.Y < _stopHeightY) return;
             
             //var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
-            
-            var moveDir = new Vector2(0, -1);
 
-            var movement = moveDir * _moveSpeed * Time.DeltaTime;
+            var movement = new Vector2(0, -1 * _moveSpeed * Time.DeltaTime);
 
-            _mover.CalculateMovement(ref movement, out var res);
             _subpixelV2.Update(ref movement);
-            _mover.ApplyMovement(movement);
+            Transform.Position += movement;
             
+            // pixel perfect movement
+            Transform.Position = new Vector2(
+                Mathf.Round(Transform.Position.X),
+                Mathf.Round(Transform.Position.Y));
         }
     }
 }
