@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bluewarp", "bluewarp.csproj", "{C7A62D76-4F58-4230-AEC6-80748AF93619}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez", "..\..\..\..\..\..\Nez\Nez.Portable\Nez.csproj", "{AE8D8193-17D5-CB1D-3178-738E26351BE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez.MG38", "..\..\..\..\..\..\Nez\Nez.Portable\Nez.MG38.csproj", "{36C63D83-03D0-2BA3-A85C-4FDFBBCD0A84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C7A62D76-4F58-4230-AEC6-80748AF93619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7A62D76-4F58-4230-AEC6-80748AF93619}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7A62D76-4F58-4230-AEC6-80748AF93619}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE8D8193-17D5-CB1D-3178-738E26351BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE8D8193-17D5-CB1D-3178-738E26351BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE8D8193-17D5-CB1D-3178-738E26351BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE8D8193-17D5-CB1D-3178-738E26351BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36C63D83-03D0-2BA3-A85C-4FDFBBCD0A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C63D83-03D0-2BA3-A85C-4FDFBBCD0A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C63D83-03D0-2BA3-A85C-4FDFBBCD0A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C63D83-03D0-2BA3-A85C-4FDFBBCD0A84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

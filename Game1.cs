@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nez;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace bluewarp
@@ -15,7 +16,7 @@ namespace bluewarp
             base.Initialize();
 
             Window.AllowUserResizing = true;
-            Core.DebugRenderEnabled = true;
+            Core.DebugRenderEnabled = false;
             Scene = new RunGameScene();
         }
     }

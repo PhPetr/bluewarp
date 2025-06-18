@@ -27,8 +27,8 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Nez\Nez.Portable\Nez.csproj" />
-  </ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Nez\Nez.Portable\Nez.MG38.csproj" />
+  </ItemGroup> 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
@@ -43,6 +43,12 @@
     <None Update="ContentPathGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ContentPathGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Content\BasicEnemy\explosion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\BasicEnemy\static_enemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\Level1\baseTiles.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

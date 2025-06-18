@@ -11,6 +11,12 @@ namespace Nez
     /// </remarks>
     class Content
     {
+		public static class BasicEnemy
+		{
+			public const string explosion = @"Content\BasicEnemy\explosion.png";
+			public const string static_enemy = @"Content\BasicEnemy\static_enemy.png";
+		}
+
 		public static class Level1
 		{
 			public const string basetiles = @"Content\Level1\baseTiles.tsx";
