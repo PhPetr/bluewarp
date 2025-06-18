@@ -22,6 +22,8 @@ namespace bluewarp
         bool _shouldMove = false;
         bool _stopped = false;
 
+        //Mover _mover;
+
         public CameraMover(int startHeightY, int startWidthX, float moveSpeed)
         {
             _startHeightY = startHeightY;
@@ -32,6 +34,7 @@ namespace bluewarp
         public override void OnAddedToEntity()
         {
             //_renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
+            //_mover = Entity.AddComponent(new Mover());
             Transform.Position = new Vector2(_startWidthX, _startHeightY);
         }
 
@@ -63,9 +66,11 @@ namespace bluewarp
             Transform.Position += movement;
             
             // pixel perfect movement
+            
             Transform.Position = new Vector2(
                 Mathf.Round(Transform.Position.X),
                 Mathf.Round(Transform.Position.Y));
+            
         }
     }
 }

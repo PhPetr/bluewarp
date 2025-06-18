@@ -21,6 +21,7 @@ namespace bluewarp
             Min = min;
             Max = max;
             this.lockedX = lockedX;
+            SetUpdateOrder(int.MaxValue);
         }
 
 
