@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Nez;
+﻿using Nez;
 using Nez.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nez.Textures;
+using Microsoft.VisualBasic;
 
 namespace bluewarp
 {
@@ -28,6 +23,7 @@ namespace bluewarp
         int _startWidthX;
 
         ShipState _shipState = ShipState.Base;
+        string animation = "Base";
         SpriteAnimator _animator;
         
         SubpixelVector2 _subpixelV2 = new SubpixelVector2();
@@ -76,13 +72,27 @@ namespace bluewarp
             _animator.RenderLayer = 1;
 
             setupInput();
-            Transform.Position = new Vector2(_startWidthX, _startHeightY);
+            randomSkinChooser();
+            //Transform.Position = new Vector2(_startWidthX, _startHeightY);
         }
 
         public override void OnRemovedFromEntity()
         {
             // deregister virtual input
             _fireInput.Deregister();
+        }
+
+        void randomSkinChooser()
+        {
+            var randomInt = Nez.Random.Range(1, 4);
+            if (randomInt == 1)
+            {
+                _shipState = ShipState.PoweredUp;
+            }
+            if (_shipState == ShipState.PoweredUp)
+            {
+                animation = "PoweredUp";
+            }
         }
 
         void setupInput()
@@ -107,7 +117,6 @@ namespace bluewarp
 
         void IUpdatable.Update()
         {
-            var animation = "Base";
             if (!_animator.IsAnimationActive(animation))
                 _animator.Play(animation);
 
@@ -122,7 +131,7 @@ namespace bluewarp
             }
             
             var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
-            var upwardMovement = new Vector2(0, -_upwardsSpeed * Time.DeltaTime);
+            var upwardMovement = new Vector2(0, -1 * _upwardsSpeed * Time.DeltaTime);
             if (Transform.Position.Y <= _stopHeightY) upwardMovement = new Vector2(0, 0);
 
             var inputMovement = moveDir * _moveSpeed * Time.DeltaTime;
@@ -150,13 +159,13 @@ namespace bluewarp
 
         void ITriggerListener.OnTriggerEnter(Collider other, Collider self)
         {
-            Debug.Log("triggerEnter: {0}", other.Entity.Name);
+            Debug.Log("PLAYER triggerEnter: {0}", other.Entity.Name);
         }
 
 
         void ITriggerListener.OnTriggerExit(Collider other, Collider self)
         {
-            Debug.Log("triggerExit: {0}", other.Entity.Name);
+            //Debug.Log("PLAYER triggerExit: {0}", other.Entity.Name);
         }
 
         #endregion

@@ -1,10 +1,5 @@
 ﻿using Nez;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace bluewarp
 {
@@ -13,7 +8,6 @@ namespace bluewarp
         public Vector2 Velocity;
 
         ProjectileMover _mover;
-
 
         public ProjectileController(Vector2 velocity) => Velocity = velocity;
 

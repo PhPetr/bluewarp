@@ -5,11 +5,6 @@ using Nez.Sprites;
 using Nez.Systems;
 using Nez.Textures;
 using Nez.Tiled;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace bluewarp
 {
@@ -20,14 +15,21 @@ namespace bluewarp
         const int G_Height = 192;
         const int X_LockedOffset = 159;
 
-        const int StartHeightX = 200 * 32;
-        const int StartWidthY = 4 * 32;
+        const int EndHeightY = 64;
         const float UpwardsSpeed = 50f;
+        //const float MapDuration = 100f;
 
         const float ShipMoveSpeed = 125f;
+        
+        int _startWidthX;
+        int _startHeightY;
 
-        private Entity _backgroundEntity;
+        private Entity _tiledEntityMap;
+        private TmxMap _tileMap;
+
         private Entity _mainCameraMover;
+
+        private Entity _playerShip;
 
         internal static readonly string[] levelOneLayerNames = new[] { "BaseLayer", "BossLayer" };
 
@@ -42,35 +44,76 @@ namespace bluewarp
             Screen.SetSize(G_Width * Scale, G_Height * Scale);
             ClearColor = Color.Black;
             
+            LoadTileMap();
 
+            LoadPlayer();
+
+            SettingUpCamera();
+        }
+
+        private void LoadTileMap()
+        {
             // Loading Map
-            var tiledEntityMap = CreateEntity("tiled-map");
-            var map = Content.LoadTiledMap(Nez.Content.Level1.levelone);
-            var tiledMapRenderer = tiledEntityMap.AddComponent(new TiledMapRenderer(map, "BorderCollision"));
+            _tiledEntityMap = CreateEntity("tiled-map");
+            _tileMap = Content.LoadTiledMap(Nez.Content.Level1.levelone);
+            var tiledMapRenderer = _tiledEntityMap.AddComponent(new TiledMapRenderer(_tileMap, "BorderCollision"));
             tiledMapRenderer.SetLayersToRender(levelOneLayerNames);
             tiledMapRenderer.RenderLayer = 10; // render map below most of things
+            LoadMapZones();
+        }
 
+        private void LoadMapZones()
+        {
+            var zones = _tileMap.GetObjectGroup("zones").Objects;
+            foreach ( var zone in zones )
+            {
+                var zonePosition = new Vector2(zone.X + 3*32, zone.Y+32);
+                var zoneEntity = CreateEntity(zone.Name, zonePosition);
+
+                var zoneCollider = zoneEntity.AddComponent(new BoxCollider(zone.Width, zone.Height));
+                zoneCollider.IsTrigger = true;
+                Flags.SetFlagExclusive(ref zoneCollider.CollidesWithLayers, 5);
+                Flags.SetFlagExclusive(ref zoneCollider.PhysicsLayer, 6);
+                zoneEntity.AddComponent(new ZoneTrigger(zone.Name, _tileMap, this));
+                
+            }
+        }
+
+        private void SettingUpCamera()
+        {
             // Setting camera
-            // 
-            var topLeft = new Vector2(map.TileWidth, map.TileWidth);
+            var topLeft = new Vector2(_tileMap.TileWidth, _tileMap.TileWidth);
             var bottomRight = new Vector2(
-                map.TileWidth * (map.Width - 1),
-                map.TileWidth * (map.Height - 1));
-            tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, X_LockedOffset));
-            
-            // we only want to collide with the tilemap, which is on the default layer 0
-            //Flags.SetFlagExclusive(ref collider.CollidesWithLayers, 0);
+                _tileMap.TileWidth * (_tileMap.Width - 1),
+                _tileMap.TileWidth * (_tileMap.Height - 1));
+            _tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, X_LockedOffset));
 
-            var playerShip = CreateEntity("player-ship", new Vector2(32));
-            playerShip.AddComponent(new FighterShip(StartHeightX, StartWidthY, ShipMoveSpeed, UpwardsSpeed));
-            
-            var shipCollider = playerShip.AddComponent<CircleCollider>();
-            
-            
             _mainCameraMover = CreateEntity("camera-mover");
-            _mainCameraMover.AddComponent(new CameraMover(StartHeightX, StartWidthY, UpwardsSpeed));
+            _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX, UpwardsSpeed));
+            //_mainCameraMover.AddComponent(new SmoothVerticalMover(StartHeightY, StartWidthX, EndHeightY, MapDuration));
             Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
-            
+        }
+
+        private void LoadPlayer()
+        {
+            var playerSpawn = _tileMap.GetObjectGroup("start").Objects["playerSpawn"];
+            var playerSpawnPosition = new Vector2(playerSpawn.X, playerSpawn.Y);
+            _startHeightY = (int)playerSpawn.Y;
+            _startWidthX = (int)playerSpawn.X;
+
+            _playerShip = CreateEntity("player-ship", playerSpawnPosition);
+            _playerShip.AddComponent(new FighterShip(_startHeightY, _startWidthX, ShipMoveSpeed, UpwardsSpeed));
+            var shipCollider = _playerShip.AddComponent<CircleCollider>();
+
+            // we only want to collide with the tilemap, which is on the default layer 0
+            Flags.SetFlagExclusive(ref shipCollider.CollidesWithLayers, 0);
+            // move ourself to layer 1 so that we dont get hit by the projectiles that we fire
+            Flags.SetFlagExclusive(ref shipCollider.PhysicsLayer, 1);
+
+            var eventTriggerCollider = _playerShip.AddComponent<CircleCollider>();
+            Flags.SetFlagExclusive(ref eventTriggerCollider.PhysicsLayer, 5);
+            Flags.SetFlagExclusive(ref eventTriggerCollider.CollidesWithLayers, 6); // layer 6 will have map zone triggers
+            eventTriggerCollider.IsTrigger = true;
         }
 
         public Entity CreateProjectiles(Vector2 position, Vector2 velocity)
@@ -83,7 +126,7 @@ namespace bluewarp
 
             // add a collider so we can detect intersections
             var collider = entity.AddComponent<CircleCollider>();
-            Flags.SetFlagExclusive(ref collider.CollidesWithLayers, 10);
+            Flags.SetFlagExclusive(ref collider.CollidesWithLayers, 0);
             Flags.SetFlagExclusive(ref collider.PhysicsLayer, 1);
 
 
@@ -94,7 +137,7 @@ namespace bluewarp
             // add the Sprite to the Entity and play the animation after creating it
             var spriteRenderer = entity.AddComponent(new SpriteRenderer(sprite));
 
-            // render after (under) our player who is on renderLayer 0, the default
+            // render after (under) our player who is on renderLayer 1
             spriteRenderer.RenderLayer = 2;
 
             // clone the projectile and fire it off in the opposite direction
