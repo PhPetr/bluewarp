@@ -69,7 +69,7 @@ namespace bluewarp
             {
                 sprites[3], sprites[4], sprites[5]
             });
-            _animator.RenderLayer = 1;
+            _animator.RenderLayer = RenderLayer.PlayerAnimator;
 
             setupInput();
             randomSkinChooser();

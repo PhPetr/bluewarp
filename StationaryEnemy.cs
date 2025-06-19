@@ -35,13 +35,13 @@ namespace bluewarp
             var enemyTexture = Entity.Scene.Content.LoadTexture(Nez.Content.BasicEnemy.static_enemy);
             var sprite = new Sprite(enemyTexture);
             _renderer = Entity.AddComponent(new SpriteRenderer(sprite));
-            _renderer.RenderLayer = 2;
+            _renderer.RenderLayer = RenderLayer.StationaryEnemySprite;
 
             var explosionTexture = Entity.Scene.Content.LoadTexture(Nez.Content.BasicEnemy.explosion);
             var explosion = Sprite.SpritesFromAtlas(explosionTexture, 32, 32);
             _explosionAnimation = Entity.AddComponent<SpriteAnimator>();
             _explosionAnimation.AddAnimation("Explosion", explosion.ToArray());
-            _explosionAnimation.RenderLayer = 5;
+            _explosionAnimation.RenderLayer = RenderLayer.StationaryEnemyExplosion;
             _explosionAnimation.Enabled = false;
 
             //Transform.Position = new Vector2(_startWidthX, _startHeightY);

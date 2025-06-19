@@ -58,7 +58,7 @@ namespace bluewarp
             _tileMap = Content.LoadTiledMap(Nez.Content.Level1.levelone);
             var tiledMapRenderer = _tiledEntityMap.AddComponent(new TiledMapRenderer(_tileMap, "BorderCollision"));
             tiledMapRenderer.SetLayersToRender(levelOneLayerNames);
-            tiledMapRenderer.RenderLayer = 10; // render map below most of things
+            tiledMapRenderer.RenderLayer = RenderLayer.TileMap; // render map below most of things
             LoadMapZones();
         }
 
@@ -72,8 +72,8 @@ namespace bluewarp
 
                 var zoneCollider = zoneEntity.AddComponent(new BoxCollider(zone.Width, zone.Height));
                 zoneCollider.IsTrigger = true;
-                Flags.SetFlagExclusive(ref zoneCollider.CollidesWithLayers, 5);
-                Flags.SetFlagExclusive(ref zoneCollider.PhysicsLayer, 6);
+                Flags.SetFlagExclusive(ref zoneCollider.CollidesWithLayers, CollideWithLayer.Zones);
+                Flags.SetFlagExclusive(ref zoneCollider.PhysicsLayer, PhysicsLayer.Zones);
                 zoneEntity.AddComponent(new ZoneTrigger(zone.Name, _tileMap, this));
                 
             }
@@ -106,13 +106,13 @@ namespace bluewarp
             var shipCollider = _playerShip.AddComponent<CircleCollider>();
 
             // we only want to collide with the tilemap, which is on the default layer 0
-            Flags.SetFlagExclusive(ref shipCollider.CollidesWithLayers, 0);
+            Flags.SetFlagExclusive(ref shipCollider.CollidesWithLayers, CollideWithLayer.PlayerShipCollider);
             // move ourself to layer 1 so that we dont get hit by the projectiles that we fire
-            Flags.SetFlagExclusive(ref shipCollider.PhysicsLayer, 1);
+            Flags.SetFlagExclusive(ref shipCollider.PhysicsLayer, PhysicsLayer.PlayerShipCollider);
 
             var eventTriggerCollider = _playerShip.AddComponent<CircleCollider>();
-            Flags.SetFlagExclusive(ref eventTriggerCollider.PhysicsLayer, 5);
-            Flags.SetFlagExclusive(ref eventTriggerCollider.CollidesWithLayers, 6); // layer 6 will have map zone triggers
+            Flags.SetFlagExclusive(ref eventTriggerCollider.CollidesWithLayers, CollideWithLayer.PlayerEventCollider); // layer 6 will have map zone triggers
+            Flags.SetFlagExclusive(ref eventTriggerCollider.PhysicsLayer, PhysicsLayer.PlayerEventCollider);
             eventTriggerCollider.IsTrigger = true;
         }
 
@@ -126,8 +126,8 @@ namespace bluewarp
 
             // add a collider so we can detect intersections
             var collider = entity.AddComponent<CircleCollider>();
-            Flags.SetFlagExclusive(ref collider.CollidesWithLayers, 0);
-            Flags.SetFlagExclusive(ref collider.PhysicsLayer, 1);
+            Flags.SetFlagExclusive(ref collider.CollidesWithLayers, CollideWithLayer.PlayerProjectile);
+            Flags.SetFlagExclusive(ref collider.PhysicsLayer, PhysicsLayer.PlayerProjectile);
 
 
             // load up a Texture that contains a fireball animation and setup the animation frames
@@ -138,7 +138,7 @@ namespace bluewarp
             var spriteRenderer = entity.AddComponent(new SpriteRenderer(sprite));
 
             // render after (under) our player who is on renderLayer 1
-            spriteRenderer.RenderLayer = 2;
+            spriteRenderer.RenderLayer = RenderLayer.PlayerProjectile;
 
             // clone the projectile and fire it off in the opposite direction
             var newEntity = entity.Clone(entity.Position);

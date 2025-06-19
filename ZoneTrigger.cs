@@ -33,8 +33,8 @@ namespace bluewarp
                 enemyEntity.AddComponent(new StationaryEnemy());
                 enemyEntity.AddComponent(new ProjectileHitDetector(10));
                 var enemyCollider = enemyEntity.AddComponent<CircleCollider>();
-                Flags.SetFlagExclusive(ref enemyCollider.CollidesWithLayers, 1);
-                Flags.SetFlagExclusive(ref enemyCollider.PhysicsLayer, 0);
+                Flags.SetFlagExclusive(ref enemyCollider.CollidesWithLayers, CollideWithLayer.StationaryEnemy);
+                Flags.SetFlagExclusive(ref enemyCollider.PhysicsLayer, PhysicsLayer.StationaryEnemy);
             }
 
             Entity.Destroy();
