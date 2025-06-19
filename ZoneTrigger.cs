@@ -6,6 +6,8 @@ namespace bluewarp
 {
     public class ZoneTrigger : Component, ITriggerListener
     {
+        public const int BasicEnemyMaxHealth = 5;
+        
         private string _zoneName;
         private TmxMap _map;
         private Scene _scene;
@@ -31,7 +33,7 @@ namespace bluewarp
                 var objPosition = new Vector2(obj.X + 16, obj.Y + 16);
                 var enemyEntity = _scene.CreateEntity(obj.Name, objPosition);
                 enemyEntity.AddComponent(new StationaryEnemy());
-                enemyEntity.AddComponent(new ProjectileHitDetector(5));
+                enemyEntity.AddComponent(new ProjectileHitDetector(BasicEnemyMaxHealth));
                 var enemyCollider = enemyEntity.AddComponent<CircleCollider>();
                 Flags.SetFlagExclusive(ref enemyCollider.CollidesWithLayers, CollideWithLayer.StationaryEnemy);
                 Flags.SetFlagExclusive(ref enemyCollider.PhysicsLayer, PhysicsLayer.StationaryEnemy);

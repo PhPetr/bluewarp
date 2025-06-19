@@ -8,29 +8,19 @@ using Microsoft.VisualBasic;
 
 namespace bluewarp
 {
-    public class FighterShip : Component, IUpdatable, ITriggerListener, IDestructable
+    public class FighterShip : BaseProjectileShooter
     {
         enum ShipState
         {
             Base,
             PoweredUp
         }
-        const int ProjectileSpawnOffset = -24;
-        Vector2 ProjectileUpDir = new(0, -1);
-        Vector2 _projectileSpeed;
-        const float ProjectileDelay = 0.2f;
-        float _lastProjectileTime = 0f;
-
-        const int _stopHeightY = 32 * 7 - 16;
-        int _startHeightY;
-        int _startWidthX;
-
         ShipState _shipState = ShipState.Base;
+
         string animation = "Base";
         SpriteAnimator _animator;
-        
-        SubpixelVector2 _subpixelV2 = new SubpixelVector2();
         Mover _mover;
+        SubpixelVector2 _subpixelV2 = new SubpixelVector2();
         float _moveSpeed;
         float _upwardsSpeed;
 
@@ -42,27 +32,43 @@ namespace bluewarp
         float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
-        bool _isDying = false;
 
+        int _startHeightY;
+        int _startWidthX;
+        const int _stopHeightY = 32 * 7 - 16;
         public FighterShip(int startHeightY, int startWidthX, float moveSpeed, float upwardsSpeed)
         {
             _startHeightY = startHeightY;
             _startWidthX = startWidthX;
             _moveSpeed = moveSpeed;
             _upwardsSpeed = upwardsSpeed;
-            _projectileSpeed = new Vector2(300);
+
+            ProjectileSpeed = new Vector2(300);
+            ProjectileSpawnOffset = -24;
+            ProjectileDirection = new Vector2(0, -1);
+            ProjectileDelay = 0.2f;
         }
 
         public override void OnAddedToEntity()
+        {
+            _mover = Entity.AddComponent(new Mover());
+            _animator = Entity.AddComponent<SpriteAnimator>();
+
+            base.OnAddedToEntity();
+
+            setupInput();
+            randomSkinChooser();
+        }
+
+        protected override void SetupVisuals()
         {
             var shipTexture = Entity.Scene.Content.LoadTexture(Nez.Content.PlayerShip.playership);
             var sprites = Sprite.SpritesFromAtlas(shipTexture, 32, 32);
 
             var explosionTexture = Entity.Scene.Content.LoadTexture(Nez.Content.BasicEnemy.explosion);
             var explosion = Sprite.SpritesFromAtlas(explosionTexture, 32, 32);
-
-            _mover = Entity.AddComponent(new Mover());
-            _animator = Entity.AddComponent<SpriteAnimator>();
+            _explosionAnimator = _animator;
+            _animator.AddAnimation("Explosion", explosion.ToArray());
 
             _animator.AddAnimation("PoweredUp", new[]
             {
@@ -72,33 +78,18 @@ namespace bluewarp
             {
                 sprites[3], sprites[4], sprites[5]
             });
-            _animator.AddAnimation("Explosion", explosion.ToArray());
             _animator.RenderLayer = RenderLayer.PlayerAnimator;
-
-            setupInput();
-            randomSkinChooser();
         }
 
-        void IDestructable.PlayExplosionAndDestroy()
+        protected override void HandleFiring()
         {
-            if (_isDying) return;
-            _isDying = true;
-
-            _shouldMove = false;
-            var collider = Entity.GetComponent<Collider>();
-            if (collider != null ) 
-                collider.SetEnabled(false);
-            
-            void OnExplosionComplete(string animationName)
-            {
-                if (animationName == "Explosion")
-                {
-                    _animator.OnAnimationCompletedEvent -= OnExplosionComplete;
-                    Entity.Destroy();
-                }
-            }
-            _animator.OnAnimationCompletedEvent += OnExplosionComplete;
-            _animator.Play("Explosion", SpriteAnimator.LoopMode.Once);
+            var battleScene = Entity.Scene as RunGameScene;
+            battleScene.CreateProjectiles(
+                new Vector2(Transform.Position.X, Transform.Position.Y + ProjectileSpawnOffset),
+                ProjectileSpeed * ProjectileDirection,
+                CollideWithLayer.PlayerProjectile,
+                PhysicsLayer.PlayerProjectile,
+                Nez.Content.PlayerShip.player_main_projectile);
         }
 
         public override void OnRemovedFromEntity()
@@ -142,10 +133,10 @@ namespace bluewarp
             _yAxisInput.Nodes.Add(new VirtualAxis.KeyboardKeys(VirtualInput.OverlapBehavior.TakeNewer, Keys.Up, Keys.Down));
         }
 
-        void IUpdatable.Update()
+        public override void Update()
         {
             if (_isDying) return;
-
+            
             if (!_animator.IsAnimationActive(animation))
                 _animator.Play(animation);
 
@@ -161,7 +152,8 @@ namespace bluewarp
             
             var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
             var upwardMovement = new Vector2(0, -1 * _upwardsSpeed * Time.DeltaTime);
-            if (Transform.Position.Y <= _stopHeightY) upwardMovement = new Vector2(0, 0);
+            if (Transform.Position.Y <= _stopHeightY) 
+                upwardMovement = new Vector2(0, 0);
 
             var inputMovement = moveDir * _moveSpeed * Time.DeltaTime;
             var totalMovement = inputMovement + upwardMovement;
@@ -173,35 +165,19 @@ namespace bluewarp
             if (_fireInput.IsDown && CanFireProjectile())
             {
                 _lastProjectileTime = Time.TotalTime;
-                var battleScene = Entity.Scene as RunGameScene;
-                battleScene.CreateProjectiles(
-                    new Vector2(Transform.Position.X, Transform.Position.Y + ProjectileSpawnOffset), 
-                    _projectileSpeed * ProjectileUpDir,
-                    CollideWithLayer.PlayerProjectile,
-                    PhysicsLayer.PlayerProjectile,
-                    Nez.Content.PlayerShip.player_main_projectile);
+                HandleFiring();
             }
-            
         }
 
-        bool CanFireProjectile()
+        public override void PlayExplosionAndDestroy()
         {
-            return Time.TotalTime - _lastProjectileTime >= ProjectileDelay;
+            _shouldMove = false;
+            base.PlayExplosionAndDestroy();
         }
 
-        #region ITriggerListener implementation
-
-        void ITriggerListener.OnTriggerEnter(Collider other, Collider self)
+        public override void OnTriggerExit(Collider other, Collider self)
         {
-            Debug.Log("PLAYER triggerEnter: {0}", other.Entity.Name);
+            //nothing
         }
-
-
-        void ITriggerListener.OnTriggerExit(Collider other, Collider self)
-        {
-            //Debug.Log("PLAYER triggerExit: {0}", other.Entity.Name);
-        }
-
-        #endregion
     }
 }

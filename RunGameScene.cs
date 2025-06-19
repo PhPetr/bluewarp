@@ -21,6 +21,7 @@ namespace bluewarp
         //const float MapDuration = 100f;
 
         const float ShipMoveSpeed = 125f;
+        const int ShipMaxHealth = 5;
         
         int _startWidthX;
         int _startHeightY;
@@ -68,7 +69,7 @@ namespace bluewarp
             var zones = _tileMap.GetObjectGroup("zones").Objects;
             foreach ( var zone in zones )
             {
-                var zonePosition = new Vector2(zone.X + 3*32, zone.Y+32);
+                var zonePosition = new Vector2(zone.X + 3*32, zone.Y+16);
                 var zoneEntity = CreateEntity(zone.Name, zonePosition);
 
                 var zoneCollider = zoneEntity.AddComponent(new BoxCollider(zone.Width, zone.Height));
@@ -105,7 +106,7 @@ namespace bluewarp
 
             _playerShip = CreateEntity("player-ship", playerSpawnPosition);
             _playerShip.AddComponent(new FighterShip(_startHeightY, _startWidthX, ShipMoveSpeed, UpwardsSpeed));
-            _playerShip.AddComponent(new ProjectileHitDetector(5));
+            _playerShip.AddComponent(new ProjectileHitDetector(ShipMaxHealth));
             var shipCollider = _playerShip.AddComponent<CircleCollider>();
 
             // we only want to collide with the tilemap, which is on the default layer 0
