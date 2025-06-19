@@ -5,6 +5,7 @@ using Nez.Sprites;
 using Nez.Systems;
 using Nez.Textures;
 using Nez.Tiled;
+using System;
 
 namespace bluewarp
 {
@@ -92,6 +93,7 @@ namespace bluewarp
             _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX, UpwardsSpeed));
             //_mainCameraMover.AddComponent(new SmoothVerticalMover(StartHeightY, StartWidthX, EndHeightY, MapDuration));
             Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
+            //Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //FOR TESTING
         }
 
         private void LoadPlayer()
@@ -103,6 +105,7 @@ namespace bluewarp
 
             _playerShip = CreateEntity("player-ship", playerSpawnPosition);
             _playerShip.AddComponent(new FighterShip(_startHeightY, _startWidthX, ShipMoveSpeed, UpwardsSpeed));
+            _playerShip.AddComponent(new ProjectileHitDetector(5));
             var shipCollider = _playerShip.AddComponent<CircleCollider>();
 
             // we only want to collide with the tilemap, which is on the default layer 0
@@ -116,22 +119,23 @@ namespace bluewarp
             eventTriggerCollider.IsTrigger = true;
         }
 
-        public Entity CreateProjectiles(Vector2 position, Vector2 velocity)
+        public Entity CreateProjectiles(Vector2 position, Vector2 velocity, int projectileCollideWithLayer, int projectilePhysicsLayer, string textureSource)
         {
             // create an Entity to house the projectile and its logic
             var entity = CreateEntity("projectile");
             entity.Position = position;
             entity.AddComponent(new ProjectileMover());
             entity.AddComponent(new ProjectileController(velocity));
+            entity.AddComponent(new TimeAliveComponent());
 
             // add a collider so we can detect intersections
             var collider = entity.AddComponent<CircleCollider>();
-            Flags.SetFlagExclusive(ref collider.CollidesWithLayers, CollideWithLayer.PlayerProjectile);
-            Flags.SetFlagExclusive(ref collider.PhysicsLayer, PhysicsLayer.PlayerProjectile);
+            Flags.SetFlagExclusive(ref collider.CollidesWithLayers, projectileCollideWithLayer);
+            Flags.SetFlagExclusive(ref collider.PhysicsLayer, projectilePhysicsLayer);
 
 
             // load up a Texture that contains a fireball animation and setup the animation frames
-            var texture = Content.LoadTexture(Nez.Content.PlayerShip.player_main_projectile);
+            var texture = Content.LoadTexture(textureSource);
             var sprite = new Sprite(texture);
 
             // add the Sprite to the Entity and play the animation after creating it
@@ -139,12 +143,7 @@ namespace bluewarp
 
             // render after (under) our player who is on renderLayer 1
             spriteRenderer.RenderLayer = RenderLayer.PlayerProjectile;
-
-            // clone the projectile and fire it off in the opposite direction
-            var newEntity = entity.Clone(entity.Position);
-            newEntity.GetComponent<ProjectileController>().Velocity *= 1;
-            AddEntity(newEntity);
-
+            
             return entity;
         }
     }

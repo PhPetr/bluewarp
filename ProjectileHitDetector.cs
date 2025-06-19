@@ -14,7 +14,7 @@ namespace bluewarp
 
         public ProjectileHitDetector(int health = 10)
         {
-            _hitsUntilDead = (health > 0) ? 2*health : 10;
+            _hitsUntilDead = (health > 0) ? health : 10;
         }
 
         public override void OnAddedToEntity()
@@ -24,12 +24,15 @@ namespace bluewarp
 
         void ITriggerListener.OnTriggerEnter(Collider other, Collider self)
         {
+            // Ignore player event trigger
+            if (other.PhysicsLayer == (1 << CollideWithLayer.PlayerEventCollider)) return;
+
             _hitCounter++;
             if (_hitCounter >= _hitsUntilDead)
             {
-                var enemy = Entity.GetComponent<StationaryEnemy>();
-                if (enemy != null) 
-                    enemy.PlayExplosionAndDestroy();
+                var destructable = Entity.GetComponent<IDestructable>();
+                if (destructable != null) 
+                    destructable.PlayExplosionAndDestroy();
                 else
                     Entity.Destroy();
                 return;

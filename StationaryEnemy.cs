@@ -2,26 +2,27 @@
 using Nez.Sprites;
 using Microsoft.Xna.Framework;
 using Nez.Textures;
+using System;
 
 namespace bluewarp
 {
-    public class StationaryEnemy : Component, IUpdatable, ITriggerListener
+    public class StationaryEnemy : Component, IUpdatable, ITriggerListener, IDestructable
     {
         const int ProjectileSpawnOffset = 24;
-        Vector2 ProjectileDir = new(0, 1);
+        Vector2 ProjectileDownDir = new(0, 1);
+        Vector2 _projectileSpeed = new Vector2(100);
+        const float ProjectileDelay = 1.5f;
+        float _lastProjectileTime = 0f;
+        static System.Random _random = new System.Random();
+        float _nextFireDelay = 1f;
 
         SpriteRenderer _renderer;
         SpriteAnimator _explosionAnimation;
 
-        Vector2 _projectileSpeed = new Vector2(300);
-
-        float _elapsedTimeAfterCreation = 0f;
+        float _elapsedTimeAfterCreation;
         float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
-
-        const float ProjectileDelay = 0.2f;
-        float _lastProjectileTime = 0f;
 
         bool _isDying = false;
 
@@ -43,11 +44,9 @@ namespace bluewarp
             _explosionAnimation.AddAnimation("Explosion", explosion.ToArray());
             _explosionAnimation.RenderLayer = RenderLayer.StationaryEnemyExplosion;
             _explosionAnimation.Enabled = false;
-
-            //Transform.Position = new Vector2(_startWidthX, _startHeightY);
         }
 
-        public void PlayExplosionAndDestroy()
+        void IDestructable.PlayExplosionAndDestroy()
         {
             if (_isDying) return;
             _isDying = true;
@@ -76,23 +75,24 @@ namespace bluewarp
 
         void IUpdatable.Update()
         {
-            /*
-            if (!_shouldMove)
+            if (!_isDying && CanFireProjectile())
             {
-                _elapsedTimeAfterCreation += Time.DeltaTime;
-                if (_elapsedTimeAfterCreation >= _delayMoveStart)
-                {
-                    _shouldMove = true;
-                }
-                return;
-            }
-            
-            var upwardMovement = new Vector2(0, -_upwardsSpeed * Time.DeltaTime);
-            if (Transform.Position.Y <= _stopHeightY) upwardMovement = new Vector2(0, 0);
+                _lastProjectileTime = Time.TotalTime;
+                _nextFireDelay = ProjectileDelay + (float)(_random.NextDouble() * 0.5);
 
-            _subpixelV2.Update(ref upwardMovement);
-            Transform.Position += upwardMovement;
-            */
+                var battleScene = Entity.Scene as RunGameScene;
+                battleScene.CreateProjectiles(
+                    new Vector2(Transform.Position.X, Transform.Position.Y + ProjectileSpawnOffset),
+                    _projectileSpeed * ProjectileDownDir,
+                    CollideWithLayer.StationaryEnemyProjectile,
+                    PhysicsLayer.StationaryEnemyProjectile,
+                    Nez.Content.BasicEnemy.enemy_projectile);
+            }
+        }
+
+        bool CanFireProjectile()
+        {
+            return Time.TotalTime - _lastProjectileTime >= _nextFireDelay;
         }
 
         #region ITriggerListener implementation

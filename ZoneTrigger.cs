@@ -31,7 +31,7 @@ namespace bluewarp
                 var objPosition = new Vector2(obj.X + 16, obj.Y + 16);
                 var enemyEntity = _scene.CreateEntity(obj.Name, objPosition);
                 enemyEntity.AddComponent(new StationaryEnemy());
-                enemyEntity.AddComponent(new ProjectileHitDetector(10));
+                enemyEntity.AddComponent(new ProjectileHitDetector(5));
                 var enemyCollider = enemyEntity.AddComponent<CircleCollider>();
                 Flags.SetFlagExclusive(ref enemyCollider.CollidesWithLayers, CollideWithLayer.StationaryEnemy);
                 Flags.SetFlagExclusive(ref enemyCollider.PhysicsLayer, PhysicsLayer.StationaryEnemy);

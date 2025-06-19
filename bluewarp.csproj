@@ -44,6 +44,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ContentPathGenerator.cs</LastGenOutput>
     </None>
+    <None Update="Content\BasicEnemy\enemy_projectile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\BasicEnemy\explosion.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

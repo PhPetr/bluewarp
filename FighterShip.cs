@@ -8,7 +8,7 @@ using Microsoft.VisualBasic;
 
 namespace bluewarp
 {
-    public class FighterShip : Component, IUpdatable, ITriggerListener
+    public class FighterShip : Component, IUpdatable, ITriggerListener, IDestructable
     {
         enum ShipState
         {
@@ -17,6 +17,9 @@ namespace bluewarp
         }
         const int ProjectileSpawnOffset = -24;
         Vector2 ProjectileUpDir = new(0, -1);
+        Vector2 _projectileSpeed;
+        const float ProjectileDelay = 0.2f;
+        float _lastProjectileTime = 0f;
 
         const int _stopHeightY = 32 * 7 - 16;
         int _startHeightY;
@@ -30,7 +33,6 @@ namespace bluewarp
         Mover _mover;
         float _moveSpeed;
         float _upwardsSpeed;
-        Vector2 _projectileSpeed;
 
         VirtualButton _fireInput;
         VirtualIntegerAxis _xAxisInput;
@@ -40,9 +42,7 @@ namespace bluewarp
         float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
-
-        const float ProjectileDelay = 0.2f;
-        float _lastProjectileTime = 0f;
+        bool _isDying = false;
 
         public FighterShip(int startHeightY, int startWidthX, float moveSpeed, float upwardsSpeed)
         {
@@ -58,6 +58,9 @@ namespace bluewarp
             var shipTexture = Entity.Scene.Content.LoadTexture(Nez.Content.PlayerShip.playership);
             var sprites = Sprite.SpritesFromAtlas(shipTexture, 32, 32);
 
+            var explosionTexture = Entity.Scene.Content.LoadTexture(Nez.Content.BasicEnemy.explosion);
+            var explosion = Sprite.SpritesFromAtlas(explosionTexture, 32, 32);
+
             _mover = Entity.AddComponent(new Mover());
             _animator = Entity.AddComponent<SpriteAnimator>();
 
@@ -69,22 +72,46 @@ namespace bluewarp
             {
                 sprites[3], sprites[4], sprites[5]
             });
+            _animator.AddAnimation("Explosion", explosion.ToArray());
             _animator.RenderLayer = RenderLayer.PlayerAnimator;
 
             setupInput();
             randomSkinChooser();
-            //Transform.Position = new Vector2(_startWidthX, _startHeightY);
+        }
+
+        void IDestructable.PlayExplosionAndDestroy()
+        {
+            if (_isDying) return;
+            _isDying = true;
+
+            _shouldMove = false;
+            var collider = Entity.GetComponent<Collider>();
+            if (collider != null ) 
+                collider.SetEnabled(false);
+            
+            void OnExplosionComplete(string animationName)
+            {
+                if (animationName == "Explosion")
+                {
+                    _animator.OnAnimationCompletedEvent -= OnExplosionComplete;
+                    Entity.Destroy();
+                }
+            }
+            _animator.OnAnimationCompletedEvent += OnExplosionComplete;
+            _animator.Play("Explosion", SpriteAnimator.LoopMode.Once);
         }
 
         public override void OnRemovedFromEntity()
         {
             // deregister virtual input
             _fireInput.Deregister();
+            _xAxisInput.Deregister();
+            _yAxisInput.Deregister();
         }
 
         void randomSkinChooser()
         {
-            var randomInt = Nez.Random.Range(1, 4);
+            var randomInt = Nez.Random.Range(1, 5);
             if (randomInt == 1)
             {
                 _shipState = ShipState.PoweredUp;
@@ -117,6 +144,8 @@ namespace bluewarp
 
         void IUpdatable.Update()
         {
+            if (_isDying) return;
+
             if (!_animator.IsAnimationActive(animation))
                 _animator.Play(animation);
 
@@ -145,7 +174,12 @@ namespace bluewarp
             {
                 _lastProjectileTime = Time.TotalTime;
                 var battleScene = Entity.Scene as RunGameScene;
-                battleScene.CreateProjectiles(new Vector2(Transform.Position.X, Transform.Position.Y + ProjectileSpawnOffset), _projectileSpeed * ProjectileUpDir);
+                battleScene.CreateProjectiles(
+                    new Vector2(Transform.Position.X, Transform.Position.Y + ProjectileSpawnOffset), 
+                    _projectileSpeed * ProjectileUpDir,
+                    CollideWithLayer.PlayerProjectile,
+                    PhysicsLayer.PlayerProjectile,
+                    Nez.Content.PlayerShip.player_main_projectile);
             }
             
         }

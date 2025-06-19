@@ -13,6 +13,7 @@ namespace Nez
     {
 		public static class BasicEnemy
 		{
+			public const string enemy_projectile = @"Content\BasicEnemy\enemy_projectile.png";
 			public const string explosion = @"Content\BasicEnemy\explosion.png";
 			public const string static_enemy = @"Content\BasicEnemy\static_enemy.png";
 		}
