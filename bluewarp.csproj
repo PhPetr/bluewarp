@@ -55,6 +55,15 @@
     <None Update="Content\BasicEnemy\static_enemy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\BossEnemy\Magnus\magnus_boss_left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\BossEnemy\Magnus\magnus_boss_main.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\BossEnemy\Magnus\magnus_boss_right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Level1\baseTiles.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
