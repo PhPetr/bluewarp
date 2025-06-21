@@ -2,6 +2,7 @@
 using Nez.Sprites;
 using Nez.Textures;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace bluewarp
 {
@@ -17,6 +18,8 @@ namespace bluewarp
 
         protected Collider _collider;
         protected SpriteAnimator _explosionAnimator;
+
+        public event Action<Entity> OnDestroyed;
 
         public override void OnAddedToEntity()
         {
@@ -56,6 +59,7 @@ namespace bluewarp
             }
             else
             {
+                OnDestroyed?.Invoke(Entity);
                 Entity.Destroy();
             }
         }
@@ -65,6 +69,7 @@ namespace bluewarp
             if (animationName == "Explosion")
             {
                 _explosionAnimator.OnAnimationCompletedEvent -= OnExplosionComplete;
+                OnDestroyed?.Invoke(Entity);
                 Entity.Destroy();
             }
         }

@@ -7,6 +7,7 @@ namespace bluewarp
     public class ZoneTrigger : Component, ITriggerListener
     {
         public const int BasicEnemyMaxHealth = 5;
+        const string BossZoneName = "bossZone";
         
         private string _zoneName;
         private TmxMap _map;
@@ -21,22 +22,15 @@ namespace bluewarp
 
         void ITriggerListener.OnTriggerEnter(Collider other, Collider local)
         {
-            var objectGroup = _map.GetObjectGroup(_zoneName);
-            if (objectGroup == null)
+            if (_zoneName == BossZoneName)
             {
-                Debug.Warn($"No object group named {_zoneName} found.");
-                return;
+                var bossSpawner = _scene.CreateEntity("bossSpawner").AddComponent<BossSpawner>();
+                var bossPhaseHandler = bossSpawner.AddComponent<MagnusPhaseHandler>();
+                bossSpawner.SpawnBossMagnus(_zoneName, _map, _scene, bossPhaseHandler);
             }
-            
-            foreach (var obj in objectGroup.Objects)
+            else
             {
-                var objPosition = new Vector2(obj.X + 16, obj.Y + 16);
-                var enemyEntity = _scene.CreateEntity(obj.Name, objPosition);
-                enemyEntity.AddComponent(new StationaryEnemy());
-                enemyEntity.AddComponent(new ProjectileHitDetector(BasicEnemyMaxHealth));
-                var enemyCollider = enemyEntity.AddComponent<CircleCollider>();
-                Flags.SetFlagExclusive(ref enemyCollider.CollidesWithLayers, CollideWithLayer.StationaryEnemy);
-                Flags.SetFlagExclusive(ref enemyCollider.PhysicsLayer, PhysicsLayer.StationaryEnemy);
+                SpawnStationaryEnemy.SpawnEnemiesFromZone(_zoneName, _map, _scene);
             }
 
             Entity.Destroy();
