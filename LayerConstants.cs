@@ -4,7 +4,7 @@
     {
         public const int TileMap = 10;
         public const int PlayerProjectile = 2;
-        public const int StationaryEnemySprite = 1;
+        public const int StationaryEnemySprite = 3;
         public const int StationaryEnemyExplosion = 2;
         public const int PlayerAnimator = 1;
         public const int BossHands = 1;

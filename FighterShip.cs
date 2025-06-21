@@ -29,24 +29,18 @@ namespace bluewarp
         VirtualIntegerAxis _yAxisInput;
 
         float _elapsedTimeAfterCreation = 0f;
-        float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
 
-        int _startHeightY;
-        int _startWidthX;
-        const int _stopHeightY = 32 * 7 - 16;
-        public FighterShip(int startHeightY, int startWidthX, float moveSpeed, float upwardsSpeed)
+        public FighterShip(float moveSpeed, float upwardsSpeed)
         {
-            _startHeightY = startHeightY;
-            _startWidthX = startWidthX;
             _moveSpeed = moveSpeed;
             _upwardsSpeed = upwardsSpeed;
 
-            ProjectileSpeed = new Vector2(300);
-            ProjectileSpawnOffset = -24;
+            ProjectileSpeed = new Vector2(GameConstants.Player.ProjectileSpeed);
+            ProjectileSpawnOffset = GameConstants.Player.ProjectileSpawnOffset;
             ProjectileDirection = new Vector2(0, -1);
-            ProjectileDelay = 0.2f;
+            ProjectileDelay = GameConstants.Player.ProjectileDelay;
         }
 
         public override void OnAddedToEntity()
@@ -63,10 +57,10 @@ namespace bluewarp
         protected override void SetupVisuals()
         {
             var shipTexture = Entity.Scene.Content.LoadTexture(Nez.Content.PlayerShip.playership);
-            var sprites = Sprite.SpritesFromAtlas(shipTexture, 32, 32);
+            var sprites = Sprite.SpritesFromAtlas(shipTexture, GameConstants.TileSize, GameConstants.TileSize);
 
             var explosionTexture = Entity.Scene.Content.LoadTexture(Nez.Content.BasicEnemy.explosion);
-            var explosion = Sprite.SpritesFromAtlas(explosionTexture, 32, 32);
+            var explosion = Sprite.SpritesFromAtlas(explosionTexture, GameConstants.TileSize, GameConstants.TileSize);
             _explosionAnimator = _animator;
             _animator.AddAnimation("Explosion", explosion.ToArray());
 
@@ -102,7 +96,7 @@ namespace bluewarp
 
         void randomSkinChooser()
         {
-            var randomInt = Nez.Random.Range(1, 5);
+            var randomInt = Nez.Random.Range(1, GameConstants.Player.SkinChance);
             if (randomInt == 1)
             {
                 _shipState = ShipState.PoweredUp;
@@ -143,7 +137,7 @@ namespace bluewarp
             if (!_shouldMove)
             {
                 _elapsedTimeAfterCreation += Time.DeltaTime;
-                if (_elapsedTimeAfterCreation >= _delayMoveStart)
+                if (_elapsedTimeAfterCreation >= GameConstants.MoveStartDelay)
                 {
                     _shouldMove = true;
                 }
@@ -152,7 +146,7 @@ namespace bluewarp
             
             var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
             var upwardMovement = new Vector2(0, -1 * _upwardsSpeed * Time.DeltaTime);
-            if (Transform.Position.Y <= _stopHeightY) 
+            if (Transform.Position.Y <= GameConstants.Player.StopHeightY) 
                 upwardMovement = new Vector2(0, 0);
 
             var inputMovement = moveDir * _moveSpeed * Time.DeltaTime;

@@ -37,17 +37,8 @@ namespace bluewarp
             Entity.Scene.Camera.Position = new Vector2(lockedX, Entity.Scene.Camera.Position.Y);
             if (cameraBounds.Top < Min.Y)
                 Entity.Scene.Camera.Position += new Vector2(0, Min.Y - cameraBounds.Top);
-            /*
-            if (cameraBounds.Left < Min.X)
-                Entity.Scene.Camera.Position += new Vector2(Min.X - cameraBounds.Left, 0);
-            */
             if (cameraBounds.Bottom > Max.Y)
                 Entity.Scene.Camera.Position += new Vector2(0, Max.Y - cameraBounds.Bottom);
-            /*
-            if (cameraBounds.Right > Max.X)
-                Entity.Scene.Camera.Position += new Vector2(Max.X - cameraBounds.Right, 0);
-            */
-            
         }
     }
 }

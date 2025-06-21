@@ -8,7 +8,7 @@ namespace bluewarp
         /// <summary>
         /// Subscribes to an enity's desctruction event if it implements IDestructable.
         /// </summary>
-        /// <param name="component">The component implemented with IDestructable</param>
+        /// <param name="component">The component that implements IDestructable</param>
         /// <param name="onDestroyed">Callback invoked when the entity is destroyed</param>
         public static void Subscribe(Component component, Action<Entity> onDestroyed)
         {
@@ -23,7 +23,7 @@ namespace bluewarp
             }
             else
             {
-                Debug.Warn($"Componnent '{component.GetType().Name}' does not implement IDestructable");
+                Debug.Warn($"Component '{component.GetType().Name}' does not implement IDestructable");
             }
         }
     }

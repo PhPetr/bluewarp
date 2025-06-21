@@ -10,21 +10,21 @@ namespace bluewarp
 {
     public class CameraMover : Component, IUpdatable
     {
-        int _startHeightY = 200 * 32;
-        int _startWidthX = 4 * 32;
-        int _stopHeightY = 64;
+        private int _startHeightY;
+        private int _startWidthX;
         
         SubpixelVector2 _subpixelV2 = new SubpixelVector2();
         float _moveSpeed;
 
         float _elapsedTimeAfterCreation = 0f;
-        float _delayMoveStart = 2f;
         bool _shouldMove = false;
         bool _stopped = false;
 
         //Mover _mover;
 
-        public CameraMover(int startHeightY, int startWidthX, float moveSpeed)
+        public CameraMover(int startHeightY = GameConstants.Camera.DefaultStartHeightY, 
+            int startWidthX = GameConstants.Camera.DefaultStartWidthX, 
+            float moveSpeed = GameConstants.DefaultUpwardsScrollSpeed)
         {
             _startHeightY = startHeightY;
             _startWidthX = startWidthX;
@@ -50,13 +50,13 @@ namespace bluewarp
             if (!_shouldMove)
             {
                 _elapsedTimeAfterCreation += Time.DeltaTime;
-                if (_elapsedTimeAfterCreation >= _delayMoveStart)
+                if (_elapsedTimeAfterCreation >= GameConstants.MoveStartDelay)
                 {
                     _shouldMove = true;
                 }
                 return;
             }
-            if (Transform.Position.Y < _stopHeightY) return;
+            if (Transform.Position.Y < GameConstants.Camera.DefaultStopHeightY) return;
             
             //var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
 

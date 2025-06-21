@@ -10,19 +10,21 @@ namespace bluewarp
     {        
         static System.Random _random = new System.Random();
         float _nextFireDelay = 1f;
-        const string _defaultEnemyTexture = Nez.Content.BasicEnemy.static_enemy;
         protected string EnemyTexture;
         protected int EnemyRenderLayer;
 
         SpriteRenderer _renderer;
-        public StationaryEnemy(string enemyTexture = _defaultEnemyTexture, int renderLayer = bluewarp.RenderLayer.StationaryEnemySprite, int projectileOffset = 24)
+        public StationaryEnemy(string enemyTexture = GameConstants.BasicEnemy.DefaultTexture, 
+            int renderLayer = bluewarp.RenderLayer.StationaryEnemySprite, 
+            int projectileOffset = 24, 
+            float projectileDelay = 1.5f)
         {
             EnemyTexture = enemyTexture;
             EnemyRenderLayer = renderLayer;
             ProjectileSpawnOffset = projectileOffset;
             ProjectileDirection = new Vector2 (0, 1);
             ProjectileSpeed = new Vector2(100);
-            ProjectileDelay = 1.5f;
+            ProjectileDelay = projectileDelay;
         }
 
         protected override void SetupVisuals()

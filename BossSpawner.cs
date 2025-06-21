@@ -6,20 +6,13 @@ namespace bluewarp
 {
     public class BossSpawner: Component
     {
-        public const int BossMainHealth = 15;
-        public const int BossSecondaryHealth = 10;
-        public const int SecondaryKillScore = 200;
-        public const int MainKillScore = 500;
-
-        const string BossZoneName = "bossZone";
-
         private MagnusPhaseHandler _phaseHandler;
         private CircleCollider _mainBodyCollider;
         private RunGameScene _battleScene;
 
         public void SpawnBossMagnus(string zoneName, TmxMap map, Scene scene, MagnusPhaseHandler phaseHandler)
         {
-            if (zoneName != BossZoneName)
+            if (zoneName != GameConstants.BossEnemy.BossZoneName)
             {
                 Debug.Warn("Not a bossZone triggered boss spawn!");
                 return;
@@ -54,20 +47,20 @@ namespace bluewarp
             var handTexture = (leftHand) ? Nez.Content.BossEnemy.Magnus.magnus_boss_left : Nez.Content.BossEnemy.Magnus.magnus_boss_right;
             var handPosition = new Vector2 (hand.X + 16, hand.Y + 16);
             var handEntity = scene.CreateEntity(hand.Name, handPosition);
-            var enemyHand = new StationaryEnemy(handTexture, RenderLayer.BossHands, 16);
+            var enemyHand = new StationaryEnemy(handTexture, RenderLayer.BossHands, 16, 0.8f);
             handEntity.AddComponent(enemyHand);
 
             DestructionObserver.Subscribe(enemyHand, e =>
             {
                 Debug.Log($"[Boss Hand Destroyed] Entity: {e.Name}");
 
-                _battleScene.AddToScore(SecondaryKillScore);
-                Debug.Log($"[Awarded {SecondaryKillScore} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
+                _battleScene.AddToScore(GameConstants.BossEnemy.Magnus.SecondaryRewardPoints);
+                Debug.Log($"[Awarded {GameConstants.BossEnemy.Magnus.SecondaryRewardPoints} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
                 
                 _phaseHandler.HandDestroyed(e.Name, _mainBodyCollider);
             });
 
-            handEntity.AddComponent(new ProjectileHitDetector(BossSecondaryHealth));
+            handEntity.AddComponent(new ProjectileHitDetector(GameConstants.BossEnemy.Magnus.SecondaryMaxHealth));
             var handCollider = handEntity.AddComponent(new CircleCollider(10));
             Flags.SetFlagExclusive(ref handCollider.CollidesWithLayers, CollideWithLayer.StationaryEnemy);
             Flags.SetFlagExclusive(ref handCollider.PhysicsLayer, PhysicsLayer.StationaryEnemy);
@@ -78,18 +71,18 @@ namespace bluewarp
             var bodyTexture = Nez.Content.BossEnemy.Magnus.magnus_boss_main;
             var bodyPosition = new Vector2(body.X + 64, body.Y + 32);
             var bodyEntity = scene.CreateEntity(body.Name, bodyPosition);
-            var mainBody = new StationaryEnemy(bodyTexture, RenderLayer.BossBody, 5);
+            var mainBody = new StationaryEnemy(bodyTexture, RenderLayer.BossBody, 5, 1f);
             bodyEntity.AddComponent(mainBody);
 
             DestructionObserver.Subscribe(mainBody, e =>
             {
                 Debug.Log($"[Main Boss body destroyed] Entity: {e.Name}");
-                _battleScene.AddToScore(MainKillScore);
-                Debug.Log($"[Awarded {MainKillScore} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
+                _battleScene.AddToScore(GameConstants.BossEnemy.Magnus.MainRewardPoints);
+                Debug.Log($"[Awarded {GameConstants.BossEnemy.Magnus.MainRewardPoints} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
                 SceneManager.LoadGameOver();
             });
 
-            bodyEntity.AddComponent(new ProjectileHitDetector(BossMainHealth));
+            bodyEntity.AddComponent(new ProjectileHitDetector(GameConstants.BossEnemy.Magnus.MainMaxHealth));
             _mainBodyCollider = bodyEntity.AddComponent(new CircleCollider(18));
             _mainBodyCollider.LocalOffset = new Vector2(0, -10);
             _mainBodyCollider.SetEnabled(false);

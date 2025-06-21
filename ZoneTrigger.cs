@@ -5,10 +5,7 @@ using Microsoft.Xna.Framework;
 namespace bluewarp
 {
     public class ZoneTrigger : Component, ITriggerListener
-    {
-        public const int BasicEnemyMaxHealth = 5;
-        const string BossZoneName = "bossZone";
-        
+    {        
         private string _zoneName;
         private TmxMap _map;
         private Scene _scene;
@@ -22,7 +19,7 @@ namespace bluewarp
 
         void ITriggerListener.OnTriggerEnter(Collider other, Collider local)
         {
-            if (_zoneName == BossZoneName)
+            if (_zoneName == GameConstants.BossEnemy.BossZoneName)
             {
                 var bossSpawner = _scene.CreateEntity("bossSpawner").AddComponent<BossSpawner>();
                 var bossPhaseHandler = bossSpawner.AddComponent<MagnusPhaseHandler>();

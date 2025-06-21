@@ -2,19 +2,27 @@
 using Nez.Sprites;
 using Nez.Textures;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace bluewarp
 {
-    public class ProjectileHitDetector : Component, ITriggerListener
+    public class ProjectileHitDetector : Component, ITriggerListener, IHittable
     {
-        int _hitsUntilDead = 10;
+        //int _hitsUntilDead = 10;
+        private int _maxHealth;
+        private int _currentHealth;
 
-        int _hitCounter;
-        SpriteRenderer _sprite;
+        //int _hitCounter;
+        private SpriteRenderer _sprite;
+
+        public event Action<Entity, int> OnHit;
+        public int CurrentHealth => _currentHealth;
+        public int MaxHealth => _maxHealth;
 
         public ProjectileHitDetector(int health = 10)
         {
-            _hitsUntilDead = (health > 0) ? health : 10;
+            _maxHealth = (health > 0) ? health : 10;
+            _currentHealth = health;
         }
 
         public override void OnAddedToEntity()
@@ -27,8 +35,11 @@ namespace bluewarp
             // Ignore player event trigger
             if (other.PhysicsLayer == (1 << CollideWithLayer.PlayerEventCollider)) return;
 
-            _hitCounter++;
-            if (_hitCounter >= _hitsUntilDead)
+            _currentHealth--;
+
+            OnHit?.Invoke(Entity, _currentHealth);
+
+            if (_currentHealth <= 0)
             {
                 var destructable = Entity.GetComponent<IDestructable>();
                 if (destructable != null) 

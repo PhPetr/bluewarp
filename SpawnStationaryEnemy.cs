@@ -7,10 +7,10 @@ namespace bluewarp
 {
     public static class SpawnStationaryEnemy
     {
-        public const int DefaultStationaryEnemyMaxHealth = 5;
-        public const int EnemyKillScore = 100;
-
-        public static void SpawnEnemiesFromZone(string zoneName, TmxMap map, Scene scene, int maxHealth = DefaultStationaryEnemyMaxHealth)
+        public static void SpawnEnemiesFromZone(string zoneName, 
+            TmxMap map, 
+            Scene scene, 
+            int maxHealth = GameConstants.BasicEnemy.DefaultMaxHealth)
         {
             var objectGroup = map.GetObjectGroup(zoneName);
             if (objectGroup == null)
@@ -36,8 +36,8 @@ namespace bluewarp
                     Debug.Log($"[Basic enemy destroyed] Entity: {e.Name}");
                     if (battleScene != null)
                     {
-                        battleScene.AddToScore(EnemyKillScore);
-                        Debug.Log($"[Awarded {EnemyKillScore} points] Entity: {e.Name}, Current score: {battleScene.GetScore()}");
+                        battleScene.AddToScore(GameConstants.BasicEnemy.RewardPoints);
+                        Debug.Log($"[Awarded {GameConstants.BasicEnemy.RewardPoints} points] Entity: {e.Name}, Current score: {battleScene.GetScore()}");
                     }
 
                 });

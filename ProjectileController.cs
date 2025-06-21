@@ -9,7 +9,6 @@ namespace bluewarp
 	/// </summary>
     public class ProjectileController : Component, IUpdatable
     {
-        const int G_Height = 192;
         public Vector2 Velocity;
 
         ProjectileMover _mover;
@@ -24,7 +23,7 @@ namespace bluewarp
         void IUpdatable.Update()
         {
             var _projectileTotalTimeAlive = Entity.GetComponent<TimeAliveComponent>().TotalTimeAlive;
-            if (MathF.Abs(Velocity.Y) * _projectileTotalTimeAlive >= G_Height)
+            if (MathF.Abs(Velocity.Y) * _projectileTotalTimeAlive >= GameConstants.Projectile.DefaultTravelLimit)
                 Entity.Destroy();
             if (_mover.Move(Velocity * Time.DeltaTime))
                 Entity.Destroy();
