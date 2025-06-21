@@ -8,10 +8,7 @@ using System;
 namespace bluewarp
 {
     internal class RunGameScene : BaseScene
-    {
-        const int X_LockedOffset = 159;
-        const int EndHeightY = 64;
-        
+    {        
         int _startWidthX;
         int _startHeightY;
 
@@ -73,21 +70,6 @@ namespace bluewarp
             }
         }
 
-        private void SettingUpCamera()
-        {
-            // Setting camera
-            var topLeft = new Vector2(_tileMap.TileWidth, _tileMap.TileWidth);
-            var bottomRight = new Vector2(
-                _tileMap.TileWidth * (_tileMap.Width - 1),
-                _tileMap.TileWidth * (_tileMap.Height - 1));
-            _tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, X_LockedOffset));
-
-            _mainCameraMover = CreateEntity("camera-mover");
-            _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX, GameConstants.UpwardsScrollSpeed));
-            //Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
-            Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //FOR TESTING
-        }
-
         private void LoadPlayer()
         {
             var playerSpawn = _tileMap.GetObjectGroup("start").Objects["playerSpawn"];
@@ -96,16 +78,27 @@ namespace bluewarp
             _startWidthX = (int)playerSpawn.X;
 
             _playerShip = CreateEntity("player-ship", playerSpawnPosition);
-            var ship = new FighterShip(_startHeightY, _startWidthX, GameConstants.ShipMoveSpeed, GameConstants.UpwardsScrollSpeed);
+            var ship = new FighterShip(GameConstants.Player.ShipMoveSpeed, GameConstants.DefaultUpwardsScrollSpeed);
             _playerShip.AddComponent(ship);
+
+            var hitDetector = new ProjectileHitDetector(GameConstants.Player.ShipMaxHealth);
+            _playerShip.AddComponent(hitDetector);
+
+            Action<Entity, int> hitCallback = (entity, currentHealth) =>
+            {
+                Debug.Log($"[Player ship hit] Current HP: {currentHealth}");
+                UpdatePlayerHP(currentHealth);
+            };
+
+            var hitWrapper = HitObserver.Subscribe(hitDetector, hitCallback);
 
             DestructionObserver.Subscribe(ship, e =>
             {
-                Debug.Log($"[Player ship destroyed] Enitity: {e.Name}");
+                Debug.Log($"[Player ship destroyed] Entity: {e.Name}");
+                HitObserver.Unsubscribe(hitDetector, hitCallback);
                 SceneManager.LoadGameOver();
             });
 
-            _playerShip.AddComponent(new ProjectileHitDetector(GameConstants.ShipMaxHealth));
             var shipCollider = _playerShip.AddComponent<CircleCollider>();
 
             // we only want to collide with the tilemap, which is on the default layer 0
@@ -117,6 +110,21 @@ namespace bluewarp
             Flags.SetFlagExclusive(ref eventTriggerCollider.CollidesWithLayers, CollideWithLayer.PlayerEventCollider); // layer 6 will have map zone triggers
             Flags.SetFlagExclusive(ref eventTriggerCollider.PhysicsLayer, PhysicsLayer.PlayerEventCollider);
             eventTriggerCollider.IsTrigger = true;
+        }
+
+        private void SettingUpCamera()
+        {
+            // Setting camera
+            var topLeft = new Vector2(_tileMap.TileWidth, _tileMap.TileWidth);
+            var bottomRight = new Vector2(
+                _tileMap.TileWidth * (_tileMap.Width - 1),
+                _tileMap.TileWidth * (_tileMap.Height - 1));
+            _tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, GameConstants.XLockedOffset));
+
+            _mainCameraMover = CreateEntity("camera-mover");
+            _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX));
+            Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
+            //Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //FOR TESTING
         }
 
         public Entity CreateProjectiles(Vector2 position, Vector2 velocity, int projectileCollideWithLayer, int projectilePhysicsLayer, string textureSource)
@@ -147,6 +155,24 @@ namespace bluewarp
             return entity;
         }
 
+        #region HP UI
+        public void UpdatePlayerHP(int newHP)
+        {
+            _UIManager?.UpdatePlayerHP(newHP);
+        }
+        
+        public void AddToPlayerHP(int points)
+        {
+            _UIManager?.AddToPlayerHP(points);
+        }
+
+        public int GetPlayerHP()
+        {
+            return _UIManager?.GetPlayerHP() ?? 0;
+        }
+        #endregion
+
+        #region Score methods
         public void AddToScore(int points)
         {
             _UIManager?.AddToScore(points);
@@ -154,7 +180,9 @@ namespace bluewarp
         public int GetScore()
         {
             return _UIManager?.GetScore() ?? 0;
-        } 
+        }
+        #endregion
+
         public override void End()
         {
             _UIManager?.Dispose();

@@ -11,14 +11,25 @@ namespace bluewarp
         private Entity _uiEntity;
         private UICanvas _uiCanvas;
         private Table _table;
+
+        private LabelStyle _defaultLabelStyle;
         private int _score;
         private Label _scoreTitleLabel;
         private Label _scoreValueLabel;
+
+        private int _playerHP;
+        private Label _playerHPTitleLabel;
+        private Label _playerHPValueLabel;
 
         public GameUIManager(Scene scene)
         {
             _scene = scene;
             _score = 0;
+            _playerHP = GameConstants.Player.ShipMaxHealth;
+            _defaultLabelStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
+            {
+                FontScale = GameConstants.Scale
+            };
             CreateUi();
         }
 
@@ -34,20 +45,64 @@ namespace bluewarp
             _table.SetFillParent(true);
             _table.Top().Right();
 
-            var labelStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
-            {
-                FontScale = GameConstants.Scale
-            };
+            ScoreUISetup();
 
-            _scoreTitleLabel = _table.Add(new Label($"Score:", labelStyle)).GetElement<Label>();
+            NewEmptyLine();
+
+            HPUISetup();
+
+            _table.Pad(10);
+        }
+
+        private void NewEmptyLine()
+        {
+            _table.Row();
+            _table.Add(new Label(" ", _defaultLabelStyle));
+            _table.Row();
+        }
+
+        #region HP UI
+        private void HPUISetup()
+        {
+            _playerHPTitleLabel = _table.Add(new Label("HP:", _defaultLabelStyle)).GetElement<Label>();
+            _playerHPTitleLabel.SetAlignment(Align.Right);
+
+            _table.Row();
+
+            _playerHPValueLabel = _table.Add(new Label(_playerHP.ToString(), _defaultLabelStyle)).GetElement<Label>();
+            _playerHPValueLabel.SetAlignment(Align.Right);
+        }
+
+        public void UpdatePlayerHP(int newValue)
+        {
+            _playerHP = newValue;
+            if (_playerHPValueLabel != null)
+            {
+                _playerHPValueLabel.SetText(_playerHP.ToString());
+            }
+        }
+
+        public void AddToPlayerHP(int points)
+        {
+            UpdatePlayerHP(_playerHP +  points);
+        }
+
+        public int GetPlayerHP()
+        {
+            return _playerHP;
+        }
+        #endregion
+
+        #region ScoreUI
+        private void ScoreUISetup()
+        {
+            _scoreTitleLabel = _table.Add(new Label($"Score:", _defaultLabelStyle)).GetElement<Label>();
             _scoreTitleLabel.SetAlignment(Align.Right);
 
             _table.Row();
 
-            _scoreValueLabel = _table.Add(new Label(_score.ToString(), labelStyle)).GetElement<Label>();
+            _scoreValueLabel = _table.Add(new Label(_score.ToString(), _defaultLabelStyle)).GetElement<Label>();
             _scoreValueLabel.SetAlignment(Align.Right);
-
-            _table.Pad(10);
         }
 
         public void UpdateScore(int newScore)
@@ -68,6 +123,7 @@ namespace bluewarp
         {
             return _score;
         }
+        #endregion
 
         public void Dispose()
         {
