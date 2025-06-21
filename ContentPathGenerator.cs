@@ -18,6 +18,17 @@ namespace Nez
 			public const string static_enemy = @"Content\BasicEnemy\static_enemy.png";
 		}
 
+		public static class BossEnemy
+		{
+			public static class Magnus
+			{
+				public const string magnus_boss_left = @"Content\BossEnemy\Magnus\magnus_boss_left.png";
+				public const string magnus_boss_main = @"Content\BossEnemy\Magnus\magnus_boss_main.png";
+				public const string magnus_boss_right = @"Content\BossEnemy\Magnus\magnus_boss_right.png";
+			}
+
+		}
+
 		public static class Level1
 		{
 			public const string basetiles = @"Content\Level1\baseTiles.tsx";
