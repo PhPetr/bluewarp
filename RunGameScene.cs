@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
-using Nez.Systems;
 using Nez.Textures;
 using Nez.Tiled;
 using System;
@@ -11,17 +9,8 @@ namespace bluewarp
 {
     internal class RunGameScene : BaseScene
     {
-        const int Scale = 5;
-        const int G_Width = 256;
-        const int G_Height = 192;
         const int X_LockedOffset = 159;
-
         const int EndHeightY = 64;
-        const float UpwardsSpeed = 50f;
-        //const float MapDuration = 100f;
-
-        const float ShipMoveSpeed = 125f;
-        const int ShipMaxHealth = 5;
         
         int _startWidthX;
         int _startHeightY;
@@ -33,6 +22,8 @@ namespace bluewarp
 
         private Entity _playerShip;
 
+        private GameUIManager _UIManager;
+
         internal static readonly string[] levelOneLayerNames = new[] { "BaseLayer", "BossLayer" };
 
         public RunGameScene() : base(true, true)
@@ -42,9 +33,10 @@ namespace bluewarp
         {
             base.Initialize();
             
-            SetDesignResolution(G_Width, G_Height, SceneResolutionPolicy.ShowAllPixelPerfect);
-            Screen.SetSize(G_Width * Scale, G_Height * Scale);
+            SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
+            Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
             ClearColor = Color.Black;
+            _UIManager = new GameUIManager(this);
             
             LoadTileMap();
 
@@ -91,10 +83,9 @@ namespace bluewarp
             _tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, X_LockedOffset));
 
             _mainCameraMover = CreateEntity("camera-mover");
-            _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX, UpwardsSpeed));
-            //_mainCameraMover.AddComponent(new SmoothVerticalMover(StartHeightY, StartWidthX, EndHeightY, MapDuration));
-            Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
-            //Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //FOR TESTING
+            _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX, GameConstants.UpwardsScrollSpeed));
+            //Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
+            Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //FOR TESTING
         }
 
         private void LoadPlayer()
@@ -105,8 +96,16 @@ namespace bluewarp
             _startWidthX = (int)playerSpawn.X;
 
             _playerShip = CreateEntity("player-ship", playerSpawnPosition);
-            _playerShip.AddComponent(new FighterShip(_startHeightY, _startWidthX, ShipMoveSpeed, UpwardsSpeed));
-            _playerShip.AddComponent(new ProjectileHitDetector(ShipMaxHealth));
+            var ship = new FighterShip(_startHeightY, _startWidthX, GameConstants.ShipMoveSpeed, GameConstants.UpwardsScrollSpeed);
+            _playerShip.AddComponent(ship);
+
+            DestructionObserver.Subscribe(ship, e =>
+            {
+                Debug.Log($"[Player ship destroyed] Enitity: {e.Name}");
+                SceneManager.LoadGameOver();
+            });
+
+            _playerShip.AddComponent(new ProjectileHitDetector(GameConstants.ShipMaxHealth));
             var shipCollider = _playerShip.AddComponent<CircleCollider>();
 
             // we only want to collide with the tilemap, which is on the default layer 0
@@ -146,6 +145,20 @@ namespace bluewarp
             spriteRenderer.RenderLayer = RenderLayer.PlayerProjectile;
             
             return entity;
+        }
+
+        public void AddToScore(int points)
+        {
+            _UIManager?.AddToScore(points);
+        }
+        public int GetScore()
+        {
+            return _UIManager?.GetScore() ?? 0;
+        } 
+        public override void End()
+        {
+            _UIManager?.Dispose();
+            base.End();
         }
     }
 }
