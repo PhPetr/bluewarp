@@ -13,7 +13,7 @@ namespace bluewarp
         public const int XLockedOffset = 159;
         public const int TileSize = 32;
 
-        public const float DefaultUpwardsScrollSpeed = 50f;
+        public const float DefaultUpwardsScrollSpeed = 50f; // at 50f => 2:05 minutes for level1 
         public const float MoveStartDelay = 2f;
         
         public static class Camera
