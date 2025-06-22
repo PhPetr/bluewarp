@@ -9,6 +9,8 @@
         public const int PlayerAnimator = 1;
         public const int BossHands = 1;
         public const int BossBody = 3;
+
+        public const int DefaultUIRenderLayer = 999;
     }
 
     public static class PhysicsLayer // if on same layer, not affected

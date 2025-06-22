@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using bluewarp.Scenes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nez;
@@ -18,7 +19,9 @@ namespace bluewarp
 
             Window.AllowUserResizing = true;
             Core.DebugRenderEnabled = false;
-            Scene = new RunGameScene();
+            
+            Scene = new MenuScene();
+            //Scene = new RunGameScene();
             //SceneManager.LoadGameScene();
         }
 

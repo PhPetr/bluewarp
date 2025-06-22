@@ -70,7 +70,7 @@ namespace bluewarp
                 zoneCollider.IsTrigger = true;
                 Flags.SetFlagExclusive(ref zoneCollider.CollidesWithLayers, CollideWithLayer.Zones);
                 Flags.SetFlagExclusive(ref zoneCollider.PhysicsLayer, PhysicsLayer.Zones);
-                zoneEntity.AddComponent(new ZoneTrigger(zone.Name, _tileMap, this));
+                zoneEntity.AddComponent(new ZoneTriggerComponent(zone.Name, _tileMap, this));
                 
             }
         }

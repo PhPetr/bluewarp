@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp
 {
-    public class ZoneTrigger : Component, ITriggerListener
+    public class ZoneTriggerComponent : Component, ITriggerListener
     {        
         private string _zoneName;
         private TmxMap _map;
         private Scene _scene;
 
-        public ZoneTrigger(string zoneName, TmxMap map, Scene scene)
+        public ZoneTriggerComponent(string zoneName, TmxMap map, Scene scene)
         {
             _zoneName = zoneName;
             _map = map;
