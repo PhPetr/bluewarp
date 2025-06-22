@@ -14,11 +14,18 @@ namespace bluewarp
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            LoadBGMusic();
 
             Window.AllowUserResizing = true;
             Core.DebugRenderEnabled = false;
             Scene = new RunGameScene();
             //SceneManager.LoadGameScene();
+        }
+
+        private void LoadBGMusic()
+        {
+            BGMusicManager.LoadSong(GameConstants.BGM.BlueChill, GameConstants.BGM.BlueChillPath);
+            BGMusicManager.LoadSong(GameConstants.BGM.BlueTension, GameConstants.BGM.BlueTensionPath);
         }
     }
 }

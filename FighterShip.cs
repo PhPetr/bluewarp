@@ -1,10 +1,9 @@
 ﻿using Nez;
 using Nez.Sprites;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Nez.Textures;
-using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace bluewarp
 {
@@ -30,7 +29,6 @@ namespace bluewarp
 
         float _elapsedTimeAfterCreation = 0f;
         bool _shouldMove = false;
-        bool _stopped = false;
 
         public FighterShip(float moveSpeed, float upwardsSpeed)
         {
@@ -84,6 +82,7 @@ namespace bluewarp
                 CollideWithLayer.PlayerProjectile,
                 PhysicsLayer.PlayerProjectile,
                 Nez.Content.PlayerShip.player_main_projectile);
+            GameSFXManager.PlaySFX(GameConstants.SFX.Blaster, GameConstants.SFX.BlasterVolume);
         }
 
         public override void OnRemovedFromEntity()

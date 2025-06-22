@@ -13,3 +13,33 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin BGM/blue_chill.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BGM/blue_chill.mp3
+
+#begin BGM/high_blue_tension_loop_ver.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BGM/high_blue_tension_loop_ver.mp3
+
+#begin SFX/damage-impact.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/damage-impact.wav
+
+#begin SFX/retro-shot-blaster.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/retro-shot-blaster.wav
+
+#begin SFX/retro-space-explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/retro-space-explosion.wav
+

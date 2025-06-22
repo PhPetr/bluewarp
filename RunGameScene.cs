@@ -33,8 +33,13 @@ namespace bluewarp
             SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
             Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
             ClearColor = Color.Black;
+
+            BGMusicManager.Play(GameConstants.BGM.BlueTension);
+
             _UIManager = new GameUIManager(this);
-            
+
+            GameSFXManager.LoadContent();
+
             LoadTileMap();
 
             LoadPlayer();
@@ -88,6 +93,7 @@ namespace bluewarp
             {
                 Debug.Log($"[Player ship hit] Current HP: {currentHealth}");
                 UpdatePlayerHP(currentHealth);
+                GameSFXManager.PlaySFX(GameConstants.SFX.DamageImpact, GameConstants.SFX.DamageImpactVolume);
             };
 
             var hitWrapper = HitObserver.Subscribe(hitDetector, hitCallback);
@@ -186,6 +192,7 @@ namespace bluewarp
         public override void End()
         {
             _UIManager?.Dispose();
+            BGMusicManager.Stop();
             base.End();
         }
     }

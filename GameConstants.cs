@@ -38,6 +38,34 @@ namespace bluewarp
             public const int SkinChance = 5; // must be 1>, chance of getting special skin == 1/(SkinChance-1)
         }
 
+        public static class SFX 
+        {
+            public const float DefaultVolume = 0.3f;
+
+            public const string Blaster = "blaster";
+            public const string BlasterPath = "SFX/retro-shot-blaster";
+            public const float BlasterVolume = 0.3f;
+
+            public const string Explosion = "explosion";
+            public const string ExplosionPath = "SFX/retro-space-explosion";
+            public const float ExplosionVolume = 0.3f;
+
+            public const string DamageImpact = "dmgImpact";
+            public const string DamageImpactPath = "SFX/damage-impact";
+            public const float DamageImpactVolume = 0.5f;
+        }
+
+        public static class BGM
+        {
+            public const float DefaultBGVolume = 0.1f;
+
+            public const string BlueChill = "blueChill";
+            public const string BlueChillPath = "BGM/blue_chill";
+
+            public const string BlueTension = "blueTension";
+            public const string BlueTensionPath = "BGM/high_blue_tension_loop_ver";
+        }
+
         public static class BasicEnemy
         {
             public const int DefaultMaxHealth = 5;
