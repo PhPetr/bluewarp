@@ -20,6 +20,7 @@ namespace bluewarp
             
             Debug.Log($"[Initializing UI] final score: {_finalScore}, state: {_gameEndState}");
             _UIManager = new EndUIManager(this, _finalScore, _gameEndState);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill);
         }
 
         public override void Initialize()
@@ -29,6 +30,7 @@ namespace bluewarp
             SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
             Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
             ClearColor = Color.Black;
+
         }
 
         public override void End()

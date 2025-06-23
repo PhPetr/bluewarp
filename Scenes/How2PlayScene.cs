@@ -1,0 +1,30 @@
+﻿using Nez;
+using Microsoft.Xna.Framework;
+using bluewarp.UI;
+
+namespace bluewarp.Scenes
+{
+    internal class How2PlayScene : BaseScene
+    {
+        private InstructionUIManager _UIManager;
+        public How2PlayScene() : base(true, true) { }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
+            Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
+            ClearColor = Color.Black;
+
+            _UIManager = new InstructionUIManager(this);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill);
+        }
+
+        public override void End()
+        {
+            _UIManager?.Dispose();
+            base.End();
+        }
+
+    }
+}

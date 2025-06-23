@@ -58,7 +58,7 @@ namespace bluewarp
 
             public const string DamageImpact = "dmgImpact";
             public const string DamageImpactPath = "SFX/damage-impact";
-            public const float DamageImpactVolume = 0.5f;
+            public const float DamageImpactVolume = 0.7f;
         }
 
         public static class BGM

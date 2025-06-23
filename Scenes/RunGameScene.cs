@@ -116,7 +116,7 @@ namespace bluewarp
             Flags.SetFlagExclusive(ref shipCollider.PhysicsLayer, PhysicsLayer.PlayerShipCollider);
 
             var eventTriggerCollider = _playerShip.AddComponent<CircleCollider>();
-            Flags.SetFlagExclusive(ref eventTriggerCollider.CollidesWithLayers, CollideWithLayer.PlayerEventCollider); // layer 6 will have map zone triggers
+            Flags.SetFlagExclusive(ref eventTriggerCollider.CollidesWithLayers, CollideWithLayer.PlayerEventCollider); 
             Flags.SetFlagExclusive(ref eventTriggerCollider.PhysicsLayer, PhysicsLayer.PlayerEventCollider);
             eventTriggerCollider.IsTrigger = true;
         }
@@ -195,7 +195,6 @@ namespace bluewarp
         public override void End()
         {
             _UIManager?.Dispose();
-            BGMusicManager.Stop();
             base.End();
         }
     }
