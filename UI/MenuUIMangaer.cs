@@ -34,7 +34,7 @@ namespace bluewarp.UI
             var titleStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
             {
                 FontScale = GameConstants.Scale * 2,
-                Background = CreateSolidBG(Color.Black)
+                Background = CreateBorderedBackground(Color.Black, Color.AntiqueWhite, 5)
             };
 
             _title = Table.Add(new Label("BLUEWARP", titleStyle)).GetElement<Label>();
@@ -44,17 +44,11 @@ namespace bluewarp.UI
 
         private void CreateButtons()
         {
-            var buttonStyle = CreateButtonStyleWithBG(
-                bgColor: Color.DarkBlue,
-                hoverColor: Color.Blue,
-                textColor: Color.White
-                );
-
-            _startButton = Table.Add(new TextButton("Start Game", buttonStyle)).GetElement<Button>();
+            _startButton = Table.Add(new TextButton("Start Game", DefaultButtonStyle)).GetElement<Button>();
 
             NewEmptyLine();
 
-            _exitButton = Table.Add(new TextButton("Exit", buttonStyle)).GetElement<Button>();
+            _exitButton = Table.Add(new TextButton("Exit", DefaultButtonStyle)).GetElement<Button>();
 
             _startButton.OnClicked += OnStartButtonClicked;
             _exitButton.OnClicked += OnExitButtonClicked;

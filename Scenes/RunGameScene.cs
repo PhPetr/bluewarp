@@ -102,7 +102,10 @@ namespace bluewarp
             {
                 Debug.Log($"[Player ship destroyed] Entity: {e.Name}");
                 HitObserver.Unsubscribe(hitDetector, hitCallback);
-                SceneManager.LoadGameOver();
+                var finalScore = GetScore();
+                var endState = GameConstants.GameEndState.Defeat;
+                Debug.Log($"[Calling Load game over] final score: {finalScore}, state: {endState}");
+                SceneManager.LoadGameOver(finalScore, endState);
             });
 
             var shipCollider = _playerShip.AddComponent<CircleCollider>();
@@ -130,7 +133,7 @@ namespace bluewarp
             _mainCameraMover = CreateEntity("camera-mover");
             _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX));
             Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
-            //Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //FOR TESTING
+            //Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //TODO: remove before release
         }
 
         public Entity CreateProjectiles(Vector2 position, Vector2 velocity, int projectileCollideWithLayer, int projectilePhysicsLayer, string textureSource)

@@ -29,18 +29,20 @@ namespace bluewarp.UI
 
         public void Draw(Batcher batcher, float x, float y, float width, float height, Color color)
         {
-            if (_bgColor.A > 0)
-            {
-                batcher.DrawRect(x, y, width, height, _bgColor *color);
-            }
 
             if (_borderWidth > 0 && _bgColor.A > 0)
             {
                 var borderColorWithAlpha = _borderColor * color;
-                batcher.DrawRect(x, y, width, height, borderColorWithAlpha);
-                batcher.DrawRect(x, y + height - _borderWidth, width, _borderWidth, borderColorWithAlpha);
-                batcher.DrawRect(x, y, _borderWidth, height, borderColorWithAlpha);
-                batcher.DrawRect(x + width - _borderWidth, y, _borderWidth, height, borderColorWithAlpha);
+                /*
+                batcher.DrawRect(x - _borderWidth, y, width, _borderWidth, borderColorWithAlpha);
+                batcher.DrawRect(x - _borderWidth, y + height - 2*_borderWidth, width, _borderWidth, borderColorWithAlpha);
+                batcher.DrawRect(x - _borderWidth, y, _borderWidth, height, borderColorWithAlpha);
+                batcher.DrawRect(x + width - 2*_borderWidth, y, _borderWidth, height, borderColorWithAlpha);
+                */
+
+                batcher.DrawRect(x - 2 * _borderWidth, y - 2 * _borderWidth, width + 3 * _borderWidth, height + 3 * _borderWidth, borderColorWithAlpha);
+
+                batcher.DrawRect(x - _borderWidth, y-_borderWidth, width + _borderWidth, height + _borderWidth, _bgColor *color);
             }
         }
         public void SetPadding(float top, float bottom, float left, float right) { }

@@ -37,5 +37,11 @@ namespace bluewarp.Scenes
             tiledBGRenderer.RenderLayer = RenderLayer.TileMap;
             _tiledBackgroundEntity.Position = new Vector2(32, 0);
         }
+
+        public override void End()
+        {
+            _UIManager?.Dispose();
+            base.End();
+        }
     }
 }

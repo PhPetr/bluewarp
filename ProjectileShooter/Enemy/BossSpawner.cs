@@ -79,7 +79,8 @@ namespace bluewarp
                 Debug.Log($"[Main Boss body destroyed] Entity: {e.Name}");
                 _battleScene.AddToScore(GameConstants.BossEnemy.Magnus.MainRewardPoints);
                 Debug.Log($"[Awarded {GameConstants.BossEnemy.Magnus.MainRewardPoints} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
-                SceneManager.LoadGameOver();
+                var battleScene = scene as RunGameScene;
+                SceneManager.LoadGameOver(battleScene.GetScore(), GameConstants.GameEndState.Victory);
             });
 
             bodyEntity.AddComponent(new ProjectileHitDetector(GameConstants.BossEnemy.Magnus.MainMaxHealth));

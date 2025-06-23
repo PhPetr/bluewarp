@@ -16,6 +16,12 @@ namespace bluewarp
         public const float DefaultUpwardsScrollSpeed = 50f; // at 50f => 2:05 minutes for level1 
         public const float MoveStartDelay = 2f;
         
+        public enum GameEndState
+        {
+            Victory,
+            Defeat
+        }
+
         public static class Camera
         {
             public const int DefaultStartHeightY = 200 * TileSize;

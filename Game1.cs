@@ -21,6 +21,7 @@ namespace bluewarp
             Core.DebugRenderEnabled = false;
             
             Scene = new MenuScene();
+            //Scene = new EndGameScene(235, GameConstants.GameEndState.Victory);
             //Scene = new RunGameScene();
             //SceneManager.LoadGameScene();
         }
