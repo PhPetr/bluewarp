@@ -1,6 +1,7 @@
 ﻿using Nez;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace bluewarp
 {
@@ -37,7 +38,7 @@ namespace bluewarp
         /// </summary>
         /// <param name="SFXKey">SFX key</param>
         /// <param name="volume">Volume of played SFX</param>
-        public static void PlaySFX(string SFXKey, float volume = GameConstants.SFX.DefaultVolume)
+        public static void PlaySFX(string SFXKey, float volume = GameConstants.SFX.DefaultBaseVolume)
         {
             if (!_soundEffects.ContainsKey(SFXKey))
             {
@@ -46,7 +47,7 @@ namespace bluewarp
             }
             var sfx = _soundEffects[SFXKey];
             var instance = sfx.CreateInstance();
-            instance.Volume = volume;
+            instance.Volume = MathHelper.Clamp(volume, 0.0f, 1.0f);
             instance.Play();
         }
     }

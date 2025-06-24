@@ -21,7 +21,7 @@ namespace bluewarp
             Core.DebugRenderEnabled = false;
             
             Scene = new MenuScene();
-            //Scene = new Credits();
+            //Scene = new SettingsScene();
             //Scene = new How2PlayScene();
             //SceneManager.LoadGameScene();
         }

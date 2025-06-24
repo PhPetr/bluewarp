@@ -15,6 +15,7 @@ namespace bluewarp.UI
         protected Table Table;
         protected LabelStyle DefaultLabelStyle;
         protected LabelStyle DefaultBorderedLabelStyle;
+        protected LabelStyle DefaultTitleStyle;
         protected TextButtonStyle DefaultButtonStyle;
         protected int RenderLayer = bluewarp.RenderLayer.DefaultUIRenderLayer;
 
@@ -29,7 +30,13 @@ namespace bluewarp.UI
             DefaultBorderedLabelStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
             {
                 FontScale = GameConstants.Scale,
-                Background = CreateBorderedBackground(Color.Black, Color.White, 5)
+                Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameConstants.Scale)
+            };
+
+            DefaultTitleStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
+            {
+                FontScale = GameConstants.Scale * 1.5f,
+                Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameConstants.Scale)
             };
 
             DefaultButtonStyle = CreateButtonStyleWithBG(

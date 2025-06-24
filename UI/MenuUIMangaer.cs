@@ -8,6 +8,7 @@ namespace bluewarp.UI
     {
         private Button _startButton;
         private Button _instructionButton;
+        private Button _settingsButton;
         private Button _creditButton;
         private Button _exitButton;
         private Label _title;
@@ -36,7 +37,7 @@ namespace bluewarp.UI
             var titleStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
             {
                 FontScale = GameConstants.Scale * 2,
-                Background = CreateBorderedBackground(Color.Black, Color.AntiqueWhite, 5)
+                Background = CreateBorderedBackground(Color.Black, Color.White, 2 * GameConstants.Scale)
             };
 
             _title = Table.Add(new Label("BLUEWARP", titleStyle)).GetElement<Label>();
@@ -50,13 +51,16 @@ namespace bluewarp.UI
             Table.Row();
             _instructionButton = Table.Add(new TextButton("How 2 play", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
             Table.Row();
-            _creditButton = Table.Add(new TextButton("Credits", DefaultButtonStyle)).GetElement<Button>();
+            _settingsButton = Table.Add(new TextButton("Settings", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
+            Table.Row();
+            _creditButton = Table.Add(new TextButton("Credits", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
             NewEmptyLine();
 
             _exitButton = Table.Add(new TextButton("Exit", DefaultButtonStyle)).GetElement<Button>();
 
             _startButton.OnClicked += OnStartButtonClicked;
             _instructionButton.OnClicked += OnH2PButtonClicked;
+            _settingsButton.OnClicked += OnSettingsButtonClicked;
             _creditButton.OnClicked += OnCreditsButtonClicked;
             _exitButton.OnClicked += OnExitButtonClicked;
             Debug.Log($"[Created Buttons]");
@@ -70,6 +74,11 @@ namespace bluewarp.UI
         private void OnH2PButtonClicked(Button button)
         {
             SceneManager.LoadHow2Play();
+        }
+
+        private void OnSettingsButtonClicked(Button button)
+        {
+            SceneManager.LoadSettings();
         }
 
         private void OnCreditsButtonClicked(Button button)
@@ -88,6 +97,8 @@ namespace bluewarp.UI
                 _startButton.OnClicked -= OnStartButtonClicked;
             if (_instructionButton != null )
                 _instructionButton.OnClicked -= OnH2PButtonClicked;
+            if (_settingsButton != null )
+                _settingsButton.OnClicked -= OnSettingsButtonClicked;
             if (_creditButton != null )
                 _creditButton.OnClicked -= OnCreditsButtonClicked;
             if (_exitButton != null )

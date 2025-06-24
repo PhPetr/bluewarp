@@ -19,7 +19,7 @@ namespace bluewarp.Scenes
 
             _UIManager = new CreditsUIManager(this);
 
-            BGMusicManager.Play(GameConstants.BGM.BlueChill);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameConstants.BGM.BGVolume);
         }
     }
 }

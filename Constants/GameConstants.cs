@@ -5,11 +5,12 @@ namespace bluewarp
 {
     public static class GameConstants
     {
-        public const int Scale = 5;
+        public static int Scale { get; set; } = 4;
+        public const int MaxScale = 7;
         public const int GameWidth = 256;
         public const int GameHeight = 192;
-        public const int ScaledGameWidth = Scale * GameWidth;
-        public const int ScaledGameHeight = Scale * GameHeight;
+        public static int ScaledGameWidth => Scale * GameWidth;
+        public static int ScaledGameHeight => Scale * GameHeight;
         public const int XLockedOffset = 159;
         public const int TileSize = 32;
 
@@ -46,30 +47,54 @@ namespace bluewarp
 
         public static class SFX 
         {
-            public const float DefaultVolume = 0.3f;
+            public static float SFXMasterVolume { get; set; } = 1.0f;
+
+            public const float MaxSFXMasterVolume = 2.0f;
+            public const float DefaultBaseVolume = 0.3f;
+            public const float BlasterBaseVolume = 0.3f;
+            public const float ExplosionBaseVolume = 0.3f;
+            public const float DamageImpactBaseVolume = 0.7f;
+
+            public static float DefaultVolume => DefaultBaseVolume * SFXMasterVolume;
+            public static float BlasterVolume => BlasterBaseVolume* SFXMasterVolume;
+            public static float ExplosionVolume => ExplosionBaseVolume* SFXMasterVolume;
+            public static float DamageImpactVolume => DamageImpactBaseVolume* SFXMasterVolume;
 
             public const string Blaster = "blaster";
             public const string BlasterPath = "SFX/retro-shot-blaster";
-            public const float BlasterVolume = 0.3f;
 
             public const string Explosion = "explosion";
             public const string ExplosionPath = "SFX/retro-space-explosion";
-            public const float ExplosionVolume = 0.3f;
 
             public const string DamageImpact = "dmgImpact";
             public const string DamageImpactPath = "SFX/damage-impact";
-            public const float DamageImpactVolume = 0.7f;
+
+            public static void SetSFXMasterVolume(float volume)
+            {
+                SFXMasterVolume = MathHelper.Clamp(volume, 0.0f, MaxSFXMasterVolume);
+            }
         }
 
         public static class BGM
         {
-            public const float DefaultBGVolume = 0.1f;
+            public static float BGMasterVolume { get; set; } = 1.0f;
+
+            public const float MaxBGMasterVolume = 2.0f;
+            public const float DefaultBaseBGVolume = 0.1f;
+
+            public static float BGVolume => DefaultBaseBGVolume * BGMasterVolume;
+
 
             public const string BlueChill = "blueChill";
             public const string BlueChillPath = "BGM/blue_chill";
 
             public const string BlueTension = "blueTension";
             public const string BlueTensionPath = "BGM/high_blue_tension_loop_ver";
+
+            public static void SetBGMMasterVolume(float volume)
+            {
+                BGMasterVolume = MathHelper.Clamp(volume, 0.0f, MaxBGMasterVolume);
+            }
         }
 
         public static class BasicEnemy

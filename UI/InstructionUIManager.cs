@@ -35,13 +35,7 @@ namespace bluewarp.UI
 
         private void CreateTitle()
         {
-            var titleStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
-            {
-                FontScale = GameConstants.Scale * 1.5f,
-                Background = CreateBorderedBackground(Color.Black, Color.White, 5)
-            };
-
-            _titleLabel = Table.Add(new Label("HOW TO PLAY", titleStyle)).GetElement<Label>();
+            _titleLabel = Table.Add(new Label("HOW TO PLAY", DefaultTitleStyle)).GetElement<Label>();
             _titleLabel.SetAlignment(Align.Center);
             Table.Row();
         }

@@ -15,6 +15,11 @@ namespace bluewarp
             Core.StartSceneTransition(new FadeTransition(() => new How2PlayScene()));
         }
 
+        public static void LoadSettings()
+        {
+            Core.StartSceneTransition(new FadeTransition(() => new SettingsScene()));
+        }
+
         public static void LoadCredits()
         {
             Core.StartSceneTransition(new FadeTransition(() => new Credits()));

@@ -4,10 +4,12 @@ using bluewarp.UI;
 
 namespace bluewarp.Scenes
 {
-    internal class How2PlayScene : BaseScene
+    internal class SettingsScene : BaseScene
     {
-        private InstructionUIManager _UIManager;
-        public How2PlayScene() : base(true, true) { }
+        private SettingsUIManager _UIManager;
+
+        public SettingsScene() : base(true,true) 
+        { }
 
         public override void Initialize()
         {
@@ -16,7 +18,8 @@ namespace bluewarp.Scenes
             Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
             ClearColor = Color.Black;
 
-            _UIManager = new InstructionUIManager(this);
+            _UIManager = new SettingsUIManager(this);
+
             BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameConstants.BGM.BGVolume);
         }
 
@@ -25,6 +28,5 @@ namespace bluewarp.Scenes
             _UIManager?.Dispose();
             base.End();
         }
-
     }
 }

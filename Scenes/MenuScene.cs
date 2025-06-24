@@ -24,7 +24,7 @@ namespace bluewarp.Scenes
 
             _UIManager = new MenuUIMangaer(this);
 
-            BGMusicManager.Play(GameConstants.BGM.BlueChill);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameConstants.BGM.BGVolume);
             LoadBackground();
         }
 

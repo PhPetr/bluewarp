@@ -34,7 +34,7 @@ namespace bluewarp
             Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
             ClearColor = Color.Black;
 
-            BGMusicManager.Play(GameConstants.BGM.BlueTension);
+            BGMusicManager.Play(GameConstants.BGM.BlueTension, volume: GameConstants.BGM.BGVolume);
 
             _UIManager = new GameUIManager(this);
 

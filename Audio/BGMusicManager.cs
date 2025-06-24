@@ -31,16 +31,23 @@ namespace bluewarp
         /// <param name="songKey">Song key</param>
         /// <param name="isRepeating"></param>
         /// <param name="volume">Volume, range 0f to 1f</param>
-        public static void Play(string songKey, bool isRepeating = true, float volume = GameConstants.BGM.DefaultBGVolume)
+        public static void Play(string songKey, bool isRepeating = true, float volume = GameConstants.BGM.DefaultBaseBGVolume)
         {
+
             if (!_songs.ContainsKey(songKey))
             {
                 Debug.Warn($"[BGM manager] Song '{songKey}' not found. Forgot to load it?");
                 return;
             }
 
-            if (_currentSongKey == songKey && MediaPlayer.State == MediaState.Playing) 
+            if (_currentSongKey == songKey && MediaPlayer.State == MediaState.Playing)
+            {
+                if (MediaPlayer.Volume != volume)
+                {
+                    MediaPlayer.Volume = MathHelper.Clamp(volume, 0f, 1f);
+                }
                 return;
+            }
 
             var song = _songs[songKey];
             MediaPlayer.Stop();

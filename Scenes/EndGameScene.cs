@@ -20,7 +20,7 @@ namespace bluewarp
             
             Debug.Log($"[Initializing UI] final score: {_finalScore}, state: {_gameEndState}");
             _UIManager = new EndUIManager(this, _finalScore, _gameEndState);
-            BGMusicManager.Play(GameConstants.BGM.BlueChill);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameConstants.BGM.BGVolume);
         }
 
         public override void Initialize()
