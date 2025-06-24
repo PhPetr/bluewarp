@@ -82,7 +82,7 @@ namespace bluewarp.UI
         {
             _playAgainButton = Table.Add(new TextButton("Play again", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
             Table.Row();
-            _menuButton = Table.Add(new TextButton("Menu", DefaultButtonStyle)).GetElement<Button>();
+            _menuButton = Table.Add(new TextButton("Menu", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
             NewEmptyLine();
             _exitButton = Table.Add(new TextButton("Exit", DefaultButtonStyle)).GetElement<Button>();
 
