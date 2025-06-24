@@ -17,7 +17,7 @@ namespace bluewarp
         public StationaryEnemy(string enemyTexture = GameConstants.BasicEnemy.DefaultTexture, 
             int renderLayer = bluewarp.RenderLayer.StationaryEnemySprite, 
             int projectileOffset = 24, 
-            float projectileDelay = 1.5f)
+            float projectileDelay = GameConstants.BasicEnemy.DefaultProjectileDelay)
         {
             EnemyTexture = enemyTexture;
             EnemyRenderLayer = renderLayer;

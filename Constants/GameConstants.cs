@@ -102,6 +102,7 @@ namespace bluewarp
             public const int DefaultMaxHealth = 5;
             public const int RewardPoints = 100;
             public const string DefaultTexture = Nez.Content.BasicEnemy.static_enemy;
+            public const float DefaultProjectileDelay = 1.0f;
         }
 
         public static class BossEnemy
@@ -113,6 +114,8 @@ namespace bluewarp
                 public const int SecondaryMaxHealth = 10;
                 public const int MainRewardPoints = 500;
                 public const int SecondaryRewardPoints = 200;
+                public const float MainProjectileDelay = 0.8f;
+                public const float SecondaryProjectileDelay = 0.5f;
             }
         }
     }

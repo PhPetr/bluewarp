@@ -47,7 +47,7 @@ namespace bluewarp
             var handTexture = (leftHand) ? Nez.Content.BossEnemy.Magnus.magnus_boss_left : Nez.Content.BossEnemy.Magnus.magnus_boss_right;
             var handPosition = new Vector2 (hand.X + 16, hand.Y + 16);
             var handEntity = scene.CreateEntity(hand.Name, handPosition);
-            var enemyHand = new StationaryEnemy(handTexture, RenderLayer.BossHands, 16, 0.8f);
+            var enemyHand = new StationaryEnemy(handTexture, RenderLayer.BossHands, 16, GameConstants.BossEnemy.Magnus.SecondaryProjectileDelay);
             handEntity.AddComponent(enemyHand);
 
             DestructionObserver.Subscribe(enemyHand, e =>
@@ -71,7 +71,7 @@ namespace bluewarp
             var bodyTexture = Nez.Content.BossEnemy.Magnus.magnus_boss_main;
             var bodyPosition = new Vector2(body.X + 64, body.Y + 32);
             var bodyEntity = scene.CreateEntity(body.Name, bodyPosition);
-            var mainBody = new StationaryEnemy(bodyTexture, RenderLayer.BossBody, 5, 1f);
+            var mainBody = new StationaryEnemy(bodyTexture, RenderLayer.BossBody, 5, GameConstants.BossEnemy.Magnus.MainProjectileDelay);
             bodyEntity.AddComponent(mainBody);
 
             DestructionObserver.Subscribe(mainBody, e =>
