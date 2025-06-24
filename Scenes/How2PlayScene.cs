@@ -13,11 +13,11 @@ namespace bluewarp.Scenes
         {
             base.Initialize();
             SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
-            Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
+            Screen.SetSize(GameSettings.ScaledGameWidth, GameSettings.ScaledGameHeight);
             ClearColor = Color.Black;
 
             _UIManager = new InstructionUIManager(this);
-            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameConstants.BGM.BGVolume);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameSettings.BGM.BGVolume);
         }
 
         public override void End()

@@ -64,7 +64,7 @@ namespace bluewarp.UI
 
             var messageStyle = new LabelStyle(Graphics.Instance.BitmapFont, messageColor)
             {
-                FontScale = GameConstants.Scale * 2
+                FontScale = GameSettings.Scale * 2
             };
 
             _endMessage = Table.Add(new Label(message, messageStyle)).GetElement<Label>();

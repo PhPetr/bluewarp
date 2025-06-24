@@ -8,7 +8,6 @@ namespace bluewarp
         public Vector2 Min, Max;
         public int lockedX;
 
-        // TODO: something wrong with camera 
         public CameraBounds()
         {
             // make sure we run last so the camera is already moved before we evaluate its position

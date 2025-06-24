@@ -31,10 +31,10 @@ namespace bluewarp
             base.Initialize();
             
             SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
-            Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
+            Screen.SetSize(GameSettings.ScaledGameWidth, GameSettings.ScaledGameHeight);
             ClearColor = Color.Black;
 
-            BGMusicManager.Play(GameConstants.BGM.BlueTension, volume: GameConstants.BGM.BGVolume);
+            BGMusicManager.Play(GameConstants.BGM.BlueTension, volume: GameSettings.BGM.BGVolume);
 
             _UIManager = new GameUIManager(this);
 
@@ -86,14 +86,14 @@ namespace bluewarp
             var ship = new FighterShip(GameConstants.Player.ShipMoveSpeed, GameConstants.DefaultUpwardsScrollSpeed);
             _playerShip.AddComponent(ship);
 
-            var hitDetector = new ProjectileHitDetector(GameConstants.Player.ShipMaxHealth);
+            var hitDetector = new ProjectileHitDetector(GameSettings.Player.ShipMaxHealth);
             _playerShip.AddComponent(hitDetector);
 
             Action<Entity, int> hitCallback = (entity, currentHealth) =>
             {
                 Debug.Log($"[Player ship hit] Current HP: {currentHealth}");
                 UpdatePlayerHP(currentHealth);
-                GameSFXManager.PlaySFX(GameConstants.SFX.DamageImpact, GameConstants.SFX.DamageImpactVolume);
+                GameSFXManager.PlaySFX(GameConstants.SFX.DamageImpact, GameSettings.SFX.DamageImpactVolume);
             };
 
             var hitWrapper = HitObserver.Subscribe(hitDetector, hitCallback);

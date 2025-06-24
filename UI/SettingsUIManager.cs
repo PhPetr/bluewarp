@@ -10,13 +10,16 @@ namespace bluewarp.UI
         private Label _gameScaleLabel;
         private Label _sfxVolumeLabel;
         private Label _bgmVolumeLabel;
+        private Label _difficultyLabel;
         private string _scaleText;
         private string _sfxVolumeText;
         private string _bgmVolumeText;
+        private string _difficultyText;
         
         private Slider _gameScaleSlider;
         private Slider _sfxVolumeSlider;
         private Slider _bgmVolumeSlider;
+        private Slider _difficultySlider;
 
         private Button _resetSettingsButton;
         private Button _menuButton;
@@ -52,9 +55,10 @@ namespace bluewarp.UI
 
         private void CreateSlidersAndLabels()
         {
-            _scaleText = $"Game scale: {GameConstants.Scale}";
-            _sfxVolumeText = $"SFX volume: {GameConstants.SFX.SFXMasterVolume}";
-            _bgmVolumeText = $"BGM volume: {GameConstants.BGM.BGMasterVolume}";
+            _scaleText = $"Game scale: {GameSettings.Scale}";
+            _sfxVolumeText = $"SFX volume: {GameSettings.SFX.SFXMasterVolume:F1}";
+            _bgmVolumeText = $"BGM volume: {GameSettings.BGM.BGMasterVolume:F1}";
+            _difficultyText = $"Dificulty (HP mult): {GameSettings.Player.HealthMultiplier}";
 
             _gameScaleLabel = Table.Add(new Label(_scaleText, DefaultLabelStyle)).GetElement<Label>();
             Table.Row();
@@ -64,7 +68,7 @@ namespace bluewarp.UI
                 1, 
                 false, 
                 SliderStyle.Create(Color.AliceBlue, Color.Red));
-            _gameScaleSlider.SetValue(GameConstants.Scale);
+            _gameScaleSlider.SetValue(GameSettings.Scale);
             Table.Add(_gameScaleSlider);
             Table.Row();
 
@@ -78,7 +82,7 @@ namespace bluewarp.UI
                 0.1f, 
                 false, 
                 SliderStyle.Create(Color.AliceBlue, Color.Red));
-            _bgmVolumeSlider.SetValue(GameConstants.BGM.BGMasterVolume);
+            _bgmVolumeSlider.SetValue(GameSettings.BGM.BGMasterVolume);
             Table.Add(_bgmVolumeSlider);
             Table.Row();
             
@@ -92,36 +96,60 @@ namespace bluewarp.UI
                 0.1f, 
                 false, 
                 SliderStyle.Create(Color.AliceBlue, Color.Red));
-            _sfxVolumeSlider.SetValue(GameConstants.SFX.SFXMasterVolume);
+            _sfxVolumeSlider.SetValue(GameSettings.SFX.SFXMasterVolume);
             Table.Add(_sfxVolumeSlider);
+            Table.Row();
+
+            NewEmptyLine();
+
+            _difficultyLabel = Table.Add(new Label(_difficultyText, DefaultLabelStyle)).GetElement<Label>();
+            Table.Row();
+            _difficultySlider = new Slider(
+                1,
+                GameConstants.Player.MaxHealtMultiplier,
+                1,
+                false,
+                SliderStyle.Create(Color.AliceBlue, Color.Red));
+            _difficultySlider.SetValue(GameSettings.Player.HealthMultiplier);
+            Table.Add(_difficultySlider);
             Table.Row();
 
             _gameScaleSlider.OnChanged += OnScaleSliderChanged;
             _bgmVolumeSlider.OnChanged += OnBGMVolumeSliderChanged;
             _sfxVolumeSlider.OnChanged += OnSFXVolumeSliderChanged;
+            _difficultySlider.OnChanged += OnDifficultySliderChanged;
+        }
+
+        private void OnDifficultySliderChanged(float value)
+        {
+            int newMult = (int)Mathf.Round(value);
+            _difficultyText = $"Dificulty (HP mult): {newMult}";
+            GameSettings.Player.HealthMultiplier = newMult;
+            if (_difficultyLabel != null )
+                _difficultyLabel.SetText(_difficultyText);
         }
 
         private void OnScaleSliderChanged(float value)
         {
             int newScale = (int)Mathf.Round(value);
             _scaleText = $"Game scale: {newScale}";
-            GameConstants.Scale = newScale;
+            GameSettings.Scale = newScale;
             if (_gameScaleLabel != null)
                 _gameScaleLabel.SetText(_scaleText);
         }
 
         private void OnBGMVolumeSliderChanged(float value)
         {
-            GameConstants.BGM.SetBGMMasterVolume(value);
-            _bgmVolumeText = $"BGM volume: {GameConstants.BGM.BGMasterVolume:F1}";
+            GameSettings.BGM.SetBGMMasterVolume(value);
+            _bgmVolumeText = $"BGM volume: {GameSettings.BGM.BGMasterVolume:F1}";
             if (_bgmVolumeLabel != null)
                 _bgmVolumeLabel.SetText(_bgmVolumeText);
         }
 
         private void OnSFXVolumeSliderChanged(float value)
         {
-            GameConstants.SFX.SetSFXMasterVolume(value);
-            _sfxVolumeText = $"SFX volume: {GameConstants.SFX.SFXMasterVolume:F1}";
+            GameSettings.SFX.SetSFXMasterVolume(value);
+            _sfxVolumeText = $"SFX volume: {GameSettings.SFX.SFXMasterVolume:F1}";
             if (_sfxVolumeLabel != null)
                 _sfxVolumeLabel.SetText(_sfxVolumeText);
         }
@@ -142,6 +170,7 @@ namespace bluewarp.UI
             _gameScaleSlider.SetValue(4);
             _bgmVolumeSlider.SetValue(1.0f);
             _sfxVolumeSlider.SetValue(1.0f);
+            _difficultySlider.SetValue(1);
         }
 
         private void OnBackButtonClicked(Button button)
@@ -162,6 +191,8 @@ namespace bluewarp.UI
                 _bgmVolumeSlider.OnChanged -= OnBGMVolumeSliderChanged;
             if (_gameScaleSlider != null)
                 _gameScaleSlider.OnChanged -= OnScaleSliderChanged;
+            if (_difficultySlider != null)
+                _difficultySlider.OnChanged -= OnDifficultySliderChanged;
 
             base.Dispose();
         }

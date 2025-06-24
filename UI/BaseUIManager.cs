@@ -24,19 +24,19 @@ namespace bluewarp.UI
             Scene = scene;
             DefaultLabelStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
             {
-                FontScale = GameConstants.Scale
+                FontScale = GameSettings.Scale
             };
 
             DefaultBorderedLabelStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
             {
-                FontScale = GameConstants.Scale,
-                Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameConstants.Scale)
+                FontScale = GameSettings.Scale,
+                Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameSettings.Scale)
             };
 
             DefaultTitleStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
             {
-                FontScale = GameConstants.Scale * 1.5f,
-                Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameConstants.Scale)
+                FontScale = GameSettings.Scale * 1.5f,
+                Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameSettings.Scale)
             };
 
             DefaultButtonStyle = CreateButtonStyleWithBG(
@@ -110,7 +110,7 @@ namespace bluewarp.UI
             {
                 Font = Graphics.Instance.BitmapFont,
                 FontColor = textColor,
-                FontScale = GameConstants.Scale,
+                FontScale = GameSettings.Scale,
                 Up = CreateButtonBG(bgColor),
                 Over= CreateButtonBG(hoverColor),
                 Down = CreateButtonBG(hoverColor * 0.8f)

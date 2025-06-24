@@ -82,7 +82,7 @@ namespace bluewarp
                 CollideWithLayer.PlayerProjectile,
                 PhysicsLayer.PlayerProjectile,
                 Nez.Content.PlayerShip.player_main_projectile);
-            GameSFXManager.PlaySFX(GameConstants.SFX.Blaster, GameConstants.SFX.BlasterVolume);
+            GameSFXManager.PlaySFX(GameConstants.SFX.Blaster, GameSettings.SFX.BlasterVolume);
         }
 
         public override void OnRemovedFromEntity()

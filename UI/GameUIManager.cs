@@ -18,7 +18,7 @@ namespace bluewarp
         public GameUIManager(Scene scene) : base(scene) 
         {
             _score = 0;
-            _playerHP = GameConstants.Player.ShipMaxHealth;
+            _playerHP = GameSettings.Player.ShipMaxHealth;
             Initialize();
         }
 

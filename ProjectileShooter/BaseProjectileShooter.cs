@@ -57,7 +57,7 @@ namespace bluewarp
                 _explosionAnimator.Enabled = true;
                 _explosionAnimator.OnAnimationCompletedEvent += OnExplosionComplete;
                 _explosionAnimator.Play("Explosion", SpriteAnimator.LoopMode.Once);
-                GameSFXManager.PlaySFX(GameConstants.SFX.Explosion, GameConstants.SFX.ExplosionVolume);
+                GameSFXManager.PlaySFX(GameConstants.SFX.Explosion, GameSettings.SFX.ExplosionVolume);
             }
             else
             {

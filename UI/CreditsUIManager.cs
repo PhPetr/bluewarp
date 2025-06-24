@@ -81,7 +81,7 @@ Made with Nez and Monogame framework";
             _scrollPane = new ScrollPane(_creditsLabel, new ScrollPaneStyle());
             _scrollPane.SetScrollingDisabled(true, false);
 
-            Table.Add(_scrollPane).Width((GameConstants.GameWidth-10) * GameConstants.Scale).Height(100 * GameConstants.Scale).Pad(10);
+            Table.Add(_scrollPane).Width((GameConstants.GameWidth-10) * GameSettings.Scale).Height(100 * GameSettings.Scale).Pad(10);
             Table.Row();
         }
 

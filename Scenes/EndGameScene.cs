@@ -20,7 +20,7 @@ namespace bluewarp
             
             Debug.Log($"[Initializing UI] final score: {_finalScore}, state: {_gameEndState}");
             _UIManager = new EndUIManager(this, _finalScore, _gameEndState);
-            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameConstants.BGM.BGVolume);
+            BGMusicManager.Play(GameConstants.BGM.BlueChill, volume: GameSettings.BGM.BGVolume);
         }
 
         public override void Initialize()
@@ -28,7 +28,7 @@ namespace bluewarp
             base.Initialize();
 
             SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
-            Screen.SetSize(GameConstants.ScaledGameWidth, GameConstants.ScaledGameHeight);
+            Screen.SetSize(GameSettings.ScaledGameWidth, GameSettings.ScaledGameHeight);
             ClearColor = Color.Black;
 
         }
