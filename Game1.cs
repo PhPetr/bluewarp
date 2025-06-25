@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Nez;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using static Nez.Scene;
 
 namespace bluewarp
 {
@@ -13,6 +14,7 @@ namespace bluewarp
         protected override void Initialize()
         {
             base.Initialize();
+
             LoadBGMusic();
 
             Window.AllowUserResizing = true;

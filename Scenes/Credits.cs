@@ -13,6 +13,7 @@ namespace bluewarp.Scenes
         public override void Initialize()
         {
             base.Initialize();
+
             SetDesignResolution(GameConstants.GameWidth, GameConstants.GameHeight, SceneResolutionPolicy.ShowAllPixelPerfect);
             Screen.SetSize(GameSettings.ScaledGameWidth, GameSettings.ScaledGameHeight);
             ClearColor = Color.Black;

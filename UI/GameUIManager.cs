@@ -1,6 +1,6 @@
 ﻿using Nez;
 using Nez.UI;
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using bluewarp.UI;
 
 namespace bluewarp
@@ -15,6 +15,9 @@ namespace bluewarp
         private Label _playerHPTitleLabel;
         private Label _playerHPValueLabel;
 
+        private Button _restartGameRunButton;
+        private Button _menuButton;
+
         public GameUIManager(Scene scene) : base(scene) 
         {
             _score = 0;
@@ -27,12 +30,44 @@ namespace bluewarp
             ScoreUISetup();
             NewEmptyLine();
             HPUISetup();
+            NewEmptyLine();
+            SetupButtons();
         }
 
         protected override void SetupTableAlignment()
         {
             Table.Top().Right();
             Table.Pad(10);
+        }
+
+        private void SetupButtons()
+        {
+            _restartGameRunButton = Table.Add(new TextButton("Restart", DefaultButtonStyle)).GetElement<Button>();
+            NewEmptyLine();
+            _menuButton = Table.Add(new TextButton("Menu", DefaultButtonStyle)).GetElement<Button>();
+            
+            _restartGameRunButton.OnClicked += OnRestartClicked;
+            _menuButton.OnClicked += OnMenuButtonClicked;
+        }
+
+        private void OnRestartClicked(Button button)
+        {
+            SceneManager.LoadGameScene();
+        }
+
+        private void OnMenuButtonClicked(Button button)
+        {
+            SceneManager.LoadMenu();
+        }
+
+        public override void Dispose()
+        {
+            if (_restartGameRunButton != null)
+                _restartGameRunButton.OnClicked -= OnRestartClicked;
+            if (_menuButton != null)
+                _menuButton.OnClicked -= OnMenuButtonClicked;
+
+            base.Dispose();
         }
 
         #region HP UI
