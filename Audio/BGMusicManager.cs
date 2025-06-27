@@ -1,6 +1,6 @@
-﻿using Nez;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using Nez;
 using System.Collections.Generic;
 
 

@@ -1,7 +1,6 @@
-﻿using Nez;
+﻿using bluewarp.UI;
+using Nez;
 using Nez.UI;
-using Microsoft.Xna.Framework.Input;
-using bluewarp.UI;
 
 namespace bluewarp
 {
@@ -57,7 +56,7 @@ namespace bluewarp
         {
             _restartGameRunButton = Table.Add(new TextButton("Restart", DefaultButtonStyle)).GetElement<Button>();
             NewEmptyLine();
-            CreateMenuButton("Menu");            
+            CreateMenuButton("Back 2 Menu");            
             _restartGameRunButton.OnClicked += OnRestartClicked;
         }
 

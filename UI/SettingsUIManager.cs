@@ -1,6 +1,6 @@
-﻿using Nez;
+﻿using Microsoft.Xna.Framework;
+using Nez;
 using Nez.UI;
-using Microsoft.Xna.Framework;
 
 namespace bluewarp.UI
 {

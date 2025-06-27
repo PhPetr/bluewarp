@@ -1,7 +1,7 @@
-﻿using Nez;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Nez;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 namespace bluewarp
 {

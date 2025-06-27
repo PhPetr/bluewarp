@@ -1,6 +1,6 @@
-﻿using Nez;
+﻿using bluewarp.UI;
 using Microsoft.Xna.Framework;
-using bluewarp.UI;
+using Nez;
 
 namespace bluewarp.Scenes
 {

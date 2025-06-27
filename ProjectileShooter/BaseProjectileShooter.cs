@@ -1,9 +1,7 @@
-﻿using Nez;
+﻿using Microsoft.Xna.Framework;
+using Nez;
 using Nez.Sprites;
-using Nez.Textures;
-using Microsoft.Xna.Framework;
 using System;
-using Microsoft.Xna.Framework.Audio;
 
 namespace bluewarp
 {

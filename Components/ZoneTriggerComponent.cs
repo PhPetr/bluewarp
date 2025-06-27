@@ -1,6 +1,5 @@
 ﻿using Nez;
 using Nez.Tiled;
-using Microsoft.Xna.Framework;
 
 namespace bluewarp
 {

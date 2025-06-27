@@ -1,5 +1,5 @@
-﻿using System;
-using Nez;
+﻿using Nez;
+using System;
 
 namespace bluewarp
 {

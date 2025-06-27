@@ -1,7 +1,6 @@
 ﻿using bluewarp.UI;
 using Microsoft.Xna.Framework;
 using Nez;
-using static bluewarp.GameConstants;
 
 namespace bluewarp
 {

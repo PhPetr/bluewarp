@@ -1,11 +1,5 @@
 ﻿using bluewarp.Scenes;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Nez;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using static Nez.Scene;
 
 namespace bluewarp
 {

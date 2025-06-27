@@ -1,7 +1,6 @@
-﻿using Nez;
+﻿using Microsoft.Xna.Framework;
+using Nez;
 using Nez.Tiled;
-using Microsoft.Xna.Framework;
-using Nez.AI.Pathfinding;
 
 namespace bluewarp
 {

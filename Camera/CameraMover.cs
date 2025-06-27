@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Nez;
-using Nez.Sprites;
-using Nez.Tweens;
-using Nez.Systems;
-using System.Collections;
 
 namespace bluewarp
 {

@@ -1,7 +1,7 @@
-﻿using Nez;
-using Nez.Tiled;
+﻿using bluewarp.UI;
 using Microsoft.Xna.Framework;
-using bluewarp.UI;
+using Nez;
+using Nez.Tiled;
 
 namespace bluewarp.Scenes
 {

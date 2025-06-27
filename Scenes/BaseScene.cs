@@ -1,12 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Nez.UI;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Tweens;
-using System.Linq;
-//using Nez.ImGuiTools;
-using Nez.Console;
 using Nez;
 
 namespace bluewarp
