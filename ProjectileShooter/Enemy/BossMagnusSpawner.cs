@@ -105,7 +105,7 @@ namespace bluewarp
             });
 
             bodyEntity.AddComponent(new ProjectileHitDetector(GameConstants.BossEnemy.Magnus.MainMaxHealth));
-            _mainBodyCollider = bodyEntity.AddComponent(new CircleCollider(18));
+            _mainBodyCollider = bodyEntity.AddComponent(new CircleCollider(16));
             _mainBodyCollider.LocalOffset = new Vector2(0, -10);
             _mainBodyCollider.SetEnabled(false);
             Flags.SetFlagExclusive(ref _mainBodyCollider.CollidesWithLayers, CollideWithLayer.StationaryEnemy);
