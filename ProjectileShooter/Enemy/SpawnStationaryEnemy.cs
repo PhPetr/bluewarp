@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using bluewarp.ProjectileShooter;
+using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Tiled;
 
@@ -46,7 +47,7 @@ namespace bluewarp
                     Debug.Log($"[Basic enemy destroyed] Entity: {e.Name}");
                     if (battleScene != null)
                     {
-                        battleScene.AddToScore(GameConstants.BasicEnemy.RewardPoints);
+                        battleScene.AddToScore(RewardCalculator.CalculateRewardBasedOnDifficulty(GameConstants.BasicEnemy.RewardPoints));
                         Debug.Log($"[Awarded {GameConstants.BasicEnemy.RewardPoints} points] Entity: {e.Name}, Current score: {battleScene.GetScore()}");
                     }
 

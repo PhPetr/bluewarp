@@ -92,7 +92,8 @@ namespace bluewarp
                 ProjectileSpeed * ProjectileDirection,
                 CollideWithLayer.PlayerProjectile,
                 PhysicsLayer.PlayerProjectile,
-                Nez.Content.PlayerShip.player_main_projectile);
+                Nez.Content.PlayerShip.player_main_projectile, 
+                true);
             GameSFXManager.PlaySFX(GameConstants.SFX.Blaster, GameSettings.SFX.BlasterVolume);
         }
 

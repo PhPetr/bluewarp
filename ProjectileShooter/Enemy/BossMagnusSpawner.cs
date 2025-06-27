@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using bluewarp.ProjectileShooter;
+using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Tiled;
 
@@ -70,7 +71,7 @@ namespace bluewarp
             {
                 Debug.Log($"[Boss Hand Destroyed] Entity: {e.Name}");
 
-                _battleScene.AddToScore(GameConstants.BossEnemy.Magnus.SecondaryRewardPoints);
+                _battleScene.AddToScore(RewardCalculator.CalculateRewardBasedOnDifficulty(GameConstants.BossEnemy.Magnus.SecondaryRewardPoints));
                 Debug.Log($"[Awarded {GameConstants.BossEnemy.Magnus.SecondaryRewardPoints} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
                 
                 _phaseHandler.HandDestroyed(e.Name, _mainBodyCollider);
@@ -98,7 +99,7 @@ namespace bluewarp
             DestructionObserver.Subscribe(mainBody, e =>
             {
                 Debug.Log($"[Main Boss body destroyed] Entity: {e.Name}");
-                _battleScene.AddToScore(GameConstants.BossEnemy.Magnus.MainRewardPoints);
+                _battleScene.AddToScore(RewardCalculator.CalculateRewardBasedOnDifficulty(GameConstants.BossEnemy.Magnus.MainRewardPoints));
                 Debug.Log($"[Awarded {GameConstants.BossEnemy.Magnus.MainRewardPoints} points] Entity: {e.Name}, Current score: {_battleScene.GetScore()}");
                 var battleScene = scene as RunGameScene;
                 SceneManager.LoadGameOver(battleScene.GetScore(), GameConstants.GameEndState.Victory);
