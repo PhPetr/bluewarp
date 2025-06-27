@@ -9,6 +9,10 @@ using System;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Run game scene.
+    /// Main part of the game.
+    /// </summary>
     internal class RunGameScene : BaseScene
     {        
         int _startWidthX;
@@ -28,6 +32,9 @@ namespace bluewarp
         public RunGameScene() : base(true, true)
         { }
 
+        /// <summary>
+        /// Intitialize the game, creates GameUIManager, loads SFX, tilemap, player and sets up camera.
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();
@@ -49,9 +56,11 @@ namespace bluewarp
             SettingUpCamera();
         }
 
+        /// <summary>
+        /// Loads background tilemap.
+        /// </summary>
         private void LoadTileMap()
         {
-            // Loading Map
             _tiledEntityMap = CreateEntity("tiled-map");
             _tileMap = Content.LoadTiledMap(Nez.Content.Level1.levelone);
             var tiledMapRenderer = _tiledEntityMap.AddComponent(new TiledMapRenderer(_tileMap, "BorderCollision"));
@@ -60,6 +69,9 @@ namespace bluewarp
             LoadMapZones();
         }
 
+        /// <summary>
+        /// Loads zone for triggers and give them ZoneTriggerComponent.
+        /// </summary>
         private void LoadMapZones()
         {
             var zones = _tileMap.GetObjectGroup("zones").Objects;
@@ -77,6 +89,9 @@ namespace bluewarp
             }
         }
 
+        /// <summary>
+        /// Creates player, assign Hit and Destroy observers.
+        /// </summary>
         private void LoadPlayer()
         {
             var playerSpawn = _tileMap.GetObjectGroup("start").Objects["playerSpawn"];
@@ -123,6 +138,9 @@ namespace bluewarp
             eventTriggerCollider.IsTrigger = true;
         }
 
+        /// <summary>
+        /// Sets up camera borders, CameraMover and follows the mover.
+        /// </summary>
         private void SettingUpCamera()
         {
             // Setting camera
@@ -130,14 +148,22 @@ namespace bluewarp
             var bottomRight = new Vector2(
                 _tileMap.TileWidth * (_tileMap.Width - 1),
                 _tileMap.TileWidth * (_tileMap.Height - 1));
-            _tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, GameConstants.XLockedOffset));
+            _tiledEntityMap.AddComponent(new CameraBounds(topLeft, bottomRight, GameConstants.Camera.XLockedOffset));
 
             _mainCameraMover = CreateEntity("camera-mover");
             _mainCameraMover.AddComponent(new CameraMover(_startHeightY, _startWidthX));
             Camera.Entity.AddComponent(new FollowCamera(_mainCameraMover));
-            //Camera.Entity.AddComponent(new FollowCamera(_playerShip)); //TODO: remove before release
         }
 
+        /// <summary>
+        /// Creates projectiles on the RunGameScene.
+        /// </summary>
+        /// <param name="position">Starting position of the projectile</param>
+        /// <param name="velocity">Speed and direction of the projectile</param>
+        /// <param name="projectileCollideWithLayer">Exclusive layer for projectile to collide with</param>
+        /// <param name="projectilePhysicsLayer">Physics layer of projectile</param>
+        /// <param name="textureSource">Path to projectile texture</param>
+        /// <returns>Return created projectile entity</returns>
         public Entity CreateProjectiles(Vector2 position, Vector2 velocity, int projectileCollideWithLayer, int projectilePhysicsLayer, string textureSource)
         {
             // create an Entity to house the projectile and its logic
@@ -167,16 +193,28 @@ namespace bluewarp
         }
 
         #region HP UI
+        /// <summary>
+        /// Updates player HP with new amount.
+        /// </summary>
+        /// <param name="newHP">New player HP</param>
         public void UpdatePlayerHP(int newHP)
         {
             _UIManager?.UpdatePlayerHP(newHP);
         }
         
+        /// <summary>
+        /// Adds points to player HP.
+        /// </summary>
+        /// <param name="points">Points to add</param>
         public void AddToPlayerHP(int points)
         {
             _UIManager?.AddToPlayerHP(points);
         }
 
+        /// <summary>
+        /// Returns player HP.
+        /// </summary>
+        /// <returns>Player HP</returns>
         public int GetPlayerHP()
         {
             return _UIManager?.GetPlayerHP() ?? 0;
@@ -184,10 +222,18 @@ namespace bluewarp
         #endregion
 
         #region Score methods
+        /// <summary>
+        /// Add points to player score.
+        /// </summary>
+        /// <param name="points"></param>
         public void AddToScore(int points)
         {
             _UIManager?.AddToScore(points);
         }
+        /// <summary>
+        /// Returns player score.
+        /// </summary>
+        /// <returns>Player score</returns>
         public int GetScore()
         {
             return _UIManager?.GetScore() ?? 0;

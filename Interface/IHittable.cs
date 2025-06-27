@@ -3,6 +3,9 @@ using System;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Inteface for hittable entities.
+    /// </summary>
     public interface IHittable
     {
         /// <summary>

@@ -5,6 +5,9 @@ using bluewarp.UI;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Game UI manager.
+    /// </summary>
     public class GameUIManager : BaseUIManager
     {
         private int _score;
@@ -16,8 +19,12 @@ namespace bluewarp
         private Label _playerHPValueLabel;
 
         private Button _restartGameRunButton;
-        private Button _menuButton;
+        //private Button _menuButton;
 
+        /// <summary>
+        /// Create Game UI.
+        /// </summary>
+        /// <param name="scene">Scene to which to add UI</param>
         public GameUIManager(Scene scene) : base(scene) 
         {
             _score = 0;
@@ -25,6 +32,9 @@ namespace bluewarp
             Initialize();
         }
 
+        /// <summary>
+        /// Sets up game UI.
+        /// </summary>
         protected override void SetupUI()
         {
             ScoreUISetup();
@@ -34,20 +44,21 @@ namespace bluewarp
             SetupButtons();
         }
 
+        /// <summary>
+        /// Align Table to Top right and pad.
+        /// </summary>
         protected override void SetupTableAlignment()
         {
             Table.Top().Right();
-            Table.Pad(10);
+            Table.Pad(GameConstants.GameUIPadding);
         }
 
         private void SetupButtons()
         {
             _restartGameRunButton = Table.Add(new TextButton("Restart", DefaultButtonStyle)).GetElement<Button>();
             NewEmptyLine();
-            _menuButton = Table.Add(new TextButton("Menu", DefaultButtonStyle)).GetElement<Button>();
-            
+            CreateMenuButton("Menu");            
             _restartGameRunButton.OnClicked += OnRestartClicked;
-            _menuButton.OnClicked += OnMenuButtonClicked;
         }
 
         private void OnRestartClicked(Button button)
@@ -55,17 +66,10 @@ namespace bluewarp
             SceneManager.LoadGameScene();
         }
 
-        private void OnMenuButtonClicked(Button button)
-        {
-            SceneManager.LoadMenu();
-        }
-
         public override void Dispose()
         {
             if (_restartGameRunButton != null)
                 _restartGameRunButton.OnClicked -= OnRestartClicked;
-            if (_menuButton != null)
-                _menuButton.OnClicked -= OnMenuButtonClicked;
 
             base.Dispose();
         }
@@ -82,6 +86,10 @@ namespace bluewarp
             _playerHPValueLabel.SetAlignment(Align.Right);
         }
 
+        /// <summary>
+        /// Updates Player HP to newValue
+        /// </summary>
+        /// <param name="newValue">New player HP</param>
         public void UpdatePlayerHP(int newValue)
         {
             _playerHP = newValue;
@@ -91,11 +99,19 @@ namespace bluewarp
             }
         }
 
+        /// <summary>
+        /// Adds points to player HP.
+        /// </summary>
+        /// <param name="points">Points to add</param>
         public void AddToPlayerHP(int points)
         {
             UpdatePlayerHP(_playerHP +  points);
         }
 
+        /// <summary>
+        /// Returns player HP.
+        /// </summary>
+        /// <returns>Player HP</returns>
         public int GetPlayerHP()
         {
             return _playerHP;
@@ -114,6 +130,10 @@ namespace bluewarp
             _scoreValueLabel.SetAlignment(Align.Right);
         }
 
+        /// <summary>
+        /// Updates player score to new score.
+        /// </summary>
+        /// <param name="newScore">New player score</param>
         public void UpdateScore(int newScore)
         {
             _score = newScore;
@@ -123,11 +143,19 @@ namespace bluewarp
             }
         }
 
+        /// <summary>
+        /// Add points to player score.
+        /// </summary>
+        /// <param name="points">Points to add</param>
         public void AddToScore(int points)
         {
             UpdateScore(_score + points);
         }
 
+        /// <summary>
+        /// Returns player score.
+        /// </summary>
+        /// <returns>Player score</returns>
         public int GetScore()
         {
             return _score;

@@ -4,11 +4,17 @@ using bluewarp.UI;
 
 namespace bluewarp.Scenes
 {
+    /// <summary>
+    /// How to play scene.
+    /// </summary>
     internal class How2PlayScene : BaseScene
     {
         private InstructionUIManager _UIManager;
         public How2PlayScene() : base(true, true) { }
 
+        /// <summary>
+        /// Creates How to play scene and InstructionUIManager.
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();

@@ -3,6 +3,10 @@ using Nez;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Handles Boss Magnus phases.
+    /// When both his hands are destroyed, activate collider of main body.
+    /// </summary>
     public class MagnusPhaseHandler : Component
     {
         private const string LeftHandName = "magnusLeft";
@@ -16,6 +20,12 @@ namespace bluewarp
             RightHandDead = false;
         }
 
+        /// <summary>
+        /// Handles when a hand is destroyed.
+        /// If both hand are destoryed, activates main body collider.
+        /// </summary>
+        /// <param name="handName">Name of hand being destroyed</param>
+        /// <param name="mainBody">Collider of main body</param>
         public void HandDestroyed (string handName, CircleCollider mainBody)
         {
             Debug.Log("Phase handler called");

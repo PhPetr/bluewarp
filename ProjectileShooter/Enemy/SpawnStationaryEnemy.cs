@@ -5,8 +5,19 @@ using Nez.AI.Pathfinding;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Handles spawning of Stationary (Basic) Enemy.
+    /// </summary>
     public static class SpawnStationaryEnemy
     {
+        /// <summary>
+        /// Spawns Enemies from the zone.
+        /// Adds DestructionObserver to the enemies.
+        /// </summary>
+        /// <param name="zoneName">Name of the zone</param>
+        /// <param name="map">TmxMap to get enemies from</param>
+        /// <param name="scene">Scene to which to add enemies</param>
+        /// <param name="maxHealth">Max HP of the enemy</param>
         public static void SpawnEnemiesFromZone(string zoneName, 
             TmxMap map, 
             Scene scene, 

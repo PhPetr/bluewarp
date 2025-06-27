@@ -8,6 +8,9 @@ using System.Collections;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Entity that moves upwards, for camera to follow.
+    /// </summary>
     public class CameraMover : Component, IUpdatable
     {
         private int _startHeightY;
@@ -20,8 +23,12 @@ namespace bluewarp
         bool _shouldMove = false;
         bool _stopped = false;
 
-        //Mover _mover;
-
+        /// <summary>
+        /// Constructor of CameraMover.
+        /// </summary>
+        /// <param name="startHeightY">Set starting position Y</param>
+        /// <param name="startWidthX">Set starting position X</param>
+        /// <param name="moveSpeed">Set move speed</param>
         public CameraMover(int startHeightY = GameConstants.Camera.DefaultStartHeightY, 
             int startWidthX = GameConstants.Camera.DefaultStartWidthX, 
             float moveSpeed = GameConstants.DefaultUpwardsScrollSpeed)
@@ -31,14 +38,16 @@ namespace bluewarp
             _moveSpeed = moveSpeed;
         }
 
+        /// <summary>
+        /// Moves entity to the starting position.
+        /// </summary>
         public override void OnAddedToEntity()
         {
-            //_renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32));
-            //_mover = Entity.AddComponent(new Mover());
+            //_renderer = Entity.AddComponent(new PrototypeSpriteRenderer(32, 32)); // for visualisation
             Transform.Position = new Vector2(_startWidthX, _startHeightY);
         }
 
-        public void StopCamera()
+        private void StopCamera()
         {
             _stopped = true;
         }
@@ -58,15 +67,12 @@ namespace bluewarp
             }
             if (Transform.Position.Y < GameConstants.Camera.DefaultStopHeightY) return;
             
-            //var moveDir = new Vector2(_xAxisInput.Value, _yAxisInput.Value);
-
             var movement = new Vector2(0, -1 * _moveSpeed * Time.DeltaTime);
 
             _subpixelV2.Update(ref movement);
             Transform.Position += movement;
             
             // pixel perfect movement
-            
             Transform.Position = new Vector2(
                 Mathf.Round(Transform.Position.X),
                 Mathf.Round(Transform.Position.Y));

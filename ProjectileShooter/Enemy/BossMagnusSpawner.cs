@@ -4,12 +4,22 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp
 {
-    public class BossSpawner: Component
+    /// <summary>
+    /// Handles spawning of Boss Magnus.
+    /// </summary>
+    public class BossMagnusSpawner: Component
     {
         private MagnusPhaseHandler _phaseHandler;
         private CircleCollider _mainBodyCollider;
         private RunGameScene _battleScene;
 
+        /// <summary>
+        /// Spawns Boss Magnus.
+        /// </summary>
+        /// <param name="zoneName">For checking if triggered zone is correct BossZone</param>
+        /// <param name="map">TmxMap source for placing boss</param>
+        /// <param name="scene">Scene to which to add boss</param>
+        /// <param name="phaseHandler">Phase handler of boss Magnus</param>
         public void SpawnBossMagnus(string zoneName, TmxMap map, Scene scene, MagnusPhaseHandler phaseHandler)
         {
             if (zoneName != GameConstants.BossEnemy.BossZoneName)
@@ -42,6 +52,12 @@ namespace bluewarp
             SpawnMagnusHands(magnusRightHand, scene, false);
         }
 
+        /// <summary>
+        /// Handles spawning Magnus hands.
+        /// </summary>
+        /// <param name="hand">TmxObject of the hand</param>
+        /// <param name="scene">Scene to which to add hand</param>
+        /// <param name="leftHand">If spawned hand is the left one</param>
         private void SpawnMagnusHands(TmxObject hand, Scene scene, bool leftHand)
         {
             var handTexture = (leftHand) ? Nez.Content.BossEnemy.Magnus.magnus_boss_left : Nez.Content.BossEnemy.Magnus.magnus_boss_right;
@@ -66,6 +82,11 @@ namespace bluewarp
             Flags.SetFlagExclusive(ref handCollider.PhysicsLayer, PhysicsLayer.StationaryEnemy);
         }
 
+        /// <summary>
+        /// Handles spawning of Magnus main body.
+        /// </summary>
+        /// <param name="body">TmxObject of the main body</param>
+        /// <param name="scene">Scene to which to add main body</param>
         private void SpawnMagnusMainBody(TmxObject body, Scene scene)
         {
             var bodyTexture = Nez.Content.BossEnemy.Magnus.magnus_boss_main;

@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Controller of FighterShip (player).
+    /// Child of BaseProjectileShooter.
+    /// </summary>
     public class FighterShip : BaseProjectileShooter
     {
         enum ShipState
@@ -30,6 +34,11 @@ namespace bluewarp
         float _elapsedTimeAfterCreation = 0f;
         bool _shouldMove = false;
 
+        /// <summary>
+        /// Constructor of FighterShip.
+        /// </summary>
+        /// <param name="moveSpeed">Sets ship input move speed</param>
+        /// <param name="upwardsSpeed">Sets ship upwards move speed</param>
         public FighterShip(float moveSpeed, float upwardsSpeed)
         {
             _moveSpeed = moveSpeed;
@@ -41,6 +50,9 @@ namespace bluewarp
             ProjectileDelay = GameConstants.Player.ProjectileDelay;
         }
 
+        /// <summary>
+        /// Adds a mover and animator to FighterShip.
+        /// </summary>
         public override void OnAddedToEntity()
         {
             _mover = Entity.AddComponent(new Mover());
@@ -85,6 +97,9 @@ namespace bluewarp
             GameSFXManager.PlaySFX(GameConstants.SFX.Blaster, GameSettings.SFX.BlasterVolume);
         }
 
+        /// <summary>
+        /// Deregisters virtual input when removing entity.
+        /// </summary>
         public override void OnRemovedFromEntity()
         {
             // deregister virtual input
@@ -93,7 +108,7 @@ namespace bluewarp
             _yAxisInput.Deregister();
         }
 
-        void randomSkinChooser()
+        protected void randomSkinChooser()
         {
             var randomInt = Nez.Random.Range(1, GameConstants.Player.SkinChance);
             if (randomInt == 1)
@@ -106,7 +121,7 @@ namespace bluewarp
             }
         }
 
-        void setupInput()
+        protected void setupInput()
         {
             // setup input for shooting a projectile. we will allow z on the keyboard or a on the gamepad
             _fireInput = new VirtualButton();
@@ -128,6 +143,9 @@ namespace bluewarp
             _yAxisInput.Nodes.Add(new VirtualAxis.KeyboardKeys(VirtualInput.OverlapBehavior.TakeNewer, Keys.W, Keys.S));
         }
 
+        /// <summary>
+        /// Move FighterShip when non-zero input movement. 
+        /// </summary>
         public override void Update()
         {
             if (_isDying) return;
@@ -164,12 +182,18 @@ namespace bluewarp
             }
         }
 
+        /// <summary>
+        /// Stops FighterShip movement and call base.
+        /// </summary>
         public override void PlayExplosionAndDestroy()
         {
             _shouldMove = false;
             base.PlayExplosionAndDestroy();
         }
 
+        /// <summary>
+        /// Override to nothing to not crash.
+        /// </summary>
         public override void OnTriggerExit(Collider other, Collider self)
         {
             //nothing

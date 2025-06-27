@@ -4,18 +4,26 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp.UI
 {
+    /// <summary>
+    /// End game UI manager.
+    /// </summary>
     public class EndUIManager : BaseUIManager
     {
         private int _finalScore;
         private GameConstants.GameEndState _gameEndState;
 
         private Button _playAgainButton;
-        private Button _menuButton;
         private Button _exitButton;
 
         private Label _endMessage;
         private Label _finalScoreLabel;
 
+        /// <summary>
+        /// Creates End game UI.
+        /// </summary>
+        /// <param name="scene">Scene to which to add UI</param>
+        /// <param name="finalScore">Player score</param>
+        /// <param name="gameEndState">End game state</param>
         public EndUIManager(Scene scene, int finalScore, GameConstants.GameEndState gameEndState) : base(scene)
         {
             _finalScore = finalScore;
@@ -26,12 +34,18 @@ namespace bluewarp.UI
             Debug.Log($"[End UI manager] state: {gameEndState}");
         }
 
+        /// <summary>
+        /// Aligns Table to center and pad.
+        /// </summary>
         protected override void SetupTableAlignment()
         {
             Table.Center();
-            Table.Pad(20);
+            Table.Pad(GameConstants.DefaultUIPadding);
         }
 
+        /// <summary>
+        /// Sets up End game UI.
+        /// </summary>
         protected override void SetupUI()
         {
             CreateEndMessage();
@@ -82,23 +96,17 @@ namespace bluewarp.UI
         {
             _playAgainButton = Table.Add(new TextButton("Play again", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
             Table.Row();
-            _menuButton = Table.Add(new TextButton("Menu", DefaultButtonStyle)).Pad(5, 0, 5, 0).GetElement<Button>();
+            CreateMenuButton("Back to Menu");
             NewEmptyLine();
             _exitButton = Table.Add(new TextButton("Exit", DefaultButtonStyle)).GetElement<Button>();
 
             _playAgainButton.OnClicked += OnPlayAgainButtonClicked;
-            _menuButton.OnClicked += OnMenuButtonClicked;
             _exitButton.OnClicked += OnExitButtonClicked;
         }
 
         private void OnPlayAgainButtonClicked(Button button)
         {
             SceneManager.LoadGameScene();
-        }
-
-        private void OnMenuButtonClicked(Button button)
-        {
-            SceneManager.LoadMenu();
         }
 
         private void OnExitButtonClicked(Button button)
@@ -110,8 +118,6 @@ namespace bluewarp.UI
         {
             if (_playAgainButton != null) 
                 _playAgainButton.OnClicked -= OnPlayAgainButtonClicked;
-            if (_menuButton != null )
-                _menuButton.OnClicked -= OnMenuButtonClicked;
             if (_exitButton != null)
                 _exitButton.OnClicked -= OnExitButtonClicked;
 

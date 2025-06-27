@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp.UI
 {
+    /// <summary>
+    /// Menu UI manager.
+    /// </summary>
     public class MenuUIMangaer : BaseUIManager
     {
         private Button _startButton;
@@ -13,18 +16,28 @@ namespace bluewarp.UI
         private Button _exitButton;
         private Label _title;
 
+        /// <summary>
+        /// Creates Menu UI.
+        /// </summary>
+        /// <param name="scene">Scene to which to add UI</param>
         public MenuUIMangaer(Scene scene) : base(scene)
         {
             Initialize();
             Debug.Log($"[Constructed MenuUI] Scene:{scene}");
         }
 
+        /// <summary>
+        /// Aligns Table to center and pad.
+        /// </summary>
         protected override void SetupTableAlignment()
         {
             Table.Center();
-            Table.Pad(20);
+            Table.Pad(GameConstants.DefaultUIPadding);
         }
 
+        /// <summary>
+        /// Sets up Menu UI.
+        /// </summary>
         protected override void SetupUI()
         {
             CreateTitle();

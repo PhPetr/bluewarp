@@ -5,7 +5,7 @@ using System;
 namespace bluewarp
 {
     /// <summary>
-	/// moves a ProjectileMover and destroys the Entity if it hits anything or exceeds Game height
+	/// Moves a ProjectileMover and destroys the Entity if it hits anything or exceeds Game height.
 	/// </summary>
     public class ProjectileController : Component, IUpdatable
     {

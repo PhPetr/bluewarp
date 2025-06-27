@@ -4,12 +4,18 @@ using bluewarp.UI;
 
 namespace bluewarp.Scenes
 {
+    /// <summary>
+    /// Credits scene.
+    /// </summary>
     internal class Credits : BaseScene
     {
         private CreditsUIManager _UIManager;
         public Credits() : base(true, true) 
         { }
 
+        /// <summary>
+        /// Creates Credit scene and CreditsUIManager.
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();

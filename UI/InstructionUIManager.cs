@@ -4,13 +4,18 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp.UI
 {
+    /// <summary>
+    /// Instruction UI manager.
+    /// </summary>
     public class InstructionUIManager : BaseUIManager
     {
-        private Label _titleLabel;
         private Label _instructionLabel;
         private ScrollPane _scrollPane;
-        private Button _menuButton;
 
+        /// <summary>
+        /// Create Instruction UI.
+        /// </summary>
+        /// <param name="scene">Scene to which to add UI</param>
         public InstructionUIManager(Scene scene) : base(scene)
         {
             Initialize();
@@ -18,26 +23,25 @@ namespace bluewarp.UI
             //Table.DebugAll();
         }
 
+        /// <summary>
+        /// Aligns table to center and pad.
+        /// </summary>
         protected override void SetupTableAlignment()
         {
             Table.Center();
-            Table.Pad(20);
+            Table.Pad(GameConstants.DefaultUIPadding);
         }
 
+        /// <summary>
+        /// Sets up Instruction UI.
+        /// </summary>
         protected override void SetupUI()
         {
-            CreateTitle();
+            CreateTitleLabel("HOW TO PLAY");
             NewEmptyLine();
             CreateInstructions();
             NewEmptyLine();
-            CreateButtons();
-        }
-
-        private void CreateTitle()
-        {
-            _titleLabel = Table.Add(new Label("HOW TO PLAY", DefaultTitleStyle)).GetElement<Label>();
-            _titleLabel.SetAlignment(Align.Center);
-            Table.Row();
+            CreateMenuButton("Back to Menu");
         }
 
         private void CreateInstructions()
@@ -60,26 +64,6 @@ Defeat boss at the end to win";
 
             Table.Add(_scrollPane).Width((GameConstants.GameWidth-10) * GameSettings.Scale).Height(100 * GameSettings.Scale).Pad(10);
             Table.Row();
-        }
-
-        private void CreateButtons()
-        {
-            _menuButton = Table.Add(new TextButton("Back to Menu", DefaultButtonStyle)).GetElement<Button>();
-            _menuButton.OnClicked += OnBackButtonClicked;
-            Table.Row();
-        }
-
-        private void OnBackButtonClicked(Button button)
-        {
-            SceneManager.LoadMenu();
-        }
-
-        public override void Dispose()
-        {
-            if (_menuButton != null) 
-                _menuButton.OnClicked -= OnBackButtonClicked;
-
-            base.Dispose();
         }
     }
 }

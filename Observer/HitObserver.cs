@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Observes IHittable entities.
+    /// </summary>
     public static class HitObserver
     {
         /// <summary>

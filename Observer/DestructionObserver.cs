@@ -3,6 +3,9 @@ using System;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Observes IDestructable entities.
+    /// </summary>
     public static class DestructionObserver
     {
         /// <summary>

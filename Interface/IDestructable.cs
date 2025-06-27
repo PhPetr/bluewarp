@@ -3,8 +3,14 @@ using Nez;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Interface for destroyable entities.
+    /// </summary>
     public interface IDestructable
     {
+        /// <summary>
+        /// Triggers Explosion animation (if any) and destroys the entity.
+        /// </summary>
         void PlayExplosionAndDestroy();
 
         /// <summary>

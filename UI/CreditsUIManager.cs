@@ -4,13 +4,18 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp.UI
 {
+    /// <summary>
+    /// Credits UI manager.
+    /// </summary>
     public class CreditsUIManager : BaseUIManager
     {
-        private Label _titleLabel;
         private Label _creditsLabel;
         private ScrollPane _scrollPane;
-        private Button _menuButton;
 
+        /// <summary>
+        /// Create credits UI.
+        /// </summary>
+        /// <param name="scene"></param>
         public CreditsUIManager(Scene scene) : base(scene)
         {
             Initialize();
@@ -18,26 +23,25 @@ namespace bluewarp.UI
             //Table.DebugAll();
         }
 
+        /// <summary>
+        /// Aligns Table to center with padding.
+        /// </summary>
         protected override void SetupTableAlignment()
         {
             Table.Center();
-            Table.Pad(20);
+            Table.Pad(GameConstants.DefaultUIPadding);
         }
 
+        /// <summary>
+        /// Sets up credits UI.
+        /// </summary>
         protected override void SetupUI()
         {
-            CreateTitle();
+            CreateTitleLabel("CREDITS");
             NewEmptyLine();
             CreateCredits();
             NewEmptyLine();
-            CreateButtons();
-        }
-
-        private void CreateTitle()
-        {
-            _titleLabel = Table.Add(new Label("CREDITS", DefaultTitleStyle)).GetElement<Label>();
-            _titleLabel.SetAlignment(Align.Center);
-            Table.Row();
+            CreateMenuButton("Back to Menu");
         }
 
         private void CreateCredits()
@@ -85,24 +89,5 @@ Made with Nez and Monogame framework";
             Table.Row();
         }
 
-        private void CreateButtons()
-        {
-            _menuButton = Table.Add(new TextButton("Back to Menu", DefaultButtonStyle)).GetElement<Button>();
-            _menuButton.OnClicked += OnBackButtonClicked;
-            Table.Row();
-        }
-
-        private void OnBackButtonClicked(Button button)
-        {
-            SceneManager.LoadMenu();
-        }
-
-        public override void Dispose()
-        {
-            if (_menuButton != null)
-                _menuButton.OnClicked -= OnBackButtonClicked;
-
-            base.Dispose();
-        }
     }
 }

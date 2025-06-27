@@ -5,6 +5,9 @@ using static bluewarp.GameConstants;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// End game scene.
+    /// </summary>
     internal class EndGameScene : BaseScene
     {
         private int _finalScore;
@@ -12,6 +15,12 @@ namespace bluewarp
 
         private EndUIManager _UIManager;
 
+        /// <summary>
+        /// Creates Eng game scene with end message and shows score.
+        /// Creates EndUIManager.
+        /// </summary>
+        /// <param name="finalScore"></param>
+        /// <param name="gameEndState"></param>
         public EndGameScene(int finalScore, GameConstants.GameEndState gameEndState) : base(true, true)
         {
             _finalScore = finalScore;

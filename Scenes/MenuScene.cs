@@ -5,6 +5,9 @@ using bluewarp.UI;
 
 namespace bluewarp.Scenes
 {
+    /// <summary>
+    /// Menu (and starting) scene.
+    /// </summary>
     internal class MenuScene : BaseScene
     {
         private Entity _tiledBackgroundEntity;
@@ -15,6 +18,9 @@ namespace bluewarp.Scenes
         public MenuScene() : base(true, true)
         { }
 
+        /// <summary>
+        /// Create Menu scene and MenuUIManager.
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();

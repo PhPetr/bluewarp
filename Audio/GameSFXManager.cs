@@ -5,12 +5,15 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// SFX manager for RunGameScene.
+    /// </summary>
     public static class GameSFXManager
     {
         private static Dictionary<string, SoundEffect> _soundEffects = new Dictionary<string, SoundEffect>();
 
         /// <summary>
-        /// Load SFX. Call once at the start of game scene
+        /// Load preset default SFXs. Call this once at the start of game scene.
         /// </summary>
         public static void LoadContent()
         {
@@ -20,7 +23,7 @@ namespace bluewarp
         }
 
         /// <summary>
-        /// Loads SFX by ID.
+        /// Manually loads SFX by ID.
         /// </summary>
         /// <param name="SFXKey">Key to ID SFX</param>
         /// <param name="SFXContentPath">Path to SFX</param>

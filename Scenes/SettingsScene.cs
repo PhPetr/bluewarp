@@ -4,6 +4,9 @@ using bluewarp.UI;
 
 namespace bluewarp.Scenes
 {
+    /// <summary>
+    /// Settings scene.
+    /// </summary>
     internal class SettingsScene : BaseScene
     {
         private SettingsUIManager _UIManager;
@@ -11,6 +14,9 @@ namespace bluewarp.Scenes
         public SettingsScene() : base(true,true) 
         { }
 
+        /// <summary>
+        /// Creates Settings scene and SettingsUIManager.
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();

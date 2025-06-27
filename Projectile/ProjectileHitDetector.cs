@@ -6,13 +6,15 @@ using System;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Handles entity being hit by a projectile or collider in general.
+    /// Keeps track of HP of an entity.
+    /// </summary>
     public class ProjectileHitDetector : Component, ITriggerListener, IHittable
     {
-        //int _hitsUntilDead = 10;
         private int _maxHealth;
         private int _currentHealth;
 
-        //int _hitCounter;
         private SpriteRenderer _sprite;
 
         public event Action<Entity, int> OnHit;
@@ -30,6 +32,10 @@ namespace bluewarp
             _sprite = Entity.GetComponent<SpriteRenderer>();
         }
 
+        /// <summary>
+        /// When hit (and not from PlayerEventCollider) lowers entity HP.
+        /// Checks if dead, then destroys the entity.
+        /// </summary>
         void ITriggerListener.OnTriggerEnter(Collider other, Collider self)
         {
             // Ignore player event trigger

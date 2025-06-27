@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework;
 
 namespace bluewarp.UI
 {
+    /// <summary>
+    /// Settings UI manager.
+    /// </summary>
     public class SettingsUIManager : BaseUIManager
     {
-        private Label _title;
         private Label _gameScaleLabel;
         private Label _sfxVolumeLabel;
         private Label _bgmVolumeLabel;
@@ -22,35 +24,37 @@ namespace bluewarp.UI
         private Slider _difficultySlider;
 
         private Button _resetSettingsButton;
-        private Button _menuButton;
 
+        /// <summary>
+        /// Create Settings Ui.
+        /// </summary>
+        /// <param name="scene">Scene to which to add UI</param>
         public SettingsUIManager(Scene scene) : base(scene)
         {
             Initialize();
-            Debug.Log($"[COnstructed SettingsUI] Scene:{scene}");
+            Debug.Log($"[Constructed SettingsUI] Scene:{scene}");
         }
 
+        /// <summary>
+        /// Aligns table to center and pad.
+        /// </summary>
         protected override void SetupTableAlignment()
         {
             Table.Center();
-            Table.Pad(20);
+            Table.Pad(GameConstants.DefaultUIPadding);
             //Table.DebugAll();
         }
 
+        /// <summary>
+        /// Sets up Settings UI.
+        /// </summary>
         protected override void SetupUI()
         {
-            CreateTitle();
+            CreateTitleLabel("SETTINGS");
             NewEmptyLine();
             CreateSlidersAndLabels();
             NewEmptyLine();
             CreateButtons();
-        }
-
-        private void CreateTitle()
-        {
-            _title = Table.Add(new Label("Settings", DefaultTitleStyle)).GetElement<Label>();
-            _title.SetAlignment(Align.Center);
-            Table.Row();
         }
 
         private void CreateSlidersAndLabels()
@@ -63,7 +67,7 @@ namespace bluewarp.UI
             _gameScaleLabel = Table.Add(new Label(_scaleText, DefaultLabelStyle)).GetElement<Label>();
             Table.Row();
             _gameScaleSlider = new Slider(
-                0, 
+                GameConstants.MinScale, 
                 GameConstants.MaxScale, 
                 1, 
                 false, 
@@ -158,32 +162,24 @@ namespace bluewarp.UI
         {
             _resetSettingsButton = Table.Add(new TextButton("Reset settings", DefaultButtonStyle)).GetElement<Button>();
             NewEmptyLine();
-            _menuButton = Table.Add(new TextButton("Apply & Back to Menu", DefaultButtonStyle)).GetElement<Button>();
+            CreateMenuButton("Apply & back to Menu");
 
             _resetSettingsButton.OnClicked += OnResetButtonClicked;
-            _menuButton.OnClicked += OnBackButtonClicked;
             Table.Row();
         }
 
         private void OnResetButtonClicked(Button button)
         {
-            _gameScaleSlider.SetValue(4);
-            _bgmVolumeSlider.SetValue(1.0f);
-            _sfxVolumeSlider.SetValue(1.0f);
+            _gameScaleSlider.SetValue(GameConstants.DefaultScale);
+            _bgmVolumeSlider.SetValue(GameConstants.BGM.DefaultBGMMasterVolume);
+            _sfxVolumeSlider.SetValue(GameConstants.SFX.DefaultSFXMasterVolume);
             _difficultySlider.SetValue(1);
-        }
-
-        private void OnBackButtonClicked(Button button)
-        {
-            SceneManager.LoadMenu();
         }
 
         public override void Dispose()
         {
             if (_resetSettingsButton != null) 
                 _resetSettingsButton.OnClicked -= OnResetButtonClicked;
-            if (_menuButton != null)
-                _menuButton.OnClicked -= OnBackButtonClicked;
 
             if (_sfxVolumeSlider != null)
                 _sfxVolumeSlider.OnChanged -= OnSFXVolumeSliderChanged;

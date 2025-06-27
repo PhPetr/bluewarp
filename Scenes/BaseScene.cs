@@ -11,6 +11,9 @@ using Nez;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Base Scene to create real scenes. Makes adding scenes easier.
+    /// </summary>
     public abstract class BaseScene : Scene, IFinalRenderDelegate
     {
         public const int ScreenSpaceRenderLayer = 999;
@@ -20,6 +23,11 @@ namespace bluewarp
         static bool _needsFullRenderSizeForUi;
         public RenderLayerRenderer _layerRenderer = new RenderLayerRenderer(1, 1);
 
+        /// <summary>
+        /// Base scene constructor. Must be called.
+        /// </summary>
+        /// <param name="addExcludeRenderer"></param>
+        /// <param name="needsFullRenderSizeForUi"></param>
         public BaseScene(bool addExcludeRenderer = true, bool needsFullRenderSizeForUi = false)
         {
             _needsFullRenderSizeForUi = needsFullRenderSizeForUi;
@@ -47,17 +55,6 @@ namespace bluewarp
             Canvas.RenderLayer = ScreenSpaceRenderLayer;
         }
 
-        IEnumerable<Type> GetTypesWithBaseSceneAttribute()
-        {
-            var assembly = typeof(BaseScene).Assembly;
-            var scenes = assembly.GetTypes()
-                .Where(t => t.GetCustomAttributes(typeof(BaseSceneAttribute), true).Length > 0)
-                .OrderBy(t =>
-                    ((BaseSceneAttribute)t.GetCustomAttributes(typeof(BaseSceneAttribute), true)[0]).Order);
-            foreach (var s in scenes)
-                yield return s;
-        }
-
         #region IFinalRenderDelegate
 
         private Scene _scene;
@@ -79,20 +76,5 @@ namespace bluewarp
         }
 
         #endregion
-    }
-
-    [AttributeUsage(AttributeTargets.Class)]
-    public class BaseSceneAttribute : Attribute
-    {
-        public string ButtonName;
-        public int Order;
-        public string InstructionText;
-
-        public BaseSceneAttribute(string buttonName, int order, string instructionText = null)
-        {
-            ButtonName = buttonName;
-            Order = order;
-            InstructionText = instructionText;
-        }
     }
 }

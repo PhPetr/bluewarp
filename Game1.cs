@@ -9,8 +9,15 @@ using static Nez.Scene;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// Game itself.
+    /// </summary>
     public class Game1 : Core
     {
+        /// <summary>
+        /// Initializes Nez.Core, thus starting game.
+        /// Also loads BGM.
+        /// </summary>
         protected override void Initialize()
         {
             base.Initialize();

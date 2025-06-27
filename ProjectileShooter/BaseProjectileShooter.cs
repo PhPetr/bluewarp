@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace bluewarp
 {
+    /// <summary>
+    /// BaseProjectileShooter is a base for StationaryEnemy and FighterShip.
+    /// </summary>
     public abstract class BaseProjectileShooter : Component,IUpdatable, ITriggerListener, IDestructable
     {
         protected float ProjectileDelay;
@@ -28,6 +31,9 @@ namespace bluewarp
             SetupVisuals();
         }
 
+        /// <summary>
+        /// Base update loop. Fires projectile when it can.
+        /// </summary>
         public virtual void Update()
         {
             if (_isDying) return;
@@ -39,11 +45,18 @@ namespace bluewarp
             }
         }
 
+        /// <summary>
+        /// Based on ProjectileDelay determines whether a projectile can be fired.
+        /// </summary>
+        /// <returns>Bool wether projectile can be fired.</returns>
         protected virtual bool CanFireProjectile()
         {
             return Time.TotalTime - _lastProjectileTime >= ProjectileDelay;
         }
 
+        /// <summary>
+        /// Plays Explosion animation when entity dies and destroys the entity.
+        /// </summary>
         public virtual void PlayExplosionAndDestroy()
         {
             if (_isDying) return;
@@ -76,7 +89,14 @@ namespace bluewarp
             }
         }
 
+        /// <summary>
+        /// Childs implementation of visuals.
+        /// </summary>
         protected abstract void SetupVisuals();
+
+        /// <summary>
+        /// Childs handling of firing projectiles.
+        /// </summary>
         protected abstract void HandleFiring();
 
         #region ITriggerListener implementation
