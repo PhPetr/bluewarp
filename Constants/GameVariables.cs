@@ -107,6 +107,14 @@ namespace bluewarp
             /// Sets fire rate. Delay in seconds.
             /// </summary>
             public const float ProjectileDelay = 0.2f;
+            /// <summary>
+            /// For proper size of collider.
+            /// </summary>
+            public const int MainProjectileRadius = 4;
+            /// <summary>
+            /// Use for proper collider alignment.
+            /// </summary>
+            public const int MainProjectileColliderYOffset = -3;
 
             /// <summary>
             /// Sets chance of ship getting special skin. 
@@ -216,11 +224,11 @@ namespace bluewarp
                 /// <summary>
                 /// Determines Magnus main body fire rate.
                 /// </summary>
-                public const float MainProjectileDelay = 0.5f;
+                public const float MainProjectileDelay = 0.8f;
                 /// <summary>
                 /// Determines Magnus hand fire rate.
                 /// </summary>
-                public const float SecondaryProjectileDelay = 0.6f;
+                public const float SecondaryProjectileDelay = 0.5f;
             }
         }
     }

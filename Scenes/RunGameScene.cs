@@ -162,7 +162,7 @@ namespace bluewarp
         /// <param name="projectilePhysicsLayer">Physics layer of projectile</param>
         /// <param name="textureSource">Path to projectile texture</param>
         /// <returns>Return created projectile entity</returns>
-        public Entity CreateProjectiles(Vector2 position, Vector2 velocity, int projectileCollideWithLayer, int projectilePhysicsLayer, string textureSource)
+        public Entity CreateProjectiles(Vector2 position, Vector2 velocity, int projectileCollideWithLayer, int projectilePhysicsLayer, string textureSource, bool isPlayerProjectile = false)
         {
             // create an Entity to house the projectile and its logic
             var entity = CreateEntity("projectile");
@@ -172,7 +172,16 @@ namespace bluewarp
             entity.AddComponent(new TimeAliveComponent());
 
             // add a collider so we can detect intersections
-            var collider = entity.AddComponent<CircleCollider>();
+            CircleCollider collider;
+            if (isPlayerProjectile)
+            {
+                collider = entity.AddComponent(new CircleCollider(GameConstants.Player.MainProjectileRadius));
+                collider.LocalOffset = new Vector2(0, GameConstants.Player.MainProjectileColliderYOffset);
+            }
+            else
+            {
+                collider = entity.AddComponent<CircleCollider>();
+            }
             Flags.SetFlagExclusive(ref collider.CollidesWithLayers, projectileCollideWithLayer);
             Flags.SetFlagExclusive(ref collider.PhysicsLayer, projectilePhysicsLayer);
 
