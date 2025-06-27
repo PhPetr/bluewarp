@@ -84,7 +84,7 @@ namespace bluewarp
             /// <summary>
             /// Ship move speed for input. Ideally more than 2 times UpwardMoveSpeed.
             /// </summary>
-            public const float ShipMoveSpeed = 125f;
+            public const float ShipMoveSpeed = 140f;
             /// <summary>
             /// Cap for max ship multiplier.
             /// </summary>
@@ -216,11 +216,11 @@ namespace bluewarp
                 /// <summary>
                 /// Determines Magnus main body fire rate.
                 /// </summary>
-                public const float MainProjectileDelay = 0.8f;
+                public const float MainProjectileDelay = 0.5f;
                 /// <summary>
                 /// Determines Magnus hand fire rate.
                 /// </summary>
-                public const float SecondaryProjectileDelay = 0.5f;
+                public const float SecondaryProjectileDelay = 0.6f;
             }
         }
     }
