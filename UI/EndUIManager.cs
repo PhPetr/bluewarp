@@ -17,6 +17,7 @@ namespace bluewarp.UI
 
         private Label _endMessage;
         private Label _finalScoreLabel;
+        private Label _difficultyLabel;
 
         /// <summary>
         /// Creates End game UI.
@@ -49,8 +50,8 @@ namespace bluewarp.UI
         protected override void SetupUI()
         {
             CreateEndMessage();
-            Table.Row();
             CreateScoreLabel();
+            CreateDifficultyLabel();
             NewEmptyLine();
             CreateButtons();
         }
@@ -83,6 +84,7 @@ namespace bluewarp.UI
 
             _endMessage = Table.Add(new Label(message, messageStyle)).GetElement<Label>();
             _endMessage.SetAlignment(Align.Center);
+            Table.Row();
         }
 
         private void CreateScoreLabel()
@@ -90,6 +92,16 @@ namespace bluewarp.UI
             string text = $"Final score: {_finalScore}";
             _finalScoreLabel = Table.Add(new Label(text, DefaultLabelStyle)).Pad(5,0,5,0).GetElement<Label>();
             _finalScoreLabel.SetAlignment(Align.Center);
+            Table.Row();
+        }
+
+        private void CreateDifficultyLabel()
+        {
+            int maxHP = GameSettings.Player.HealthMultiplier * GameConstants.Player.ShipBaseHealth;
+            string text = $"Fighter ship max HP: {maxHP}";
+            _difficultyLabel = Table.Add(new Label(text, SmallLabelStyle)).Pad(5,0,5,0).GetElement<Label>();
+            _difficultyLabel.SetAlignment(Align.Center);
+            Table.Row();
         }
 
         private void CreateButtons()

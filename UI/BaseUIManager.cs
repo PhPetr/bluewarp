@@ -20,6 +20,7 @@ namespace bluewarp.UI
         protected LabelStyle DefaultLabelStyle;
         protected LabelStyle DefaultBorderedLabelStyle;
         protected LabelStyle DefaultTitleStyle;
+        protected LabelStyle SmallLabelStyle;
 
         protected TextButtonStyle DefaultButtonStyle;
 
@@ -50,6 +51,11 @@ namespace bluewarp.UI
             {
                 FontScale = GameSettings.Scale * 1.5f,
                 Background = CreateBorderedBackground(Color.Black, Color.White, 1 * GameSettings.Scale)
+            };
+
+            SmallLabelStyle = new LabelStyle(Graphics.Instance.BitmapFont, Color.White)
+            {
+                FontScale = (GameSettings.Scale / 2)
             };
 
             DefaultButtonStyle = CreateButtonStyleWithBG(
