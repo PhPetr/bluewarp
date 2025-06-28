@@ -1,92 +1,232 @@
 # Bluewarp
+Bluewarp je zápočtový program pro předmět Programování 2 (NPRG031) ze LS 2024/25. Cílem bylo vytvořit vlastní verzi hry (ze ZX Spectrum), kde se současně pohybuje několik objektů.
 
+## Co je Bluewarp
+Bluewarp je hra žánru [Shoot 'em up](https://cs.wikipedia.org/wiki/Shoot_%E2%80%99em_up). Hra je převážně inspirovaná hrou [Redshift](https://spectrumcomputing.co.uk/entry/34714/ZX-Spectrum/Redshift), která byla vytvořená pro 8bitový domácí počítač [Sinclair ZX Spectrum](https://cs.wikipedia.org/wiki/Sinclair_ZX_Spectrum). Bluewarp je založený na [MonoGame](https://monogame.net/) a využívá [Nez](https://github.com/prime31/Nez) pro jednodušší interakci s Monogame.
 
+### Cíl hry
+Pomocí vesmírné bojové lodi, se snažíte zničit co nejvíce nepřátel a získat co nejvyšší skóre. Jenže to nebude jen tak jednoduché, neboť se budete muset vyhýbat barikádě nepřátelských střel a nakonec zdolat hlavního nepřítele Magnuse.
 
-## Getting started
+## Seznam funkcí hry
+- Grafické rozhraní kontrolované myší
+- Animovaná bojová loď
+- Odměňující exploze
+- Skvělá hudba na pozadí
+- Zvukové efekty ve stylu 8bit
+- Uživatelsky nastavitelné vlastonosti hry:
+    - velikost obrazovky
+    - hlasitost hudby a zvukových efektů
+    - složitost hry
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Jak instalovat a hrát Bluewarp
+1. Stáhněte si ZIP soubor
+2. Rozbalte stažený ZIP soubor (pravým tlačítkem -> "Extrahovat vše..." nebo pomocí programu jako 7-Zip)
+3. Otevřete rozbalenou složku
+4. V ní najděte _bluewarp.exe_ - to je spustitelný soubor hry
+5. Spusťete tento soubor
+    - Při prvním spuštění může systém Windows zobrazit varování, že spušťíte neznámou aplikaci. Pokud jste si ZIP soubor __stáhli z tohoto Git repozitáře__, je vše v pořádku - mů6ete pokračovat kliknutím na __"Další informace" -> "Spustit stejně"__.
+6. Klikněte na __"Start game"__ a hra se spustí
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Ovládání
+Vše je ovládáno myší, krom bojové lodi.
+- Bojová loď:
+    - WASD nebo šipkami - pohyb bojové lodi
+    - Mezerník - střílení
+- Zavření celé hry:
+    - ESC 
+    - myší na tlačítka __EXIT__ nebo křížek v pravé, horním rohu
 
-## Add your files
+## Snímky ze hry
+### Menu:
+![Menu](Screenshots/Menu.png)
+### Gameplay:
+![Gameplay](Screenshots/Gameplay.png)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+# Návod k instalaci a spuštění hry Bluewarp ve Visual Studiu
+Tento projekt využívá framework Nez, ale s vlastním forkem. Předpokládá se, že používáte [Visual studio 2022](https://visualstudio.microsoft.com/) nebo novější.
 
+## Seznam závislostí
+- Monogame 3.8
+- Nez ([vlastní fork, jelikož nemá verze](https://github.com/PhPetr/Nez))
+
+## Příprava MonoGame
+Následujte oficiální dokumentaci MonoGame pro přípravu [vývoje na Windows](https://docs.monogame.net/articles/getting_started/1_setting_up_your_os_for_development_windows.html?tabs=android) a [vývoj ve Visual studiu](https://docs.monogame.net/articles/getting_started/2_choosing_your_ide_visual_studio.html).
+
+## Krok 1: Naklonujte repozitáře
+1. Stáhněte si nebo naklonujte repozitář s hrou Bluewarp
+2. Stahněte si nebo naklonujte můj fork frameworku Nez
+    - https://github.com/PhPetr/Nez
+
+Doporučuji mít oba repozitáře ve vedlejších složkách, např:
 ```
-cd existing_repo
-git remote add origin https://gitlab.mff.cuni.cz/phamqua/bluewarp.git
-git branch -M master
-git push -uf origin master
+/projekty
+├── bluewarp
+└── Nez
 ```
 
-## Integrate with your tools
+## Krok 2: Otevření projektu ve Visual Studiu
+1. Otevři Visual Studio
+2. Klikni na "__Open a project or solution__" a otevři soubor "__bluewarp.csproj__" nebo "__bluewarp.sln__" z repozitáře __bluewarp__
+    - Pokud Visual Studio při otevření vypíše chybu o chybějícím souboru "__Nez.MG38.csproj__", je potřeba opravit referenci podle následujícího kroku.
 
-- [ ] [Set up project integrations](https://gitlab.mff.cuni.cz/phamqua/bluewarp/-/settings/integrations)
+## Krok 3: Odstraň původní referenci a znovu ji přidat přes Visual studio
+1. V __bluewarp.csproj__ odstraň:
+```
+<ItemGroup>
+    <ProjectReference Include="nějaká\nesprávná\cesta\Nez\Nez.Portable\Nez.MG38.csproj" />
+</ItemGroup> 
+```
+Otevři __bluewarp.csproj__ ve Visual studiu a ve Solution exploreru:
 
-## Collaborate with your team
+1. Klikni pravým tlačítkem na __Nez.MG38(Not found)__ > __Remove__
+2. Klikni pravým tlačítkem na __Solution 'bluewarp'__ > __Add__ > __Existing project...__
+    - Přidej __Nez.MG38.csproj__ ze složky __Nez.Portable__
+3. Klikni pravým tlačítkem na __bluewarp__ > __Add__ > __Project Reference...__
+    - Vyber __Nez.MG38__ ze seznamu > __OK__
 
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+[Původní návod pro integraci Nez](https://github.com/PhPetr/Nez?tab=readme-ov-file#setup)
 
-## Test and Deploy
+### Krok 3 (alternativa): Přidání správné reference na Nez
+V projektu __bluewarp__ je referencován soubor "__Nez.MG38.csproj__", ale výchozí cesta může být neplatná. Oprava:
 
-Use the built-in continuous integration in GitLab.
+1. Otevři "__bluewarp.csproj__" v některém editoru
+2. Najdi sekci: (kolem řádku 30)
+```
+<ItemGroup>
+    <ProjectReference Include="nějaká\nesprávná\cesta\Nez\Nez.Portable\Nez.MG38.csproj" />
+</ItemGroup> 
+```
+3. Nahraď "Include=..." tak, aby směřoval na správnou cestu k tvému "__Nez.MG38.csproj__". Např:
+```
+<ProjectReference Include="..\..\Nez\Nez.Portable\Nez.MG38.csproj" />
+```
+4. Ulož a zavři "bluewarp.csproj"
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Krok 4: Spuštění hry
+Spusti ve Visual Studio projekt __bluewarp__
+- Spuštění se s největší pravděpodobností nezdaří a v Outputu bude:
+    ```
+    1>File C:\cesta\k\projektu\bluewarp-master\.config\dotnet-tools.json came from another computer and might be blocked to help protect this computer. For more information, including how to unblock, see https://aka.ms/motw
+    ```
+### Vyřešení Mark of the Web
+1. Otevři kořenovou složku projektu __bluewarp__
+2. Přejdi do složky __.config__
+3. Najdi soubor __dotnet-tools.json__ a otevři jeho __Vlastnosti__
+4. V dolní části v sekci __Zabezpečení__ zaškrtni __Odblokovat__ (pokud je dostupné)
+5. Klikni __Použít__ > __OK__
 
-***
+Teď by se projekt __bluewarp__ měl spustit v pořádku.
 
-# Editing this README
+### Vyřešení problému s __mgcb__
+Pokud projekt nejde spustit a v outputu je chyba:
+```
+1>C:\Users\USERNAME\.nuget\packages\monogame.content.builder.task\3.8.4\build\MonoGame.Content.Builder.Task.targets(155,5): error MSB3073: The command ""dotnet" "mgcb" /quiet /@:"C:\cesta\k\projektu\bluewarp-master\Content\Content.mgcb" /platform:DesktopGL /outputDir:"C:/cesta/k/projektu/bluewarp-master/Content/bin/DesktopGL/Content" /intermediateDir:"C:/cesta/k/projektu/bluewarp-master/Content/obj/DesktopGL/net8.0/Content" /workingDir:"C:/cesta/k/projektu/bluewarp-master/Content/"" exited with code 1.
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Vyřešení problému:
 
-## Suggestions for a good README
+1. Spusť terminál v kořenové složce projektu
+2. Spusťi tento příkaz:
+```
+dotnet tool restore
+```
+3. Vyčkej na dokončení příkazu
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+To by mělo vyřešit problém s __mgcb__
 
-## Name
-Choose a self-explaining name for your project.
+# Technické informace
+## Důvod výběru frameworků
+- MonoGame
+    - Open-source a bezplatný
+    - Multiplatformní podpora (i když jsem ji ještě nestihl vyzkoušet)
+    - Kompatibilní z Microsoft XNA
+    - Žádný editor, jen čistý kód
+- Nez
+    - Zjednodušuje práci s MonoGame
+    - Entity-component architektura
+    - Vestavěná správa scén
+    - Vestavěný systém kolizí a fyziky
+    - Podpora Tiled map
+    - Jednoduchá práce s animacemi
+    - Zjednodušená práce s GUI
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Uvažoval jsem též na použitím Unity místo MonoGame, jenže jsem se nechtěl zdržovat grafickým editorem.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Též jsem uvažoval nad použitím čistého Monogame bez frameworku Nez, ale Nez mi velmi zjednodušil práci s kolizí a nemusel jsem manuálně řešit spoustu věcí zmíněných výše.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Programová struktura hry
+Jednotlivé třídy jsou zdokumentované přímo v kódu.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Hra je rozdělena do složek:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Audio
+- třídy na správu a kontrolu hudby na pozadí a zvukových efektů
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Camera
+- třídy na kontrolu pohybu kamery
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Components
+- užitečné komponenty, které lze přidat entitě
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Constants
+- třídy s konstantami a proměnnými, které jsou přístupné v celém projektu
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Content
+- herní assety/zdroje, jako Tile mapa, sprity apod.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Interfaces
+- rozhraní pro IDestructable a IHittable
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### Observers
+- pozorovatele rozhraní
 
-## License
-For open source projects, say how it is licensed.
+### Projectile
+- třídy na ovládání projektilů a detektor kolize s projektilem
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### ProjectileShooters
+- BaseProjectileShooter je abstraktní třída, ze které tvořím hráče a nepřátele
+#### Enemy
+- třídy obstarávající spawnování nepřítel
+- MagnusPhaseHandler obstarává fáze bosse Magnuse
+#### Player
+- třída na tvorbu hráče a jeho kontrolu
+
+### Scenes
+- BaseScene, abstraktní třída, slouží jako podklad pro tvorbu dalších scén
+- jednotlivé scény hry
+
+### UIs
+- BaseUIManager, abstraktní třída, slouží jako podklad pro rychlou tvorbu UI
+- jednotlivé UI k stejnojmenným scénám
+
+## Reprezentace vstupních dat
+- Pozice myši relativní k hernímu oknu a klávesnice (popsáno [výše](#ovládání)).
+
+## Reprezentace výstupních dat
+- Výstup je grafické uživatelské rozhraní.
+
+## Průběh práce
+Práci na této hře jsem si většinou užíval. Jen začátek nebyl idealní, neboť jsem se musel učit dva nové frameworky, se kterými jsem nikdy nepracoval. Zprvu byla práce s Nez velmi obtížná, neboť nemá moc dobrou dokumentaci a na některých místech je nekonzistentí. Ale pak to bylo už jednodušší, jakmile jsem si zažil všechny potřebné věci pro tvorbu mé hry.
+
+Velmi pomohlo to, že jsem si ještě před programováním pořádně rozvrhl práci, připravil si všechny assety a udělal checklist věcí co nezapomenout. Potom jsem jen programoval a nemusel skákat na jiné věci.
+
+## Co by se mohlo přidat
+Tato hra je daleko od perfektní, a tak je dost věcí co mohu přidat, ale čas pro tento projekt je konečný.
+- Příběh hry - nestihl jsem vymyslet nějaký zajímavý příběh, který by prohloubil zážitek hry
+- Štít bojové lodi - aby to bylo víc jako Redshift
+- Pohyblivé nepřátele - zpestřili by hru
+
+Toto je jen pár nápadů a mám jich ještě víc a další dostávám od mých přátelů, co zkouší mou hru.
+
+# Závěr
+Tvorba této hry, učení se nových frameworků a využívání nových technik jsem si velmi užil. Během zkouškového období sloužilo programování Bluewarpu, jako příjemná rekreace a oddechnutí mezi zkouškami. I přes příjemné pocity, bych ale příště nedělal zápočtový program během zkouškového. Preferoval bych klid léta, které by bylo ideální na programování.
+
+## Poděkování
+Ještě bych k závěru rád poděkoval mým kamarádům za podporu při vývoji mé hry a jejich pomoci při testování.
+
+Velké poděkování patří obzvášť mému kamarádovi Jakubovi Juříkovi, který i přes své hektické dny dokázal najít čas složit pro Bluewarp skvělou hudbu do pozadí.
+
+### Použité zvukové efekty
+- retro shot blaster by JavierZumer -- https://freesound.org/s/257232/ -- License: Attribution 4.0
+- Retro, Space Explosion Or Death Sound Effect.wav by LilMati -- https://freesound.org/s/515005/ -- License: Creative Commons 0
+- 8-bit damage-impact-break sounds.wav by EVRetro -- https://freesound.org/s/519072/ -- License: Creative Commons 0
