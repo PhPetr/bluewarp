@@ -18,7 +18,7 @@ namespace bluewarp
 
             LoadBGMusic();
 
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = false;
             Core.DebugRenderEnabled = false;
             
             Scene = new MenuScene();
