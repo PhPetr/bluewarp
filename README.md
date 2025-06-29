@@ -63,13 +63,15 @@ Pomocí vesmírné bojové lodi, se snažíte zničit co nejvíce nepřátel a z
     - složitost hry
 
 ## Jak instalovat a hrát Bluewarp
+Bluewarp je podporován jen pro __Windows__.
 1. Stáhněte si ZIP soubor
-2. Rozbalte stažený ZIP soubor (pravým tlačítkem -> "Extrahovat vše..." nebo pomocí programu jako 7-Zip)
+    - Soubor __bluewarp_winx64_v1.X.X__ naleznete ve složce __/SelfContainedRelease__ nebo na __Release stránce__ 
+2. Rozbalte stažený ZIP soubor (pravým tlačítkem -> __Extrahovat vše...__ nebo pomocí programu jako 7-Zip)
 3. Otevřete rozbalenou složku
-4. V ní najděte _bluewarp.exe_ - to je spustitelný soubor hry
-5. Spusťete tento soubor
-    - Při prvním spuštění může systém Windows zobrazit varování, že spušťíte neznámou aplikaci. Pokud jste si ZIP soubor __stáhli z tohoto Git repozitáře__, je vše v pořádku - mů6ete pokračovat kliknutím na __"Další informace" -> "Spustit stejně"__.
-6. Klikněte na __"Start game"__ a hra se spustí
+4. V ní najděte __bluewarp.exe__ - to je spustitelný soubor hry
+5. Spustěte tento soubor
+    - Při prvním spuštění může systém Windows zobrazit varování, že spušťíte neznámou aplikaci. Pokud jste si ZIP soubor __stáhli z tohoto Git repozitáře__, je vše v pořádku - můžete pokračovat kliknutím na __Další informace -> Spustit stejně__.
+6. Klikněte na __Start game__ a hra se spustí
 
 ## Ovládání
 Vše je ovládáno myší, krom bojové lodi.
@@ -109,21 +111,21 @@ Doporučuji mít oba repozitáře ve vedlejších složkách, např:
 ```
 
 ## Krok 2: Otevření projektu ve Visual Studiu
-1. Otevři Visual Studio
-2. Klikni na "__Open a project or solution__" a otevři soubor "__bluewarp.csproj__" nebo "__bluewarp.sln__" z repozitáře __bluewarp__
-    - Pokud Visual Studio při otevření vypíše chybu o chybějícím souboru "__Nez.MG38.csproj__", je potřeba opravit referenci podle následujícího kroku.
+1. Otevřete Visual Studio
+2. Klikněte na __Open a project or solution__ a otevřete soubor __bluewarp.csproj__ nebo __bluewarp.sln__ z repozitáře __bluewarp__
+    - Pokud Visual Studio při otevření vypíše chybu o chybějícím souboru __Nez.MG38.csproj__, je potřeba opravit referenci podle následujícího kroku.
 
-## Krok 3: Odstraň původní referenci a znovu ji přidat přes Visual studio
-1. V __bluewarp.csproj__ odstraň:
+## Krok 3: Odstranění původní reference a zpětné přidání přes Visual studio
+1. V __bluewarp.csproj__ odstraňte:
 ```
 <ItemGroup>
     <ProjectReference Include="nějaká\nesprávná\cesta\Nez\Nez.Portable\Nez.MG38.csproj" />
 </ItemGroup> 
 ```
-Otevři __bluewarp.csproj__ ve Visual studiu a ve Solution exploreru:
+Otevřete __bluewarp.csproj__ ve Visual studiu a ve Solution exploreru:
 
-1. Klikni pravým tlačítkem na __Nez.MG38(Not found)__ > __Remove__
-2. Klikni pravým tlačítkem na __Solution 'bluewarp'__ > __Add__ > __Existing project...__
+1. Klikněte pravým tlačítkem na __Nez.MG38(Not found)__ > __Remove__
+2. Klikněte pravým tlačítkem na __Solution 'bluewarp'__ > __Add__ > __Existing project...__
     - Přidej __Nez.MG38.csproj__ ze složky __Nez.Portable__
 3. Klikni pravým tlačítkem na __bluewarp__ > __Add__ > __Project Reference...__
     - Vyber __Nez.MG38__ ze seznamu > __OK__
@@ -133,21 +135,21 @@ Otevři __bluewarp.csproj__ ve Visual studiu a ve Solution exploreru:
 ### Krok 3 (alternativa): Přidání správné reference na Nez
 V projektu __bluewarp__ je referencován soubor "__Nez.MG38.csproj__", ale výchozí cesta může být neplatná. Oprava:
 
-1. Otevři "__bluewarp.csproj__" v některém editoru
-2. Najdi sekci: (kolem řádku 30)
+1. Otevřete "__bluewarp.csproj__" v některém editoru
+2. Najděte sekci: (kolem řádku 30)
 ```
 <ItemGroup>
     <ProjectReference Include="nějaká\nesprávná\cesta\Nez\Nez.Portable\Nez.MG38.csproj" />
 </ItemGroup> 
 ```
-3. Nahraď "Include=..." tak, aby směřoval na správnou cestu k tvému "__Nez.MG38.csproj__". Např:
+3. Nahraďte "Include=..." tak, aby směřoval na správnou cestu k tvému "__Nez.MG38.csproj__". Např:
 ```
 <ProjectReference Include="..\..\Nez\Nez.Portable\Nez.MG38.csproj" />
 ```
-4. Ulož a zavři "bluewarp.csproj"
+4. Uložte a zavřete "bluewarp.csproj"
 
 ## Krok 4: Spuštění hry
-Spusti ve Visual Studio projekt __bluewarp__
+Spustěte ve Visual Studio projekt __bluewarp__
 - Spuštění se s největší pravděpodobností nezdaří a v Outputu bude:
     ```
     1>File C:\cesta\k\projektu\bluewarp-master\.config\dotnet-tools.json came from another computer and might be blocked to help protect this computer. For more information, including how to unblock, see https://aka.ms/motw
