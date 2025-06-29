@@ -1,5 +1,5 @@
 # Bluewarp
-Bluewarp je zápočtový program pro předmět Programování 2 (NPRG031) ze LS 2024/25. Cílem bylo vytvořit vlastní verzi hry (ze ZX Spectrum), kde se současně pohybuje několik objektů.
+Bluewarp je zápočtový program pro předmět Programování 2 (NPRG031) vyučovaném v LS 2024/25. Cílem bylo vytvořit vlastní verzi hry (ze ZX Spectrum), kde se současně pohybuje několik objektů.
 
 - [Bluewarp](#bluewarp)
   - [Co je Bluewarp](#co-je-bluewarp)
@@ -46,18 +46,19 @@ Bluewarp je zápočtový program pro předmět Programování 2 (NPRG031) ze LS 
 
 
 ## Co je Bluewarp
-Bluewarp je hra žánru [Shoot 'em up](https://cs.wikipedia.org/wiki/Shoot_%E2%80%99em_up). Hra je převážně inspirovaná hrou [Redshift](https://spectrumcomputing.co.uk/entry/34714/ZX-Spectrum/Redshift), která byla vytvořená pro 8bitový domácí počítač [Sinclair ZX Spectrum](https://cs.wikipedia.org/wiki/Sinclair_ZX_Spectrum). Bluewarp je založený na [MonoGame](https://monogame.net/) a využívá [Nez](https://github.com/prime31/Nez) pro jednodušší interakci s Monogame.
+Bluewarp je hra žánru [Shoot 'em up](https://cs.wikipedia.org/wiki/Shoot_%E2%80%99em_up). Hra je převážně inspirovaná hrou [Redshift](https://spectrumcomputing.co.uk/entry/34714/ZX-Spectrum/Redshift), která byla vytvořena pro 8bitový domácí počítač [Sinclair ZX Spectrum](https://cs.wikipedia.org/wiki/Sinclair_ZX_Spectrum). Bluewarp je založen na [MonoGame](https://monogame.net/) a využívá [Nez](https://github.com/prime31/Nez) pro jednodušší interakci s Monogame.
 
 ### Cíl hry
-Pomocí vesmírné bojové lodi, se snažíte zničit co nejvíce nepřátel a získat co nejvyšší skóre. Jenže to nebude jen tak jednoduché, neboť se budete muset vyhýbat barikádě nepřátelských střel a nakonec zdolat hlavního nepřítele Magnuse.
+Pomocí vesmírné bojové lodi se snažíte zničit co nejvíce nepřátel a získat co nejvyšší skóre. Nebude to ale jednoduché, neboť se budete muset vyhýbat barikádě nepřátelských střel a nakonec zdolat hlavního nepřítele Magnuse.
 
 ## Seznam funkcí hry
 - Grafické rozhraní kontrolované myší
 - Animovaná bojová loď
 - Odměňující exploze
-- Skvělá hudba na pozadí
+- Rychlý restart hry
+- Podkresová hudba
 - Zvukové efekty ve stylu 8bit
-- Uživatelsky nastavitelné vlastonosti hry:
+- Uživatelsky nastavitelné vlastnosti hry:
     - velikost obrazovky
     - hlasitost hudby a zvukových efektů
     - složitost hry
@@ -69,18 +70,18 @@ Bluewarp je podporován jen pro __Windows__.
 2. Rozbalte stažený ZIP soubor (pravým tlačítkem -> __Extrahovat vše...__ nebo pomocí programu jako 7-Zip)
 3. Otevřete rozbalenou složku
 4. V ní najděte __bluewarp.exe__ - to je spustitelný soubor hry
-5. Spustěte tento soubor
-    - Při prvním spuštění může systém Windows zobrazit varování, že spušťíte neznámou aplikaci. Pokud jste si ZIP soubor __stáhli z tohoto Git repozitáře__, je vše v pořádku - můžete pokračovat kliknutím na __Další informace -> Spustit stejně__.
+5. Spusťte tento soubor
+    - Při prvním spuštění může systém Windows zobrazit varování, že spoušťíte neznámou aplikaci. Pokud jste si ZIP soubor __stáhli z tohoto Git repozitáře__, je vše v pořádku - můžete pokračovat kliknutím na __Další informace -> Spustit stejně__.
 6. Klikněte na __Start game__ a hra se spustí
 
 ## Ovládání
-Vše je ovládáno myší, krom bojové lodi.
+Vše je ovládáno myší, kromě bojové lodi.
 - Bojová loď:
     - WASD nebo šipkami - pohyb bojové lodi
     - Mezerník - střílení
 - Zavření celé hry:
     - ESC 
-    - myší na tlačítka __EXIT__ nebo křížek v pravé, horním rohu
+    - myší na tlačítka __EXIT__ nebo křížek v pravém horním rohu
 
 ## Snímky ze hry
 ### Menu:
@@ -127,7 +128,7 @@ Otevřete __bluewarp.csproj__ ve Visual studiu a ve Solution exploreru:
 1. Klikněte pravým tlačítkem na __Nez.MG38(Not found)__ > __Remove__
 2. Klikněte pravým tlačítkem na __Solution 'bluewarp'__ > __Add__ > __Existing project...__
     - Přidej __Nez.MG38.csproj__ ze složky __Nez.Portable__
-3. Klikni pravým tlačítkem na __bluewarp__ > __Add__ > __Project Reference...__
+3. Klikněte pravým tlačítkem na __bluewarp__ > __Add__ > __Project Reference...__
     - Vyber __Nez.MG38__ ze seznamu > __OK__
 
 [Původní návod pro integraci Nez](https://github.com/PhPetr/Nez?tab=readme-ov-file#setup)
@@ -155,13 +156,13 @@ Spustěte ve Visual Studio projekt __bluewarp__
     1>File C:\cesta\k\projektu\bluewarp-master\.config\dotnet-tools.json came from another computer and might be blocked to help protect this computer. For more information, including how to unblock, see https://aka.ms/motw
     ```
 ### Vyřešení Mark of the Web
-1. Otevři kořenovou složku projektu __bluewarp__
-2. Přejdi do složky __.config__
-3. Najdi soubor __dotnet-tools.json__ a otevři jeho __Vlastnosti__
-4. V dolní části v sekci __Zabezpečení__ zaškrtni __Odblokovat__ (pokud je dostupné)
-5. Klikni __Použít__ > __OK__
+1. Otevřete kořenovou složku projektu __bluewarp__
+2. Přejděte do složky __.config__
+3. Najděte soubor __dotnet-tools.json__ a otevři jeho __Vlastnosti__
+4. V dolní části v sekci __Zabezpečení__ zaškrtněte __Odblokovat__ (pokud je dostupné)
+5. Klikněte __Použít__ > __OK__
 
-Teď by se projekt __bluewarp__ měl spustit v pořádku.
+Teď by se projekt __bluewarp__ měl v pořádku spustit.
 
 ### Vyřešení problému s __mgcb__
 Pokud projekt nejde spustit a v outputu je chyba:
@@ -171,12 +172,12 @@ Pokud projekt nejde spustit a v outputu je chyba:
 
 Vyřešení problému:
 
-1. Spusť terminál v kořenové složce projektu
-2. Spusťi tento příkaz:
+1. Spusťte terminál v kořenové složce projektu
+2. Spusťte tento příkaz:
 ```
 dotnet tool restore
 ```
-3. Vyčkej na dokončení příkazu
+3. Vyčkejte na dokončení příkazu
 
 To by mělo vyřešit problém s __mgcb__
 
@@ -196,17 +197,17 @@ To by mělo vyřešit problém s __mgcb__
     - Jednoduchá práce s animacemi
     - Zjednodušená práce s GUI
 
-Uvažoval jsem též na použitím Unity místo MonoGame, jenže jsem se nechtěl zdržovat grafickým editorem.
+Uvažoval jsem též nad použitím Unity místo MonoGame, nechtěl jsem se však zdržovat grafickým editorem.
 
 Též jsem uvažoval nad použitím čistého Monogame bez frameworku Nez, ale Nez mi velmi zjednodušil práci s kolizí a nemusel jsem manuálně řešit spoustu věcí zmíněných výše.
 
 ## Programová struktura hry
-Jednotlivé třídy jsou zdokumentované přímo v kódu.
+Jednotlivé třídy jsou zdokumentovány přímo v kódu.
 
 Hra je rozdělena do složek:
 
 ### Audio
-- třídy na správu a kontrolu hudby na pozadí a zvukových efektů
+- třídy na správu a kontrolu podkresové hudby a zvukových efektů
 
 ### Camera
 - třídy na kontrolu pohybu kamery
@@ -218,7 +219,7 @@ Hra je rozdělena do složek:
 - třídy s konstantami a proměnnými, které jsou přístupné v celém projektu
 
 ### Content
-- herní assety/zdroje, jako Tile mapa, sprity apod.
+- herní assety/zdroje jako Tile mapa, sprity apod.
 
 ### Interfaces
 - rozhraní pro IDestructable a IHittable
@@ -232,8 +233,8 @@ Hra je rozdělena do složek:
 ### ProjectileShooters
 - BaseProjectileShooter je abstraktní třída, ze které tvořím hráče a nepřátele
 #### Enemy
-- třídy obstarávající spawnování nepřítel
-- MagnusPhaseHandler obstarává fáze bosse Magnuse
+- třídy zajišťující spawnování nepřítel
+- MagnusPhaseHandler řídí fáze bosse Magnuse
 #### Player
 - třída na tvorbu hráče a jeho kontrolu
 
@@ -252,25 +253,25 @@ Hra je rozdělena do složek:
 - Výstup je grafické uživatelské rozhraní.
 
 ## Průběh práce
-Práci na této hře jsem si většinou užíval. Jen začátek nebyl idealní, neboť jsem se musel učit dva nové frameworky, se kterými jsem nikdy nepracoval. Zprvu byla práce s Nez velmi obtížná, neboť nemá moc dobrou dokumentaci a na některých místech je nekonzistentí. Ale pak to bylo už jednodušší, jakmile jsem si zažil všechny potřebné věci pro tvorbu mé hry.
+Práci na této hře jsem si povětšinou užíval. Jen začátek nebyl idealní, neboť jsem se musel učit dva nové frameworky, se kterými jsem nikdy nepracoval. Zprvu byla práce s Nez velmi obtížná, jelikož nemá moc dobrou dokumentaci a na některých místech je nekonzistentí. Ale pak už to bylo jednodušší, jakmile jsem si zažil všechny věci potřebné pro tvorbu mé hry.
 
-Velmi pomohlo to, že jsem si ještě před programováním pořádně rozvrhl práci, připravil si všechny assety a udělal checklist věcí co nezapomenout. Potom jsem jen programoval a nemusel skákat na jiné věci.
+Velmi pomohlo to, že jsem si ještě před programováním pořádně rozvrhl práci, připravil si všechny assety a udělal checklist, na co nezapomenout. Potom jsem jen programoval a nemusel skákat mezi úkony.
 
 ## Co by se mohlo přidat
-Tato hra je daleko od perfektní, a tak je dost věcí co mohu přidat, ale čas pro tento projekt je konečný.
-- Příběh hry - nestihl jsem vymyslet nějaký zajímavý příběh, který by prohloubil zážitek hry
+Tato hra je daleko od perfektní, a tak je dost věcí, které mohu přidat. Tento projekt je však časově omezený.
+- Příběh hry - nestihl jsem vymyslet nějaký zajímavý příběh, který by prohloubil zážitek ze hry
 - Štít bojové lodi - aby to bylo víc jako Redshift
 - Pohyblivé nepřátele - zpestřili by hru
 
-Toto je jen pár nápadů a mám jich ještě víc a další dostávám od mých přátelů, co zkouší mou hru.
+Toto je jen pár nápadů, mám jich ještě víc a další dostávám od mých přátel, kteří mou hru zkouší.
 
 # Závěr
-Tvorba této hry, učení se nových frameworků a využívání nových technik jsem si velmi užil. Během zkouškového období sloužilo programování Bluewarpu, jako příjemná rekreace a oddechnutí mezi zkouškami. I přes příjemné pocity, bych ale příště nedělal zápočtový program během zkouškového. Preferoval bych klid léta, které by bylo ideální na programování.
+Tvorbu této hry, učení se nových frameworků a využívání nových technik jsem si velmi užil. Během zkouškového období sloužilo programování Bluewarpu jako příjemné odreagování mezi zkouškami. Příjemným pocitům navzdory bych ale příště nedělal zápočtový program během zkouškového období. Preferoval bych klid léta, které by bylo na programování ideální.
 
 ## Poděkování
-Ještě bych k závěru rád poděkoval mým kamarádům za podporu při vývoji mé hry a jejich pomoci při testování.
+Na závěr bych rád poděkoval mým kamarádům za podporu při vývoji hry a jejich pomoc při testování.
 
-Velké poděkování patří obzvášť mému kamarádovi Jakubovi Juříkovi, který i přes své hektické dny dokázal najít čas složit pro Bluewarp skvělou hudbu do pozadí.
+Obzvlášť velké poděkování patří mému kamarádovi Jakubu Juříkovi, který i přes vlastní povinnosti dokázal najít čas složit pro Bluewarp skvělou podkresovou hudbu.
 
 ### Použité zvukové efekty
 - retro shot blaster by JavierZumer -- https://freesound.org/s/257232/ -- License: Attribution 4.0
